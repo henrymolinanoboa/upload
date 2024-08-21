@@ -21,13 +21,13 @@
     </log>
     <filter regex=".*20.*" source="get-property('axis2', 'HTTP_SC')">
         <then>
-            <property name="guid" expression="//guid/text()" />
-            <property name="uri.var.host" expression="//endpoint/text()" />
-            <property name="payload" expression="//payload/text()" />
+            <property name="guid" expression="//*:guid/text()" />
+            <property name="uri.var.host" expression="//*:endpoint/text()" />
+            <property name="payload" expression="//*:payload/text()" />
             <property name="payload" expression="base64Decode($ctx:payload)" />
-            <property name="uuids" expression="//uuids/text()" />
+            <property name="uuids" expression="//*:uuids/text()" />
             <property name="uuids" expression="base64Decode($ctx:uuids)" />
-            <property name="description" expression="//description/text()" />
+            <property name="description" expression="//*:description/text()" />
             <property name="description" expression="base64Decode($ctx:description)" />
             <log level="custom">
                 <property name="ExecuteTicketSeq" value="Inicio.5.." />
