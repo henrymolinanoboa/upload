@@ -21,9 +21,6 @@
     </log>
     <filter regex=".*20.*" source="get-property('axis2', 'HTTP_SC')">
         <then>
-            <log level="custom">
-                <property name="ExecuteTicketSeq" value="Inicio.5.." />
-            </log>
             <property name="guid" expression="//guid/text()" />
             <property name="uri.var.host" expression="//endpoint/text()" />
             <property name="payload" expression="//payload/text()" />
@@ -32,6 +29,11 @@
             <property name="uuids" expression="base64Decode($ctx:uuids)" />
             <property name="description" expression="//description/text()" />
             <property name="description" expression="base64Decode($ctx:description)" />
+            <log level="custom">
+                <property name="ExecuteTicketSeq" value="Inicio.5.." />
+                <property name="guid" expression="$ctx:guid" />
+                <property name="uri.var.host" expression="$ctx:uri.var.host" />
+            </log>
             <payloadFactory media-type="json">
                 <format>$1</format>
                 <args>
@@ -42,9 +44,9 @@
             <call-template target="SetCredentialsTemplate">
                 <with-param name="system" value="SERVICE_NOW" />
             </call-template>
-            <log level="custom">
+            <log level="full">
                 <property name="ExecuteTicketSeq" value="Inicio.5.1.." />
-                <property name="uri.var.host" expression="$ctx:uri.var.host"/>
+                <property name="uri.var.host" expression="$ctx:uri.var.host" />
             </log>
             <call>
                 <endpoint key="ServiceNowEP" />
