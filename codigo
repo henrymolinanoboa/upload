@@ -25,7 +25,7 @@
                 <property name="ExecuteTicketSeq" value="Inicio.5.." />
             </log>
             <property name="guid" expression="//guid/text()" />
-            <property name="endpoint" expression="//endpoint/text()" />
+            <property name="uri.var.host" expression="//endpoint/text()" />
             <property name="payload" expression="//payload/text()" />
             <property name="payload" expression="base64Decode($ctx:payload)" />
             <property name="uuids" expression="//uuids/text()" />
