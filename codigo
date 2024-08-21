@@ -144,7 +144,7 @@
                     <arg evaluator="xml" expression="$ctx:http_response" />
                 </args>
             </payloadFactory>
-            <property name="uri.var.endpoint" expression="fn:concat(get-property('DATA_SERVICE_HOST'),'/identity.user-data.ds.HTTPEndpoint')" />
+            <property name="uri.var.endpoint" expression="fn:concat(get-property('uri.var.dataServiceHost'),'/identity.user-data.ds.HTTPEndpoint')" />
             <call>
                 <endpoint template="HTTPEndpointPostTemplate" uri="{uri.var.endpoint}" />
             </call>
