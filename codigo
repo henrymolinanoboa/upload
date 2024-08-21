@@ -42,6 +42,10 @@
             <call-template target="SetCredentialsTemplate">
                 <with-param name="system" value="SERVICE_NOW" />
             </call-template>
+            <log level="custom">
+                <property name="ExecuteTicketSeq" value="Inicio.5.1.." />
+                <property name="uri.var.host" expression="$ctx:uri.var.host"/>
+            </log>
             <call>
                 <endpoint key="ServiceNowEP" />
             </call>
