@@ -6,12 +6,24 @@
     <sequence key="MassiveProcessUsersVariablesLoadSeq" />
     <property action="remove" name="REST_URL_POSTFIX" scope="axis2" />
     <property action="remove" name="Content-Type" scope="transport" />
+    <log level="custom">
+        <property name="ExecuteTicketSeq" value="Inicio.2.." />
+    </log>
     <call>
         <endpoint template="HTTPEndpointGetTemplate" uri="{uri.var.dataServiceHost}/identity.user-data.ds.HTTPEndpoint/select_ticket" />
     </call>
+    <log level="custom">
+        <property name="ExecuteTicketSeq" value="Inicio.3.." />
+    </log>
     <xslt key="gov:/centra-id/xslt/dssFilter.xsl" />
+    <log level="full">
+        <property name="ExecuteTicketSeq" value="Inicio.4.." />
+    </log>
     <filter regex=".*20.*" source="get-property('axis2', 'HTTP_SC')">
         <then>
+            <log level="custom">
+                <property name="ExecuteTicketSeq" value="Inicio.5.." />
+            </log>
             <property name="guid" expression="//guid/text()" />
             <property name="endpoint" expression="//endpoint/text()" />
             <property name="payload" expression="//payload/text()" />
