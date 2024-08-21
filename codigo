@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="ServiceNowRequerimientosSeq" trace="disable" xmlns="http://ws.apache.org/ns/synapse" xmlns:tem="http://tempuri.org/">
+    <log level="custom">
+        <property name="seq" value="-------------------- ServiceNowRequerimientosSeq.Ini --------------------" />
+        <property name="count" expression="count($body//tem:crearRequerimientos/tem:crearRequerimiento[tem:aplicacionTypeManualProvision='TIK'])" />
+    </log>
+    <property name="responde_tarea" value="true" type="BOOLEAN" />
+    <property description="seqName" name="seqName" scope="default" type="STRING" value="ServiceNowRequerimientosSeq" />
+    <property description="First Element" expression="$body//tem:crearRequerimientos/tem:crearRequerimiento[1]" name="firstElement" scope="default" type="OM" xmlns:tem="http://tempuri.org/" />
+    <property description="listAplicacion" name="listAplicacion" scope="default" type="STRING" value="" />
+    <property description="listUUID" name="listUUID" scope="default" type="STRING" value="[" />
+    <filter regex="true" source="count($body//tem:crearRequerimientos/tem:crearRequerimiento[tem:aplicacionTypeManualProvision='TIK']) > 0 ">
+        <then>
+            <foreach expression="$body//tem:crearRequerimientos/tem:crearRequerimiento" xmlns:tem="http://tempuri.org/">
+                <sequence>
+                    <filter regex="TIK" source="$body//tem:aplicacionTypeManualProvision/text()">
+                        <then>
+                            <property description="aplicacion" expression="$body//tem:aplicacion/text()" name="aplicacion" scope="default" type="STRING" />
+                            <property description="nombrePerfil" expression="$body//tem:nombrePerfil/text()" name="nombrePerfil" scope="default" type="STRING" />
+                            <property description="accion" expression="$body//tem:accion/text()" name="accion" scope="default" type="STRING" />
+                            <property description="uuid" expression="$body//tem:uuid" name="uuid" scope="default" type="STRING" />
+                            <property description="operacion" expression="$body//tem:operacion" name="operacion" scope="default" type="STRING" />
+                            <property expression="concat($ctx:listAplicacion, $ctx:operacion, ' - ', $ctx:aplicacion, ' - ', $ctx:nombrePerfil, '&#xd;&#xa;')" name="listAplicacion" scope="default" type="STRING" />
+                            <property expression="concat($ctx:listUUID, '{&quot;uuid&quot;: &quot;', $ctx:uuid, '&quot; },')" name="listUUID" scope="default" type="STRING" />
+                        </then>
+                    </filter>
+                </sequence>
+            </foreach>
+            <filter xpath="string-length($ctx:listUUID) > 1">
+                <then>
+                    <property description="listUUID" expression="substring($ctx:listUUID, 1, string-length($ctx:listUUID)-1 )" name="listUUID" scope="default" type="STRING" />
+                </then>
+                <else />
+            </filter>
+            <property description="uuids" expression="concat($ctx:listUUID , ']')" name="uuids" scope="default" type="STRING" />
+            <filter regex="true" source="boolean($ctx:firstElement/tem:usuarioAplicacion/text())" xmlns:tem="http://tempuri.org/">
+                <then>
+                    <property description="usuarioAplicacion" expression="$ctx:firstElement/tem:usuarioAplicacion/text()" name="usuarioAplicacion" scope="default" type="STRING" />
+                </then>
+                <else>
+                    <property description="usuarioAplicacion" expression="get-property('DEFAULT_USUARIO_APLICACION')" name="usuarioAplicacion" scope="default" type="STRING" />
+                </else>
+            </filter>
+            <log description="Log listAplicacion" level="custom">
+                <property expression="$ctx:listAplicacion" name="listAplicacion" />
+                <property expression="$ctx:uuids" name="uuids" />
+                <property expression="$ctx:usuarioAplicacion" name="usuarioAplicacion" />
+            </log>
+            <filter regex="true" source="boolean($ctx:firstElement/tem:noTicket/text())" xmlns:tem="http://tempuri.org/">
+                <then>
+                    <payloadFactory description="Description" media-type="xml">
+                        <format>
+                            <Description>
+                                <![CDATA[
+Acción: $1
+Usuario: $2
+Nombre Completo: $3
+Compañia: $4
+Perfil Global: $5
+Genérico No.Ticket: $6
+Genérico Aplicacion: $7
+Genérico Tecnología: $8
+Genérico Ambiente: $9
+Genérico Nombre Servidor: $10
+Genérico IP Servidor: $11
+Genérico Base Datos: $12
+Ambiente: $13
+Aplicaciones:
+Accion - Aplicacion - Perfil: 
+$14]]>
+                            </Description>
+                        </format>
+                        <args>
+                            <arg evaluator="xml" expression="$ctx:firstElement/tem:accion/text()" xmlns:tem="http://tempuri.org/" />
+                            <arg evaluator="xml" expression="$ctx:firstElement/tem:tellerName/text()" xmlns:tem="http://tempuri.org/" />
+                            <arg evaluator="xml" expression="fn:concat($ctx:firstElement/tem:apellidosEmpleado/text(),' ', $ctx:firstElement/tem:nombresEmpleado/text())" xmlns:tem="http://tempuri.org/" />
+                            <arg evaluator="xml" expression="$ctx:firstElement/tem:nombreCompania/text()" xmlns:tem="http://tempuri.org/" />
+                            <arg evaluator="xml" expression="$ctx:firstElement/tem:perfilGlobal/text()" xmlns:tem="http://tempuri.org/" />
+                            <arg evaluator="xml" expression="$ctx:firstElement/tem:noTicket/text()" xmlns:tem="http://tempuri.org/" />
+                            <arg evaluator="xml" expression="$ctx:firstElement/tem:genericoAplicacion/text()" xmlns:tem="http://tempuri.org/" />
+                            <arg evaluator="xml" expression="$ctx:firstElement/tem:genericoTecnologia/text()" xmlns:tem="http://tempuri.org/" />
+                            <arg evaluator="xml" expression="$ctx:firstElement/tem:genericoAmbiente/text()" xmlns:tem="http://tempuri.org/" />
+                            <arg evaluator="xml" expression="$ctx:firstElement/tem:genericoNombreServidor/text()" xmlns:tem="http://tempuri.org/" />
+                            <arg evaluator="xml" expression="$ctx:firstElement/tem:genericoIpServidor/text()" xmlns:tem="http://tempuri.org/" />
+                            <arg evaluator="xml" expression="$ctx:firstElement/tem:genericoBaseDatos/text()" xmlns:tem="http://tempuri.org/" />
+                            <arg evaluator="xml" expression="$ctx:firstElement/tem:ambiente/text()" xmlns:tem="http://tempuri.org/" />
+                            <arg evaluator="xml" expression="$ctx:listAplicacion" />
+                        </args>
+                    </payloadFactory>
+                </then>
+                <else>
+                    <payloadFactory description="Description" media-type="xml">
+                        <format>
+                            <Description>
+                                <![CDATA[
+Acción: $1
+Usuario: $2
+Nombre Completo: $3
+Identificación: $4
+Celular: $5
+Compañia: $6
+División: $7
+Area: $8
+Departamento: $9
+Cargo: $10
+Centro de Costos: $11
+Perfil Global: $12
+Ambiente: $13
+
+Aplicaciones:
+Accion - Aplicacion - Perfil: 
+$14]]>
+                            </Description>
+                        </format>
+                        <args>
+                            <arg evaluator="xml" expression="$ctx:firstElement/tem:accion/text()" xmlns:tem="http://tempuri.org/" />
+                            <arg evaluator="xml" expression="$ctx:firstElement/tem:tellerName/text()" xmlns:tem="http://tempuri.org/" />
+                            <arg evaluator="xml" expression="fn:concat($ctx:firstElement/tem:apellidosEmpleado/text(),' ', $ctx:firstElement/tem:nombresEmpleado/text())" xmlns:tem="http://tempuri.org/" />
+                            <arg evaluator="xml" expression="$ctx:firstElement/tem:identificacion/text()" xmlns:tem="http://tempuri.org/" />
+                            <arg evaluator="xml" expression="$ctx:firstElement/tem:celular/text()" xmlns:tem="http://tempuri.org/" />
+                            <arg evaluator="xml" expression="$ctx:firstElement/tem:nombreCompania/text()" xmlns:tem="http://tempuri.org/" />
+                            <arg evaluator="xml" expression="$ctx:firstElement/tem:nombreDivision/text()" xmlns:tem="http://tempuri.org/" />
+                            <arg evaluator="xml" expression="$ctx:firstElement/tem:nombreArea/text()" xmlns:tem="http://tempuri.org/" />
+                            <arg evaluator="xml" expression="$ctx:firstElement/tem:nombreDepartamento/text()" xmlns:tem="http://tempuri.org/" />
+                            <arg evaluator="xml" expression="$ctx:firstElement/tem:cargo/text()" xmlns:tem="http://tempuri.org/" />
+                            <arg evaluator="xml" expression="$ctx:firstElement/tem:nombreCentroCosto/text()" xmlns:tem="http://tempuri.org/" />
+                            <arg evaluator="xml" expression="$ctx:firstElement/tem:perfilGlobal/text()" xmlns:tem="http://tempuri.org/" />
+                            <arg evaluator="xml" expression="$ctx:firstElement/tem:ambiente/text()" xmlns:tem="http://tempuri.org/" />
+                            <arg evaluator="xml" expression="$ctx:listAplicacion" />
+                        </args>
+                    </payloadFactory>
+                </else>
+            </filter>
+            <property description="description" expression="$body//*" name="description" scope="default" type="STRING" />
+            <!-- recupera el sys_id del usuario afectado -->
+            <property name="user_id" expression="$ctx:firstElement/tem:tellerName/text()" xmlns:tem="http://tempuri.org/" />
+            <sequence key="ServiceNowSysUserSeq" />
+            <property name="usuario_afectado_sys_id" expression="$ctx:sys_id" />
+            <log level="custom">
+                <property name="seq" value="-------------------- ServiceNowRequerimientosSeq.2 --------------------" />
+                <property name="user_id" expression="$ctx:user_id" />
+                <property name="usuario_afectado_sys_id" expression="$ctx:usuario_afectado_sys_id" />
+            </log>
+            <!-- recupera el sys_id del usuario solicitante -->
+            <property name="user_id" expression="$ctx:firstElement/tem:usuarioAplicacion/text()" xmlns:tem="http://tempuri.org/" />
+            <sequence key="ServiceNowSysUserSeq" />
+            <property name="usuario_solicitante_sys_id" expression="$ctx:sys_id" />
+            <log level="custom">
+                <property name="seq" value="-------------------- ServiceNowRequerimientosSeq.3 --------------------" />
+                <property name="user_id" expression="$ctx:user_id" />
+                <property name="usuario_solicitante_sys_id" expression="$ctx:usuario_solicitante_sys_id" />
+            </log>
+            <!-- recupera el sys_id del usuario aprobador -->
+            <property name="user_id" expression="$ctx:firstElement/tem:usernameSupervisor/text()" xmlns:tem="http://tempuri.org/" />
+            <sequence key="ServiceNowSysUserSeq" />
+            <property name="usuario_aprobador_sys_id" expression="$ctx:sys_id" />
+            <log level="custom">
+                <property name="seq" value="-------------------- ServiceNowRequerimientosSeq.4 --------------------" />
+                <property name="user_id" expression="$ctx:user_id" />
+                <property name="usuario_aprobador_sys_id" expression="$ctx:usuario_aprobador_sys_id" />
+                <property name="origen" expression="$ctx:firstElement/tem:origen/text()" />
+            </log>
+            <!-- Seleccionar el flujo a ejecutar -->
+            <switch source="$ctx:firstElement/tem:origen/text()">
+                <case regex="Creación">
+                    <property name="api_ready" value="true" type="BOOLEAN" />
+                    <payloadFactory media-type="json">
+                        <format>
+                        {
+                            "sysparm_quantity": 1,
+                            "variables": {
+                                "u_usuario_afectado": "$1",
+                                "u_usuario_solicitante": "$2",
+                                "u_tipo_de_pedido": "u_creacion",
+                                "u_resumen": "$3",
+                                "u_descripcion": "$4"
+                            }
+                        }
+                   </format>
+                        <args>
+                            <arg evaluator="xml" expression="$ctx:usuario_afectado_sys_id" />
+                            <arg evaluator="xml" expression="$ctx:usuario_solicitante_sys_id" />
+                            <arg evaluator="xml" expression="fn:concat('Estimados, favor realizar: ',$ctx:firstElement/tem:accion/text(), ' en los siguientes sistemas.')" xmlns:tem="http://tempuri.org/" />
+                            <arg evaluator="xml" expression="get-property('description')" xmlns:tem="http://tempuri.org/" />
+                        </args>
+                    </payloadFactory>
+                    <property name="uri.var.host" expression="get-property('SERVICE_NOW_REQ_CRE_ELI_URL')" />
+                </case>
+                <case regex="Eliminación">
+                    <property name="api_ready" value="true" type="BOOLEAN" />
+                    <payloadFactory media-type="json">
+                        <format>
+                        {
+                            "sysparm_quantity": 1,
+                            "variables": {
+                                "u_usuario_afectado": "$1",
+                                "u_usuario_solicitante": "$2",
+                                "u_tipo_de_pedido": "u_eliminacion",
+                                "u_resumen": "$3",
+                                "u_descripcion": "$4"
+                            }
+                        }
+                   </format>
+                        <args>
+                            <arg evaluator="xml" expression="$ctx:usuario_afectado_sys_id" />
+                            <arg evaluator="xml" expression="$ctx:usuario_solicitante_sys_id" />
+                            <arg evaluator="xml" expression="fn:concat('Estimados, favor realizar: ',$ctx:firstElement/tem:accion/text(), ' en los siguientes sistemas.')" xmlns:tem="http://tempuri.org/" />
+                            <arg evaluator="xml" expression="get-property('description')" xmlns:tem="http://tempuri.org/" />
+                        </args>
+                    </payloadFactory>
+                    <property name="uri.var.host" expression="get-property('SERVICE_NOW_REQ_CRE_ELI_URL')" />
+                </case>
+                <case regex="Cambio Perfil Global">
+                    <property name="api_ready" value="true" type="BOOLEAN" />
+                    <payloadFactory media-type="json">
+                        <format>
+                        {
+                            "sysparm_quantity": 1,
+                            "variables": {
+                                "u_usuario_afectado": "$1",
+                                "u_numero_de_contacto": "$2",
+                                "u_nombre_perfil_global_requerido": "$3",
+                                "u_aprobador": "$4",
+                                "u_resumen": "$5",
+                                "u_descripcion": "$6"
+                            }
+                        }
+                   </format>
+                        <args>
+                            <arg evaluator="xml" expression="$ctx:usuario_afectado_sys_id" />
+                            <arg evaluator="xml" expression="$ctx:firstElement/tem:celular/text()" />
+                            <arg evaluator="xml" expression="$ctx:firstElement/tem:perfilGlobal/text()" />
+                            <arg evaluator="xml" expression="$ctx:usuario_aprobador_sys_id" />
+                            <arg evaluator="xml" expression="fn:concat('Estimados, favor realizar: ',$ctx:firstElement/tem:accion/text(), ' en los siguientes sistemas.')" xmlns:tem="http://tempuri.org/" />
+                            <arg evaluator="xml" expression="get-property('description')" xmlns:tem="http://tempuri.org/" />
+                        </args>
+                    </payloadFactory>
+                    <property name="uri.var.host" expression="get-property('SERVICE_NOW_REQ_CPG_URL')" />
+                </case>
+                <case regex="Cambio Perfil Global Agencias">
+                    <property name="api_ready" value="true" type="BOOLEAN" />
+                    <payloadFactory media-type="json">
+                        <format>
+                        {
+                            "sysparm_quantity": 1,
+                            "variables": {
+                                "u_usuario_afectado": "$1",
+                                "u_nombre_de_perfil_global_requerido": "$2",
+                                "u_aprobador": "$3",
+                                "u_resumen": "$4",
+                                "u_descripcion": "$5"
+                            }
+                        }
+                   </format>
+                        <args>
+                            <arg evaluator="xml" expression="$ctx:usuario_afectado_sys_id" />
+                            <arg evaluator="xml" expression="$ctx:firstElement/tem:perfilGlobal/text()" />
+                            <arg evaluator="xml" expression="$ctx:usuario_aprobador_sys_id" />
+                            <arg evaluator="xml" expression="fn:concat('Estimados, favor realizar: ',$ctx:firstElement/tem:accion/text(), ' en los siguientes sistemas.')" xmlns:tem="http://tempuri.org/" />
+                            <arg evaluator="xml" expression="get-property('description')" xmlns:tem="http://tempuri.org/" />
+                        </args>
+                    </payloadFactory>
+                    <property name="uri.var.host" expression="get-property('SERVICE_NOW_REQ_CPG_AGENCIA_URL')" />
+                </case>
+                <case regex="Cambio de Centro de Costos">
+                    <property name="api_ready" value="true" type="BOOLEAN" />
+                    <payloadFactory media-type="json">
+                        <format>
+                        {
+                            "sysparm_quantity": 1,
+                            "variables": {
+                                "u_usuario_afectado": "$1",
+                                "u_nuevo_centro_de_costos": "$2",
+                                "u_aprobador": "$3",
+                                "u_resumen": "$4",
+                                "u_descripcion": "$5"
+                            }
+                        }
+                  </format>
+                        <args>
+                            <arg evaluator="xml" expression="$ctx:usuario_afectado_sys_id" />
+                            <arg evaluator="xml" expression="$ctx:firstElement/tem:codigoCentroCosto/text()" />
+                            <arg evaluator="xml" expression="$ctx:usuario_aprobador_sys_id" />
+                            <arg evaluator="xml" expression="fn:concat('Estimados, favor realizar: ',$ctx:firstElement/tem:accion/text(), ' en los siguientes sistemas.')" xmlns:tem="http://tempuri.org/" />
+                            <arg evaluator="xml" expression="get-property('description')" xmlns:tem="http://tempuri.org/" />
+                        </args>
+                    </payloadFactory>
+                    <property name="uri.var.host" expression="get-property('SERVICE_NOW_REQ_CCC_URL')" />
+                </case>
+                <case regex="Cambio de Centro de Costos Agencias">
+                    <property name="api_ready" value="true" type="BOOLEAN" />
+                    <payloadFactory media-type="json">
+                        <format>
+                        {
+                            "sysparm_quantity": 1,
+                            "variables": {
+                                "u_usuario_afectado": "$1",
+                                "u_nuevo_centro_de_costos": "$2",
+                                "u_aprobador": "$3",
+                                "u_resumen": "$4",
+                                "u_descripcion": "$5"
+                            }
+                        }
+                  </format>
+                        <args>
+                            <arg evaluator="xml" expression="$ctx:usuario_afectado_sys_id" />
+                            <arg evaluator="xml" expression="$ctx:firstElement/tem:codigoCentroCosto/text()" />
+                            <arg evaluator="xml" expression="$ctx:usuario_aprobador_sys_id" />
+                            <arg evaluator="xml" expression="fn:concat('Estimados, favor realizar: ',$ctx:firstElement/tem:accion/text(), ' en los siguientes sistemas.')" xmlns:tem="http://tempuri.org/" />
+                            <arg evaluator="xml" expression="get-property('description')" xmlns:tem="http://tempuri.org/" />
+                        </args>
+                    </payloadFactory>
+                    <property name="uri.var.host" expression="get-property('SERVICE_NOW_REQ_CCC_AGENCIA_URL')" />
+                </case>
+                <default>
+                    <property name="api_ready" value="false" type="BOOLEAN" />
+                </default>
+            </switch>
+            <log level="full">
+                <property name="seq" value="-------------------- ServiceNowRequerimientosSeq.5 --------------------" />
+                <property name="api_ready" expression="$ctx:api_ready" />
+            </log>
+            <filter regex="true" source="$ctx:api_ready">
+                <then>
+                    <property expression="$body//*" name="payloadServiceNow" scope="default" type="STRING" />
+                    <property name="messageType" scope="axis2" type="STRING" value="application/xml" />
+                    <property name="Accept" scope="transport" type="STRING" value="application/xml" />
+                    <payloadFactory media-type="xml">
+                        <format>
+                            <_postcreate_ticket xmlns="centra-id.com">
+                                <uuids xmlns:xs="centra-id.com">$1</uuids>
+                                <username xmlns:xs="centra-id.com">$2</username>
+                                <endpoint xmlns:xs="centra-id.com">$3</endpoint>
+                                <payload xmlns:xs="centra-id.com">$4</payload>
+                            </_postcreate_ticket>
+                        </format>
+                        <args>
+                            <arg evaluator="xml" expression="base64Encode($ctx:uuids)" />
+                            <arg evaluator="xml" expression="$ctx:firstElement/tem:tellerName/text()" xmlns:tem="http://tempuri.org/" />
+                            <arg evaluator="xml" expression="$ctx:uri.var.host" />
+                            <arg evaluator="xml" expression="base64Encode($ctx:payloadServiceNow)" />
+                        </args>
+                    </payloadFactory>
+                    <property name="uri.var.endpoint" expression="fn:concat(get-property('DATA_SERVICE_HOST'),'/identity.user-data.ds.HTTPEndpoint')" />
+                    <call>
+                        <endpoint template="HTTPEndpointPostTemplate" uri="{uri.var.endpoint}" />
+                    </call>
+                    <filter regex=".*20.*" source="get-property('axis2', 'HTTP_SC')">
+                        <then>
+                            <property name="responde_tarea" value="false" type="BOOLEAN" />
+                        </then>
+                        <else>
+                            <payloadFactory description="Requirement ERROR" media-type="json">
+                                <format>
+                                    {
+                                        "TaskProvisioningManual": {
+                                        "uuids": $1,
+                                        "ticketDate": "$2",
+                                        "ticketNumber": "$3",
+                                        "ticketContent": "$4",
+                                        "ticketError": "$5"
+                                        }
+                                    }
+                                </format>
+                                <args>
+                                    <arg evaluator="xml" expression="get-property('uuids')" />
+                                    <arg evaluator="xml" expression="get-property(&quot;SYSTEM_DATE&quot;, &quot;yyyy-MM-dd'T'HH:mm:ss.SSSXXX&quot;)" />
+                                    <arg value="-1" />
+                                    <arg evaluator="xml" value="No se pudo registrar el ticket en Gestión de Identidades." />
+                                    <arg value="ERROR" />
+                                </args>
+                            </payloadFactory>
+                        </else>
+                    </filter>
+                    <!--
+                    <property description="HTTP_METHOD:POST" name="HTTP_METHOD" scope="axis2" type="STRING" value="POST" />
+                    <call-template target="SetCredentialsTemplate">
+                        <with-param name="system" value="SERVICE_NOW" />
+                    </call-template>
+     
+                    <call>
+                        <endpoint key="ServiceNowEP" />
+                    </call>
+                    <property expression="$body//*" name="payloadRespondeServiceNow" scope="default" type="STRING" />
+ 
+                    <filter regex=".*20.*" source="get-property('axis2', 'HTTP_SC')">
+                        <then>
+                            <property description="uri.var.resourcepath" name="uri.var.resourcepath" scope="default" type="STRING" value="TaskProvisioningManual" />
+                            <property name="request_number" expression="json-eval($.result.request_number)" />
+ 
+                            <sequence key="ServiceNowReqNumSeq" />
+                            <property name="requirement_number" expression="$ctx:req_id" />
+       
+                            <payloadFactory description="Requirement OK" media-type="json">
+                                <format>
+                                    {
+                                        "TaskProvisioningManual": {
+                                        "uuids": $1,
+                                        "ticketDate": "$2",
+                                        "ticketNumber": "$3",
+                                        "ticketContent": "$4",
+                                        "ticketError": "$5"
+                                        }
+                                    }
+                                </format>
+                                <args>
+                                    <arg evaluator="xml" expression="get-property('uuids')" />
+                                    <arg evaluator="xml" expression="get-property(&quot;SYSTEM_DATE&quot;, &quot;yyyy-MM-dd'T'HH:mm:ss.SSSXXX&quot;)" />
+                                    <arg evaluator="xml" expression="get-property('requirement_number')" />
+                                    <arg evaluator="xml" expression="base64Encode(fn:concat(get-property('description'),'-',$ctx:payloadServiceNow))" />
+                                    <arg value="" />
+                                </args>
+                            </payloadFactory>
+                        </then>
+                        <else>
+                            <payloadFactory description="Requirement ERROR" media-type="json">
+                                <format>
+                                    {
+                                        "TaskProvisioningManual": {
+                                        "uuids": $1,
+                                        "ticketDate": "$2",
+                                        "ticketNumber": "$3",
+                                        "ticketContent": "$4",
+                                        "ticketError": "$5"
+                                        }
+                                    }
+                                </format>
+                                <args>
+                                    <arg evaluator="xml" expression="get-property('uuids')" />
+                                    <arg evaluator="xml" expression="get-property(&quot;SYSTEM_DATE&quot;, &quot;yyyy-MM-dd'T'HH:mm:ss.SSSXXX&quot;)" />
+                                    <arg value="-1" />
+                                    <arg evaluator="xml" expression="base64Encode(get-property('payloadRespondeServiceNow'))" />
+                                    <arg value="ERROR" />
+                                </args>
+                            </payloadFactory>
+                        </else>
+                    </filter>
+                    -->
+                </then>
+                <else>
+                    <payloadFactory description="Requirement ERROR" media-type="json">
+                        <format>
+                            {
+                                "TaskProvisioningManual": {
+                                    "uuids": $1,
+                                    "ticketDate": "$2",
+                                    "ticketNumber": "$3",
+                                    "ticketContent": "$4",
+                                    "ticketError": "$5"
+                                }
+                            }
+                        </format>
+                        <args>
+                            <arg evaluator="xml" expression="get-property('uuids')" />
+                            <arg evaluator="xml" expression="get-property(&quot;SYSTEM_DATE&quot;, &quot;yyyy-MM-dd'T'HH:mm:ss.SSSXXX&quot;)" />
+                            <arg value="-1" />
+                            <arg evaluator="xml" expression="base64Encode(fn:concat('Catalogo de acciones es desconocido: ',$ctx:firstElement/tem:origen/text()))" />
+                            <arg value="ERROR" />
+                        </args>
+                    </payloadFactory>
+                </else>
+            </filter>
+            <log level="full">
+                <property name="seq" value="-------------------- ServiceNowRequerimientosSeq.10 --------------------" />
+            </log>
+            <property description="seqName" name="seqName" scope="default" type="STRING" value="" />
+            <property action="remove" description="Remove Content-Encoding" name="Content-Encoding" scope="transport" />
+            <property action="remove" description="Remove Accept-Encoding" name="Accept-Encoding" scope="transport" />
+            <filter regex="true" source="$ctx:responde_tarea">
+                <then>
+                    <sequence key="GITareas_Seq" />
+                </then>
+            </filter>
+        </then>
+    </filter>
+    <log description="seq" level="custom">
+        <property name="seq" value="-------------------- ServiceNowRequerimientosSeq.Fin --------------------" />
+    </log>
+</sequence>
