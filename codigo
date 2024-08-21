@@ -29,38 +29,40 @@
             <property name="uuids" expression="base64Decode($ctx:uuids)" />
             <property name="description" expression="//*:description/text()" />
             <property name="description" expression="base64Decode($ctx:description)" />
-            <log level="custom">
-                <property name="ExecuteTicketSeq" value="Inicio.5.." />
-                <property name="guid" expression="$ctx:guid" />
-                <property name="uri.var.host" expression="$ctx:uri.var.host" />
-            </log>
-            <payloadFactory media-type="json">
-                <format>$1</format>
-                <args>
-                    <arg evaluator="xml" expression="$ctx:payload" />
-                </args>
-            </payloadFactory>
-            <property description="HTTP_METHOD:POST" name="HTTP_METHOD" scope="axis2" type="STRING" value="POST" />
-            <call-template target="SetCredentialsTemplate">
-                <with-param name="system" value="SERVICE_NOW" />
-            </call-template>
-            <log level="full">
-                <property name="ExecuteTicketSeq" value="Inicio.5.1.." />
-                <property name="uri.var.host" expression="$ctx:uri.var.host" />
-            </log>
-            <call>
-                <endpoint key="ServiceNowEP" />
-            </call>
-            <property expression="$body//*" name="payloadRespondeServiceNow" scope="default" type="STRING" />
-            <property name="http_response" expression="fn:concat('http:',get-property('axis2', 'HTTP_SC'))" />
-            <filter regex=".*20.*" source="get-property('axis2', 'HTTP_SC')">
+            <filter regex="true" source="boolean($ctx:guid)">
                 <then>
-                    <property name="request_number" expression="json-eval($.result.request_number)" />
-                    <sequence key="ServiceNowReqNumSeq" />
-                    <property name="requirement_number" expression="$ctx:req_id" />
-                    <!-- Registrar la tarea OK -->
-                    <payloadFactory description="Requirement OK" media-type="json">
-                        <format>
+                    <log level="custom">
+                        <property name="ExecuteTicketSeq" value="Inicio.5.." />
+                        <property name="guid" expression="$ctx:guid" />
+                        <property name="uri.var.host" expression="$ctx:uri.var.host" />
+                    </log>
+                    <payloadFactory media-type="json">
+                        <format>$1</format>
+                        <args>
+                            <arg evaluator="xml" expression="$ctx:payload" />
+                        </args>
+                    </payloadFactory>
+                    <property description="HTTP_METHOD:POST" name="HTTP_METHOD" scope="axis2" type="STRING" value="POST" />
+                    <call-template target="SetCredentialsTemplate">
+                        <with-param name="system" value="SERVICE_NOW" />
+                    </call-template>
+                    <log level="full">
+                        <property name="ExecuteTicketSeq" value="Inicio.5.1.." />
+                        <property name="uri.var.host" expression="$ctx:uri.var.host" />
+                    </log>
+                    <call>
+                        <endpoint key="ServiceNowEP" />
+                    </call>
+                    <property expression="$body//*" name="payloadRespondeServiceNow" scope="default" type="STRING" />
+                    <property name="http_response" expression="fn:concat('http:',get-property('axis2', 'HTTP_SC'))" />
+                    <filter regex=".*20.*" source="get-property('axis2', 'HTTP_SC')">
+                        <then>
+                            <property name="request_number" expression="json-eval($.result.request_number)" />
+                            <sequence key="ServiceNowReqNumSeq" />
+                            <property name="requirement_number" expression="$ctx:req_id" />
+                            <!-- Registrar la tarea OK -->
+                            <payloadFactory description="Requirement OK" media-type="json">
+                                <format>
                             {
                                 "TaskProvisioningManual": {
                                     "uuids": $1,
@@ -71,61 +73,16 @@
                                 }
                             }
                         </format>
-                        <args>
-                            <arg evaluator="xml" expression="get-property('uuids')" />
-                            <arg evaluator="xml" expression="get-property(&quot;SYSTEM_DATE&quot;, &quot;yyyy-MM-dd'T'HH:mm:ss.SSSXXX&quot;)" />
-                            <arg evaluator="xml" expression="get-property('requirement_number')" />
-                            <arg evaluator="xml" expression="base64Encode(fn:concat($ctx:description,'-',$ctx:payload))" />
-                            <arg value="" />
-                        </args>
-                    </payloadFactory>
-                    <store messageStore="TaskNotificationStore" />
-                    <property name="payloadServiceNow" expression="json-eval($.)" scope="default" type="STRING" />
-                    <property name="messageType" scope="axis2" type="STRING" value="application/xml" />
-                    <property name="Accept" scope="transport" type="STRING" value="application/xml" />
-                    <payloadFactory media-type="xml">
-                        <format>
-                            <_putupdate_ticket_ok xmlns="centra-id.com">
-                                <guid xmlns:xs="centra-id.com">$1</guid>
-                            </_putupdate_ticket_ok>
-                        </format>
-                        <args>
-                            <arg evaluator="xml" expression="$ctx:guid" />
-                        </args>
-                    </payloadFactory>
-                    <property name="uri.var.endpoint" expression="fn:concat(get-property('DATA_SERVICE_HOST'),'/identity.user-data.ds.HTTPEndpoint')" />
-                    <call>
-                        <endpoint template="HTTPEndpointPostTemplate" uri="{uri.var.endpoint}" />
-                    </call>
-                </then>
-                <else>
-                    <filter regex=".*50.*" source="get-property('axis2', 'HTTP_SC')">
-                        <then>
-                            <!-- Error de infra..enviar al reintento -->
-                        </then>
-                        <else>
-                            <!-- Registrar la tarea ERR -->
-                            <payloadFactory description="Requirement ERROR" media-type="json">
-                                <format>
-                                    {
-                                        "TaskProvisioningManual": {
-                                            "uuids": $1,
-                                            "ticketDate": "$2",
-                                            "ticketNumber": "$3",
-                                            "ticketContent": "$4",
-                                            "ticketError": "$5"
-                                        }
-                                    }
-                                </format>
                                 <args>
                                     <arg evaluator="xml" expression="get-property('uuids')" />
                                     <arg evaluator="xml" expression="get-property(&quot;SYSTEM_DATE&quot;, &quot;yyyy-MM-dd'T'HH:mm:ss.SSSXXX&quot;)" />
-                                    <arg value="-1" />
-                                    <arg evaluator="xml" expression="base64Encode(fn:concat($ctx:description,'-',$ctx:http_response,'-',$ctx:payloadRespondeServiceNow))" />
-                                    <arg value="ERROR" />
+                                    <arg evaluator="xml" expression="get-property('requirement_number')" />
+                                    <arg evaluator="xml" expression="base64Encode(fn:concat($ctx:description,'-',$ctx:payload))" />
+                                    <arg value="" />
                                 </args>
                             </payloadFactory>
                             <store messageStore="TaskNotificationStore" />
+                            <property name="payloadServiceNow" expression="json-eval($.)" scope="default" type="STRING" />
                             <property name="messageType" scope="axis2" type="STRING" value="application/xml" />
                             <property name="Accept" scope="transport" type="STRING" value="application/xml" />
                             <payloadFactory media-type="xml">
@@ -142,30 +99,77 @@
                             <call>
                                 <endpoint template="HTTPEndpointPostTemplate" uri="{uri.var.endpoint}" />
                             </call>
+                        </then>
+                        <else>
+                            <filter regex=".*50.*" source="get-property('axis2', 'HTTP_SC')">
+                                <then>
+                                    <!-- Error de infra..enviar al reintento -->
+                                </then>
+                                <else>
+                                    <!-- Registrar la tarea ERR -->
+                                    <payloadFactory description="Requirement ERROR" media-type="json">
+                                        <format>
+                                    {
+                                        "TaskProvisioningManual": {
+                                            "uuids": $1,
+                                            "ticketDate": "$2",
+                                            "ticketNumber": "$3",
+                                            "ticketContent": "$4",
+                                            "ticketError": "$5"
+                                        }
+                                    }
+                                </format>
+                                        <args>
+                                            <arg evaluator="xml" expression="get-property('uuids')" />
+                                            <arg evaluator="xml" expression="get-property(&quot;SYSTEM_DATE&quot;, &quot;yyyy-MM-dd'T'HH:mm:ss.SSSXXX&quot;)" />
+                                            <arg value="-1" />
+                                            <arg evaluator="xml" expression="base64Encode(fn:concat($ctx:description,'-',$ctx:http_response,'-',$ctx:payloadRespondeServiceNow))" />
+                                            <arg value="ERROR" />
+                                        </args>
+                                    </payloadFactory>
+                                    <store messageStore="TaskNotificationStore" />
+                                    <property name="messageType" scope="axis2" type="STRING" value="application/xml" />
+                                    <property name="Accept" scope="transport" type="STRING" value="application/xml" />
+                                    <payloadFactory media-type="xml">
+                                        <format>
+                                            <_putupdate_ticket_ok xmlns="centra-id.com">
+                                                <guid xmlns:xs="centra-id.com">$1</guid>
+                                            </_putupdate_ticket_ok>
+                                        </format>
+                                        <args>
+                                            <arg evaluator="xml" expression="$ctx:guid" />
+                                        </args>
+                                    </payloadFactory>
+                                    <property name="uri.var.endpoint" expression="fn:concat(get-property('DATA_SERVICE_HOST'),'/identity.user-data.ds.HTTPEndpoint')" />
+                                    <call>
+                                        <endpoint template="HTTPEndpointPostTemplate" uri="{uri.var.endpoint}" />
+                                    </call>
+                                </else>
+                            </filter>
                         </else>
                     </filter>
-                </else>
+                    <property name="messageType" scope="axis2" type="STRING" value="application/xml" />
+                    <property name="Accept" scope="transport" type="STRING" value="application/xml" />
+                    <payloadFactory media-type="xml">
+                        <format>
+                            <_postcreate_ticket_history xmlns="centra-id.com">
+                                <guid xmlns:xs="centra-id.com">$1</guid>
+                                <response xmlns:xs="centra-id.com">$2</response>
+                                <http_response xmlns:xs="centra-id.com">$3</http_response>
+                            </_postcreate_ticket_history>
+                        </format>
+                        <args>
+                            <arg evaluator="xml" expression="$ctx:guid" />
+                            <arg evaluator="xml" expression="base64Encode($ctx:payloadServiceNow)" />
+                            <arg evaluator="xml" expression="$ctx:http_response" />
+                        </args>
+                    </payloadFactory>
+                    <property name="uri.var.endpoint" expression="fn:concat(get-property('uri.var.dataServiceHost'),'/identity.user-data.ds.HTTPEndpoint')" />
+                    <call>
+                        <endpoint template="HTTPEndpointPostTemplate" uri="{uri.var.endpoint}" />
+                    </call>
+                </then>
             </filter>
-            <property name="messageType" scope="axis2" type="STRING" value="application/xml" />
-            <property name="Accept" scope="transport" type="STRING" value="application/xml" />
-            <payloadFactory media-type="xml">
-                <format>
-                    <_postcreate_ticket_history xmlns="centra-id.com">
-                        <guid xmlns:xs="centra-id.com">$1</guid>
-                        <response xmlns:xs="centra-id.com">$2</response>
-                        <http_response xmlns:xs="centra-id.com">$3</http_response>
-                    </_postcreate_ticket_history>
-                </format>
-                <args>
-                    <arg evaluator="xml" expression="$ctx:guid" />
-                    <arg evaluator="xml" expression="base64Encode($ctx:payloadServiceNow)" />
-                    <arg evaluator="xml" expression="$ctx:http_response" />
-                </args>
-            </payloadFactory>
-            <property name="uri.var.endpoint" expression="fn:concat(get-property('uri.var.dataServiceHost'),'/identity.user-data.ds.HTTPEndpoint')" />
-            <call>
-                <endpoint template="HTTPEndpointPostTemplate" uri="{uri.var.endpoint}" />
-            </call>
         </then>
         <else>
             <property name="fault" expression="fn:concat('No se pueden recuperar los datos de los tickets para su ejecución, retorna http:',get-property('axis2', 'HTTP_SC'))" />
