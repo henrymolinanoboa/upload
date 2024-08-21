@@ -322,7 +322,7 @@ $14]]>
             </log>
             <filter regex="true" source="$ctx:api_ready">
                 <then>
-                    <property expression="$body//*" name="payloadServiceNow" scope="default" type="STRING" />
+                    <property name="payloadServiceNow" expression="json-eval($.)" scope="default" type="STRING" />
                     <property name="messageType" scope="axis2" type="STRING" value="application/xml" />
                     <property name="Accept" scope="transport" type="STRING" value="application/xml" />
                     <payloadFactory media-type="xml">
