@@ -1,25 +1,4 @@
-[2024-08-29 00:38:17,145] [EI-Core] ERROR - ConfidentialClientApplication [Correlation ID: 8532bb89-640c-4778-8320-ae3026eff59f] Execution of class com.microsoft.aad.msal4j.AcquireTokenByClientCredentialSupplier failed.
-com.microsoft.aad.msal4j.MsalClientException: javax.net.ssl.SSLException: Connection reset
-	at com.microsoft.aad.msal4j.HttpHelper.executeHttpRequest(HttpHelper.java:53)
-	at com.microsoft.aad.msal4j.AadInstanceDiscoveryProvider.executeRequest(AadInstanceDiscoveryProvider.java:232)
-	at com.microsoft.aad.msal4j.AadInstanceDiscoveryProvider.sendInstanceDiscoveryRequest(AadInstanceDiscoveryProvider.java:187)
-	at com.microsoft.aad.msal4j.AadInstanceDiscoveryProvider.doInstanceDiscoveryAndCache(AadInstanceDiscoveryProvider.java:285)
-	at com.microsoft.aad.msal4j.AadInstanceDiscoveryProvider.getMetadataEntry(AadInstanceDiscoveryProvider.java:57)
-	at com.microsoft.aad.msal4j.AuthenticationResultSupplier.getAuthorityWithPrefNetworkHost(AuthenticationResultSupplier.java:41)
-	at com.microsoft.aad.msal4j.AcquireTokenByAuthorizationGrantSupplier.execute(AcquireTokenByAuthorizationGrantSupplier.java:59)
-	at com.microsoft.aad.msal4j.AcquireTokenByClientCredentialSupplier.acquireTokenByClientCredential(AcquireTokenByClientCredentialSupplier.java:63)
-	at com.microsoft.aad.msal4j.AcquireTokenByClientCredentialSupplier.execute(AcquireTokenByClientCredentialSupplier.java:49)
-	at com.microsoft.aad.msal4j.AuthenticationResultSupplier.get(AuthenticationResultSupplier.java:71)
-	at com.microsoft.aad.msal4j.AuthenticationResultSupplier.get(AuthenticationResultSupplier.java:20)
-	at java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1604)
-	at java.util.concurrent.CompletableFuture$AsyncSupply.exec(CompletableFuture.java:1596)
-	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:289)
-	at java.util.concurrent.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1056)
-	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1692)
-	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:175)
-Caused by: javax.net.ssl.SSLException: Connection reset
-
-
+{"error":{"code":"Authorization_IdentityNotFound","message":"The identity of the calling application could not be established.","innerError":{"date":"2024-08-29T06:42:39","request-id":"a727a14c-88c2-43ba-97b8-1145f48c2d2d","client-request-id":"a727a14c-88c2-43ba-97b8-1145f48c2d2d"}}}
 
 
 
