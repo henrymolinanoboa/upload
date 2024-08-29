@@ -1,4 +1,11 @@
-{"error":{"code":"Authorization_IdentityNotFound","message":"The identity of the calling application could not be established.","innerError":{"date":"2024-08-29T06:42:39","request-id":"a727a14c-88c2-43ba-97b8-1145f48c2d2d","client-request-id":"a727a14c-88c2-43ba-97b8-1145f48c2d2d"}}}
+GISCIM_EliminarUsuario_Seq
+-------------------------
+
+ <property name="IDENTITY" expression="fn:concat($ctx:username,'@pichincha.com')" />
+                    <sequence key="RevokeSignInSessionsSeq" />
+
+
+
 
 
 
