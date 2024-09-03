@@ -23,7 +23,8 @@ amqp://bppadmin:********@clientID/carbon?brokerlist='tcp://wso2ei-mb-service:567
 -- test
 amqp://bptadmin:********@clientID/carbon?brokerlist='tcp://wso2ei-mb-service:5675'
 -- desa
-amqp://bpdadmin:clave123@clientID/carbon?brokerlist='tcp://wso2ei-mb-service:5675'
+amqp://bpdadmin:clave123@clientID/carbon?brokerlist='tcp://service-cse-msa-dm-wso2ei-mb:5675'
+W4T24iFxbNgmzq4pQhHsXgJZ4VL8IedlMbD6StOXM9z0dl//xLETQuZPuwgjf/vDdRK9V/Wttyqd1KTOx4lJrnHpuwoUjZBULRz8+doeG6KQEtud9LtqTunhBTjo/mE64PVM9GHNDzo+2T+6Hb/qhMo1Zz7a9zM3dltVTsV+ABoAlEa4hxXCLfW06o4jgPZveFIj1ZbMzRoNOHUAbLwP1e0XJvz//VYzGBASc38UqLgI3J4Rqi8N5djLcQnmf8SoUiPmLskyIk9UQnflawOZyQPbYlIBhDvoRqfxh0TBWHBk+VeOiwgFE3UzVyqPfYDfuVH+lKRpkepDz+fxCm2frg==
 
 
 
