@@ -1,0 +1,114 @@
+
+My Access 
+
+https://dev.azure.com/BancoPichinchaEC/cse-wso2/_git/cse-mfa-wso2-centra-id-operation-web
+https://dev.azure.com/BancoPichinchaEC/cse-wso2/_git/cse-mfa-wso2-centra-id-admin-web
+https://dev.azure.com/BancoPichinchaEC/cse-wso2/_git/cse-msa-dm-centra-id-reports
+
+feature/road-to-ocp4
+
+https://dev.azure.com/BancoPichinchaEC/cse-wso2/_git/cse-msa-dm-wso2-am feature/develop
+https://dev.azure.com/BancoPichinchaEC/cse-wso2/_git/cse-msa-dm-wso2is-km feature/develop
+https://dev.azure.com/BancoPichinchaEC/cse-wso2/_git/cse-msa-dm-wso2ei-bps feature/develop
+https://dev.azure.com/BancoPichinchaEC/cse-wso2/_git/cse-msa-dm-wso2ei-integrator feature/develop
+https://dev.azure.com/BancoPichinchaEC/cse-wso2/_git/cse-msa-dm-wso2ei-mb --feature/develop
+
+https://console-openshift-console.apps.ocpdcp.bpichincha.com/
+https://orange-flower-07d0f110f.2.azurestaticapps.net/docs/contenedores/Openshift/Networking/ips clusters
+https://console-openshift-console.apps.ocpdev.uiotest.bpichinchatest.test/
+
+
+
+
+
+
+https://centra-id-operation-web-banco-pichincha-dev.apps.desa.bpichincha.com
+
+https://centra-id-operation-web-wso2-produccion.apps.prod.bpichincha.com
+
+log4j.logger.org.apache.synapse.transport.http.access
+
+
+
+
+
+
+# Point to the internal API server hostname
+APISERVER=https://kubernetes.default.svc
+
+# Path to ServiceAccount token
+SERVICEACCOUNT=/var/run/secrets/kubernetes.io/serviceaccount
+
+# Read this Pod's namespace
+NAMESPACE=$(cat ${SERVICEACCOUNT}/namespace)
+
+# Read the ServiceAccount bearer token
+TOKEN=$(cat ${SERVICEACCOUNT}/token)
+
+# Reference the internal certificate authority (CA)
+CACERT=${SERVICEACCOUNT}/ca.crt
+
+# Explore the API with TOKEN
+curl --cacert ${CACERT} --header "Authorization: Bearer ${TOKEN}" -X GET ${APISERVER}/api
+
+
+-------------------
+
+
+
+https://cse-msa-dm-wso2ei-integrator-enp-https.apps.ocpdev.uiotest.bpichinchatest.test
+https://cse-msa-dm-wso2-am-enp-servlet-https.apps.ocpdev.uiotest.bpichinchatest.test
+https://cse-msa-dm-wso2is-km-enp-https.apps.ocpdev.uiotest.bpichinchatest.test
+
+
+cse-msa-dm-wso2ei-bps-enp-https.apps.ocpdev.uiotest.bpichinchatest.test
+cse-msa-dm-wso2ei-bps.apps.ocpdev.uiotest.bpichinchatest.test
+
+
+cse-msa-dm-wso2ei-mb-enp-https.apps.ocpdev.uiotest.bpichinchatest.test
+
+
+... 47 more
+Caused by: java.io.IOException: Server returned HTTP response code: 403 for URL: https://172.30.0.1:443/api/v1/namespaces/cse-wso2-int/endpoints/service-cse-msa-dm-wso2ei-bps
+at sun.net.www.protocol.http.HttpURLConnection.getInputStream0(HttpURLConnection.java:1900)
+at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1498)
+at sun.net.www.protocol.https.HttpsURLConnectionImpl.getInputStream(HttpsURLConnectionImpl.java:268)
+at org.wso2.carbon.membership.scheme.kubernetes.api.KubernetesApiEndpoint.read(KubernetesApiEndpoint.java:45)
+at org.wso2.carbon.membership.scheme.kubernetes.resolver.ApiBasedPodIpResolver.connectAndRead(ApiBasedPodIpResolver.java:223)
+... 50 more
+
+
+
+
+10.50.24.47:10447
+
+
+http://cse-msa-dm-wso2-am.apps.ocpdev.uiotest.bpichinchatest.test
+
+
+
+CustomSecurityHeadersValve The attribute keyValueSeparator isn't loaded yet or wasn't defined.The procedure will continue but it may present errors in case of the values wasn't defined correctly and the keyValueSeparator wasn't defined.
+
+https://console-openshift-console.apps.ocptest.uiotest.bpichinchatest.test/k8s/ns/cse-wso2-int/pods/deployment-cse-msa-dm-wso2-am-66bb5cc4dd-pz47x/logs
+
+
+https://dev.azure.com/BancoPichinchaEC/cse-wso2/_git/cse-msa-dm-wso2ei-bps f
+
+service-cse-msa-dm-wso2ei-mb
+
+service-cse-msa-dm-wso2-am
+service-cse-msa-dm-wso2ei-integrator
+service-cse-msa-dm-wso2is-km
+
+https://cse-msa-dm-wso2is-km-enp-https.apps.ocpdev.uiotest.bpichinchatest.test
+
+service-cse-msa-dm-wso2is-km
+
+
+
+cse-wso2-int
+
+
+
+
+
