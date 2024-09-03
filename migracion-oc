@@ -1,15 +1,14 @@
 PRODUCTOS WSO2
 
---mb -ok
+--mb --ok
 https://cse-msa-dm-wso2ei-mb-enp.apps.ocpdev.uiotest.bpichinchatest.test
---bps
+--bps --error
 https://cse-msa-dm-wso2ei-bps-enp.apps.ocpdev.uiotest.bpichinchatest.test
 -- integrator -ok
 https://cse-msa-dm-wso2ei-integrator-enp-servlet-https.apps.ocpdev.uiotest.bpichinchatest.test
-
 -- is+km --pendiente user-store
 https://cse-msa-dm-wso2is-km-enp.apps.ocpdev.uiotest.bpichinchatest.test
--- apim
+-- apim --ok
 https://cse-msa-dm-wso2-am-enp-servlet-https.apps.ocpdev.uiotest.bpichinchatest.test
 
 
