@@ -4,6 +4,7 @@ PRODUCTOS WSO2
 https://cse-msa-dm-wso2ei-mb-enp.apps.ocpdev.uiotest.bpichinchatest.test
 --bps --error
 https://cse-msa-dm-wso2ei-bps-enp.apps.ocpdev.uiotest.bpichinchatest.test
+https://cse-msa-dm-wso2ei-integrator-enp-servlet-https.apps.ocpdev.uiotest.bpichinchatest.test
 -- integrator -ok
 https://cse-msa-dm-wso2ei-integrator-enp-servlet-https.apps.ocpdev.uiotest.bpichinchatest.test
 -- is+km --pendiente user-store
@@ -23,6 +24,8 @@ amqp://bppadmin:********@clientID/carbon?brokerlist='tcp://wso2ei-mb-service:567
 amqp://bptadmin:********@clientID/carbon?brokerlist='tcp://wso2ei-mb-service:5675'
 -- desa
 amqp://bpdadmin:clave123@clientID/carbon?brokerlist='tcp://service-cse-msa-dm-wso2ei-mb:5675'
+https://cse-msa-dm-wso2ei-bps-enp-https.apps.ocpdev.uiotest.bpichinchatest.test:443/carbon/
+
 W4T24iFxbNgmzq4pQhHsXgJZ4VL8IedlMbD6StOXM9z0dl//xLETQuZPuwgjf/vDdRK9V/Wttyqd1KTOx4lJrnHpuwoUjZBULRz8+doeG6KQEtud9LtqTunhBTjo/mE64PVM9GHNDzo+2T+6Hb/qhMo1Zz7a9zM3dltVTsV+ABoAlEa4hxXCLfW06o4jgPZveFIj1ZbMzRoNOHUAbLwP1e0XJvz//VYzGBASc38UqLgI3J4Rqi8N5djLcQnmf8SoUiPmLskyIk9UQnflawOZyQPbYlIBhDvoRqfxh0TBWHBk+VeOiwgFE3UzVyqPfYDfuVH+lKRpkepDz+fxCm2frg==
 
 
