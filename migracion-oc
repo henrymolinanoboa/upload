@@ -17,11 +17,13 @@ https://cse-msa-dm-wso2-am-enp.apps.ocpdev.uiotest.bpichinchatest.test
 --service de mb: 
 service-cse-msa-dm-wso2ei-mb
 
-
-            amqp://bppadmin:********@clientID/carbon?brokerlist='tcp://wso2ei-mb-service:5675'
-            amqp://bptadmin:********@clientID/carbon?brokerlist='tcp://wso2ei-mb-service:5675'
-            
-            amqp://:********@clientID/carbon?brokerlist='tcp://wso2ei-mb-service:5675'
+-- jndi.properties
+--prod
+amqp://bppadmin:********@clientID/carbon?brokerlist='tcp://wso2ei-mb-service:5675'
+-- test
+amqp://bptadmin:********@clientID/carbon?brokerlist='tcp://wso2ei-mb-service:5675'
+-- desa
+amqp://bpdadmin:clave123@clientID/carbon?brokerlist='tcp://wso2ei-mb-service:5675'
 
 
 
