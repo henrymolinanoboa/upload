@@ -18,6 +18,10 @@ https://cse-msa-dm-wso2-am-enp.apps.ocpdev.uiotest.bpichinchatest.test
 service-cse-msa-dm-wso2ei-mb
 
 
+            amqp://bppadmin:********@clientID/carbon?brokerlist='tcp://wso2ei-mb-service:5675'
+            amqp://bptadmin:********@clientID/carbon?brokerlist='tcp://wso2ei-mb-service:5675'
+            
+            amqp://:********@clientID/carbon?brokerlist='tcp://wso2ei-mb-service:5675'
 
 
 
