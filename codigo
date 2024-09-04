@@ -13,6 +13,7 @@
                 ID = (
                     SELECT TOP 1 ID
                     FROM SCH_CENTRA_ID.TICKETS
-                    WHERE STATUS = 'ABIERTO'
+                    WHERE STATUS != 'ABIERTO' AND GETDATE() > DATE_PLANNED 
                     ORDER BY DATE_PLANNED
-                )
+                );
+ --
