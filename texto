@@ -1,3 +1,11 @@
+            UPDATE SCH_CENTRA_ID.REQUESTS_STRUCTURAL_CHANGE SET
+                    ACTIVATION_DATE=GETDATE(),
+                    ACTIVATION_USER=:activation_user,
+                    STATUS = 'ACTIVADO',
+                    FILTER = RIGHT('000'+CAST(ID AS VARCHAR(4)),4) + ' ACTIVADO'
+            WHERE ID = :id AND STATUS='REGISTRADO' AND VALID=1
+
+
 https://integrator.apps.desa.bpichincha.com/carbon/admin/login.jsp
 
 
