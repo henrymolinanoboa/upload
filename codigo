@@ -49,17 +49,26 @@
                     <script language="js">
                         <![CDATA[                        
                             var json = mc.getPayloadJSON(); // Obtener el payload JSON
+                            var log = mc.getServiceLog(); 
+                            log.info("json.1: "+ json);
 
                             function removeEmptyNodes(obj) {
+                                log.info("removeEmptyNodes.1" );
                                 for (var key in obj) {
+                                    log.info("removeEmptyNodes.2: "+key );
+                                    log.info("removeEmptyNodes.3: "+obj[key] );
                                     if (obj[key] === "") {
+                                        log.info("removeEmptyNodes.4: "+key );
                                         delete obj[key]; // Eliminar nodos con valores en blanco
                                     } else if (typeof obj[key] === "object") {
+                                        log.info("removeEmptyNodes.5: " );
                                         removeEmptyNodes(obj[key]); // Recursivamente procesar objetos anidados
                                     }
                                 }
                             }
+                            log.info("json2: "+ json);
                             removeEmptyNodes(json); // Llamar la función para limpiar el JSON
+                            log.info("json3: "+ json);
                             mc.setPayloadJSON(json); // Establecer el nuevo payload JSON
                         ]]>
                     </script>
