@@ -47,30 +47,20 @@
                     </log>
                     <!-- elimina nodos con valor en blanco -->
                     <script language="js">
-                        <![CDATA[                        
-                            var json = mc.getPayloadJSON(); // Obtener el payload JSON
-                            var log = mc.getServiceLog(); 
-                            log.info("JSON original: " + JSON.stringify(json));
+                        <![CDATA[
+                            var jsonPayload = mc.getPayloadJSON();
 
                             function removeEmptyNodes(obj) {
                                 for (var key in obj) {
-                                    log.info("script.1: "+key);
-                                    if (obj.hasOwnProperty(key)) {
-                                        log.info("script.2: "+obj[key]);
-                                        if (obj[key] === "" || obj[key] === null || obj[key] === undefined) {
-                                            log.info("Eliminando nodo con clave: " + key);
-                                            delete obj[key];
-                                        } else if (typeof obj[key] === "object") {
-                                            log.info("script.3: "+obj[key]);
-                                            removeEmptyNodes(obj[key]);
-                                        }
+                                    if (obj[key] === "" || obj[key] === null) {
+                                        delete obj[key];
+                                    } else if (typeof obj[key] === "object") {
+                                        removeEmptyNodes(obj[key]);
                                     }
                                 }
                             }
-                            log.info("json2: "+ json);
-                            removeEmptyNodes(json); // Llamar la función para limpiar el JSON
-                            log.info("JSON final: " + JSON.stringify(json));
-                            mc.setPayloadJSON(json); // Establecer el nuevo payload JSON
+                            //removeEmptyNodes(jsonPayload);
+                            mc.setPayloadJSON(jsonPayload);
                         ]]>
                     </script>
                     <log level="full" category="INFO">
