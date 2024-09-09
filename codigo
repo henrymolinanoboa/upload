@@ -62,9 +62,7 @@
                             try {
                                 var previousDescription = "";
                                 if (jsonPayload.variables.u_descripcion !== undefined) {
-                                    //previousDescription = jsonPayload.variables.u_descripcion;
-                                    //jsonPayload.variables.u_descripcion = "xxx";
-                                    jsonPayload.variables.u_descripcion = jsonPayload.variables.u_descripcion.replace(/\s+/g, '');
+                                    jsonPayload.variables.u_descripcion = jsonPayload.variables.u_descripcion.replace(/\s+/g, ' ').trim();   
                                 }                                 
                                 removeEmptyNodes(jsonPayload);
                                 mc.setPayloadJSON(jsonPayload);
