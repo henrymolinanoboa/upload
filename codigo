@@ -63,7 +63,7 @@
                                 var previousDescription = "";
                                 if (jsonPayload.variables.u_descripcion !== undefined) {
                                     jsonPayload.variables.u_descripcion = jsonPayload.variables.u_descripcion
-                                        .replace(/\n/g, '<br/>')
+                                        .replace(/\n/g, '\\n')   
                                         .replace(/[ \t]+/g, ' ') 
                                         .replace(/^[ \t]+|[ \t]+$/gm, '');
                                 }                                 
