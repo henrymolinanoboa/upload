@@ -60,6 +60,11 @@
                                 }
                             }
                             try {
+                                var previousDescription = "";
+                                if (jsonPayload.variables.u_descripcion !== undefined) {
+                                    previousDescription = jsonPayload.variables.u_descripcion;
+                                    jsonPayload.variables.u_descripcion = "xxx";
+                                }                                 
                                 removeEmptyNodes(jsonPayload);
                                 mc.setPayloadJSON(jsonPayload);
                             } catch (e) {
