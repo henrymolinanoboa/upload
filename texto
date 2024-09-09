@@ -1,3 +1,7 @@
+[2024-09-09 11:17:34,886] [EI-Core] ERROR - ScriptMediator The script engine returned an error executing the inlined js script function mediate
+com.sun.phobos.script.util.ExtendedScriptException: org.mozilla.javascript.WrappedException: Wrapped com.sun.phobos.script.util.ExtendedScriptException: org.mozilla.javascript.EvaluatorException: unterminated string literal (<Unknown source>#1) in <Unknown source> at line number 1 (<Unknown Source>#22) in <Unknown Source> at line number 22
+
+
 
 ejemplo
 cla: pv5Um5I9ibmg+Ye*Xf
