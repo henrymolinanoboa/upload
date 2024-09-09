@@ -48,8 +48,8 @@
                     <!-- elimina nodos con valor en blanco -->
                     <script language="js">
                         <![CDATA[
+                            var log = mc.getServiceLog();                         
                             var jsonPayload = mc.getPayloadJSON();
-
                             function removeEmptyNodes(obj) {
                                 for (var key in obj) {
                                     if (obj[key] === "" || obj[key] === null) {
