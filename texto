@@ -1,8 +1,4 @@
-[2024-09-09 11:54:58,883] [EI-Core] ERROR - ScriptMediator The script engine returned an error executing the inlined js script function mediate
-com.sun.phobos.script.util.ExtendedScriptException: org.mozilla.javascript.WrappedException: Wrapped com.sun.phobos.script.util.ExtendedScriptException: org.mozilla.javascript.EvaluatorException: unterminated string literal (<Unknown source>#1) in <Unknown source> at line number 1 (<Unknown Source>#13) in <Unknown Source> at line number 13
-	at com.sun.phobos.script.javascript.RhinoCompiledScript.eval(RhinoCompiledScript.java:68)
-
-
+     WHERE STATUS = 'ABIERTO' AND GETDATE() &gt; DATE_PLANNED 
 
 
 
