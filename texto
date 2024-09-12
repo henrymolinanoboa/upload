@@ -1,5 +1,6 @@
  <property name="IDENTITY" expression="fn:concat($ctx:username,'@pichincha.com')" />
 
+   <arg evaluator="xml" expression="base64Encode($ctx:payloadRespondeServiceNow)" />
 
 
 WHERE STATUS = 'ABIERTO' AND GETDATE() &gt; DATE_PLANNED 
