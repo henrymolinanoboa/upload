@@ -1,4 +1,8 @@
-     WHERE STATUS = 'ABIERTO' AND GETDATE() &gt; DATE_PLANNED 
+ <property name="IDENTITY" expression="fn:concat($ctx:username,'@pichincha.com')" />
+
+
+
+WHERE STATUS = 'ABIERTO' AND GETDATE() &gt; DATE_PLANNED 
 
 
 
