@@ -1,0 +1,1058 @@
+<data name="UsersDSS" serviceNamespace="centra-id.com" transports="https">
+    <config id="default">
+        <property name="carbon_datasource_name">CENTRA_ID</property>
+    </config>
+
+    <query id="select_count_user_without_teller_number" useConfig="default">
+        <sql>
+                SELECT
+                    COUNT(*) COUNT 
+                FROM SCH_CENTRA_ID.GLOBAL_PROFILES GP 
+                    JOIN SCH_CENTRA_ID.GLOBAL_TRANSACTIONAL_PROFILES GTP ON GTP.GLOBAL_PROFILE_ID=GP.ID
+                    JOIN SCH_CENTRA_ID.TRANSACTIONAL_PROFILES TP ON GTP.TRANSACTIONAL_PROFILE_ID= TP.ID
+                    JOIN SCH_CENTRA_ID.APPLICATIONS A ON TP.APPLICATION_ID=A.ID
+                    JOIN SCH_CENTRA_ID.USERDATA UD ON UD.GLOBAL_PROFILE_ID=GP.ID
+                WHERE
+                    GTP.VALID=1 AND TP.VALID=1 AND A.CODE='BANCS' AND
+                    UD.EMPLOYEE_STATUS='ACTIVO' AND
+                    UD.VALID = 1 AND
+                    UD.FILTER LIKE ? AND
+                    UD.USERNAME NOT IN (
+                    SELECT TELLER_NAME FROM SCH_CENTRA_ID.REST_USER_STORE_SCIM
+                    WHERE VALID=1 AND REST_USER_STORE_SCIM.DOMAIN='BANCS' 
+                    )
+            </sql>
+        <param name="filter" ordinal="1" paramType="SCALAR" sqlType="STRING" type="IN" />
+        <result element="UserList">
+            <element column="COUNT" name="count" xsdType="xs:long" />
+        </result>
+    </query>
+
+    <query id="select_list_user_without_teller_number" useConfig="default">
+        <sql>
+                SELECT
+                    UD.ID USERDATA_ID,
+                    UD.USERNAME USERDATA_USERNAME,
+                    UD.EMPLOYEE_COMPLETE_NAME USERDATE_NAME ,
+                    GP.ID GLOBAL_PROFILE_ID,
+                    GP.CODE GLOBAL_PROFILE_CODE,
+                    GP.NAME GLOBAL_PROFILE_NAME,
+                    TP.ID TRANSACTIONAL_ID,
+                    TP.CODE TRANSACTIONAL_CODE,
+                    TP.NAME TRANSACTIONAL_NAME,
+                    UD.FILTER
+                FROM SCH_CENTRA_ID.GLOBAL_PROFILES GP 
+                    JOIN SCH_CENTRA_ID.GLOBAL_TRANSACTIONAL_PROFILES GTP ON GTP.GLOBAL_PROFILE_ID=GP.ID
+                    JOIN SCH_CENTRA_ID.TRANSACTIONAL_PROFILES TP ON GTP.TRANSACTIONAL_PROFILE_ID= TP.ID
+                    JOIN SCH_CENTRA_ID.APPLICATIONS A ON TP.APPLICATION_ID=A.ID
+                    JOIN SCH_CENTRA_ID.USERDATA UD ON UD.GLOBAL_PROFILE_ID=GP.ID
+                WHERE
+                    GTP.VALID=1 AND TP.VALID=1 AND A.CODE='BANCS' AND
+                    UD.EMPLOYEE_STATUS='ACTIVO' AND
+                    UD.VALID = 1 AND
+                    UD.FILTER LIKE ? AND
+                    UD.USERNAME NOT IN (
+                    SELECT TELLER_NAME FROM SCH_CENTRA_ID.REST_USER_STORE_SCIM
+                    WHERE VALID=1 AND REST_USER_STORE_SCIM.DOMAIN='BANCS' 
+                    )
+                    ORDER BY UD.EMPLOYEE_COMPLETE_NAME
+                    OFFSET ? ROWS FETCH NEXT ? ROWS ONLY
+            </sql>
+        <param name="filter" ordinal="1" paramType="SCALAR" sqlType="STRING" type="IN" />
+        <param name="startIndex" ordinal="2" paramType="SCALAR" sqlType="INTEGER" type="IN" />
+        <param name="count" ordinal="3" paramType="SCALAR" sqlType="INTEGER" type="IN" />
+        <result element="UserList" rowName="User">
+            <element column="USERDATA_ID" name="userdataId" xsdType="xs:integer" />
+            <element column="USERDATA_USERNAME" name="userdataUsername" xsdType="xs:string" />
+            <element column="USERDATE_NAME" name="userdateName" xsdType="xs:string" />
+            <element column="GLOBAL_PROFILE_ID" name="globalProfileId" xsdType="xs:integer" />
+            <element column="GLOBAL_PROFILE_CODE" name="globalProfileCode" xsdType="xs:string" />
+            <element column="GLOBAL_PROFILE_NAME" name="globalProfileName" xsdType="xs:string" />
+            <element column="TRANSACTIONAL_ID" name="transactionalId" xsdType="xs:integer" />
+            <element column="TRANSACTIONAL_CODE" name="transactionalCode" xsdType="xs:string" />
+            <element column="TRANSACTIONAL_NAME" name="transactionalName" xsdType="xs:string" />
+            <element column="FILTER" name="filter" xsdType="xs:string" />
+        </result>
+    </query>
+
+    <query id="select_user_activate_mail" useConfig="default">
+        <sql>
+                SELECT 
+                    ISNULL(T5.ACTIVATE_MAIL,0) ACTIVATE_MAIL,
+                    ISNULL(T5.ACTIVATE_MAIL_CLOUD,0) ACTIVATE_MAIL_CLOUD 
+                FROM SCH_CENTRA_ID.USERDATA T1
+                JOIN SCH_CENTRA_ID.GLOBAL_TRANSACTIONAL_PROFILES T2 ON T1.GLOBAL_PROFILE_ID = T2.GLOBAL_PROFILE_ID
+                JOIN SCH_CENTRA_ID.TRANSACTIONAL_PROFILES T3 ON T2.TRANSACTIONAL_PROFILE_ID=T3.ID
+                JOIN SCH_CENTRA_ID.APPLICATIONS T4 ON T3.APPLICATION_ID = T4.ID
+                JOIN SCH_CENTRA_ID.TEMPLATE_PROFILES_AD T5 ON T5.TRANSACTIONAL_PROFILE_ID=T3.ID
+                WHERE T1.ID=? AND T4.CODE='AD' AND T2.VALID=1
+            </sql>
+        <param name="userdataId" ordinal="1" paramType="SCALAR" sqlType="INTEGER" type="IN" />
+        <result element="User">
+            <element column="ACTIVATE_MAIL" name="activateMail" xsdType="xs:string" />
+            <element column="ACTIVATE_MAIL_CLOUD" name="activateMailCloud" xsdType="xs:string" />
+        </result>
+    </query>
+
+    <query id="select_user_actions_massive_process_query" useConfig="default">
+        <sql>
+            SELECT DISTINCT
+                'Accion' Accion,
+                'uid' uid,
+                '%FULL_NAME%' FULL_NAME,
+                'bpApPaterno' bpApPaterno,
+                'bpApMaterno' bpApMaterno,
+                '%FIRST_NAME%' FIRST_NAME,
+                'bpIdentificacion' bpIdentificacion,
+                'bpTipoIdentificacion' bpTipoIdentificacion,
+                'bpSupervisor' bpSupervisor,
+                'bpCustom01' bpCustom01,
+                'bpUnidad' bpUnidad,
+                'bpArea' bpArea,
+                'bpDepartamento'bpDepartamento,
+                'bpCargo' bpCargo,
+                'bpCentroCostos' bpCentroCostos,
+                'bpTipoCuentaTALLA' bpTipoCuentaTALLA,
+                'bpNumeroCuentaTALLA' bpNumeroCuentaTALLA,
+                'bpInicioVigencia' bpInicioVigencia,
+                'bpFinVigencia' bpFinVigencia,
+                'bpMotivoSuspension' bpMotivoSuspension,
+                'bpInicioSuspension' bpInicioSuspension,
+                'bpFinSuspension' bpFinSuspension
+            UNION ALL
+            SELECT 
+            --Accion
+                CASE 
+                WHEN a.TYPE_ACTION='C' THEN 'CREATE'
+                WHEN a.TYPE_ACTION='U' THEN 'MODIFY'
+                WHEN a.TYPE_ACTION='D' THEN 'DELETE'
+                END Accion,
+            --uid
+                ISNULL(a.USERNAME,'') uid,
+            --%FULL_NAME%
+                ISNULL(b.EMPLOYEE_COMPLETE_NAME,'') FULL_NAME,
+            --bpApPaterno
+                ISNULL(b.EMPLOYEE_FIRST_SURNAME,'') bpApPaterno,
+            --bpApMaterno
+                ISNULL(b.EMPLOYEE_SECOND_SURNAME,'') bpApMaterno,
+            --FIRST_NAME
+                ISNULL(b.EMPLOYEE_FIRST_NAME,'') + ' ' + ISNULL(b.EMPLOYEE_SECOND_NAME,'') FIRST_NAME,
+            -- bpIdentificacion
+                ISNULL(a.IDENTIFICACION,'') bpIdentificacion,
+            --bpTipoIdentificacion
+                CASE 
+                WHEN a.TIPO_IDENTIFICACION='C' THEN '0001'
+                WHEN a.TIPO_IDENTIFICACION='P' THEN '0002'  
+                END bpTipoIdentificacion,
+            -- bpSupervisor
+                CASE 
+                WHEN c.USERNAME IS NOT NULL THEN 'uid='+c.USERNAME+',ou=Usuarios,o=Bpichincha'
+                WHEN c.USERNAME IS NULL THEN ''
+                END bpSupervisor,
+            -- bpCustom01
+                ISNULL(a.CODIGO_COMPANIA,'') bpCustom01,
+            --bpUnidad
+                ISNULL(a.NOMBRE_DIVISION,'') bpUnidad,
+            -- bpArea
+                ISNULL(a.NOMBRE_AREA,'') bpArea,
+            --bpDepartamento
+                ISNULL(a.NOMBRE_DEPARTAMENTO,'') bpDepartamento,
+            -- bpCargo
+                ISNULL(a.NOMBRE_CARGO,'') bpCargo,
+            -- bpCentroCostos
+                ISNULL(a.CODIGO_CENTRO_COSTO,'') bpCentroCostos,
+            -- bpTipoCuentaTALLA
+                '00' bpTipoCuentaTALLA,
+            -- bpNumeroCuentaTALLA 
+                ISNULL(a.NUMERO_CUENTA_DEPOSITO,'')  bpNumeroCuentaTALLA,
+            -- bpInicioVigencia
+                ISNULL(FORMAT(b.REGISTRATION_DATE,'dd-MM-yyyy'),'') bpInicioVigencia,
+            -- bpFinVigencia
+                ISNULL(FORMAT(b.ENDING_WORK_DATE,'dd-MM-yyyy'),'') bpFinVigencia,
+            -- bpMotivoSuspension
+                CASE WHEN a.TYPE_ACTION='D'THEN 'ELIMINAR' ELSE 'A'END  bpMotivoSuspension,
+                '' bpInicioSuspension,
+                '' bpFinSuspension
+            FROM SCH_CENTRA_ID.MASSIVE_PROCESS a 
+            LEFT JOIN SCH_CENTRA_ID.USERDATA b ON a.USERNAME=b.USERNAME
+            LEFT JOIN SCH_CENTRA_ID.USERDATA c ON a.IDENTIFICACION_SUPERVISOR=c.IDENTIFICATION
+            WHERE a.TYPE_EVENT='C' AND a.CODIGO_COMPANIA != 'TCS'
+            and cast(a.FECHA_REGISTRO as date) = cast(getDate() as date)
+        </sql>
+        <result element="UserList" rowName="User">
+            <element column="Accion" name="Accion" xsdType="xs:string" />
+            <element column="uid" name="uid" xsdType="xs:string" />
+            <element column="FULL_NAME" name="FULL_NAME" xsdType="xs:string" />
+            <element column="bpApPaterno" name="bpApPaterno" xsdType="xs:string" />
+            <element column="bpApMaterno" name="bpApMaterno" xsdType="xs:string" />
+            <element column="FIRST_NAME" name="FIRST_NAME" xsdType="xs:string" />
+            <element column="bpIdentificacion" name="bpIdentificacion" xsdType="xs:string" />
+            <element column="bpTipoIdentificacion" name="bpTipoIdentificacion" xsdType="xs:string" />
+            <element column="bpSupervisor" name="bpSupervisor" xsdType="xs:string" />
+            <element column="bpCustom01" name="bpCustom01" xsdType="xs:string" />
+            <element column="bpUnidad" name="bpUnidad" xsdType="xs:string" />
+            <element column="bpArea" name="bpArea" xsdType="xs:string" />
+            <element column="bpDepartamento" name="bpDepartamento" xsdType="xs:string" />
+            <element column="bpCargo" name="bpCargo" xsdType="xs:string" />
+            <element column="bpCentroCostos" name="bpCentroCostos" xsdType="xs:string" />
+            <element column="bpTipoCuentaTALLA" name="bpTipoCuentaTALLA" xsdType="xs:string" />
+            <element column="bpNumeroCuentaTALLA" name="bpNumeroCuentaTALLA" xsdType="xs:string" />
+            <element column="bpInicioVigencia" name="bpInicioVigencia" xsdType="xs:string" />
+            <element column="bpFinVigencia" name="bpFinVigencia" xsdType="xs:string" />
+            <element column="bpMotivoSuspension" name="bpMotivoSuspension" xsdType="xs:string" />
+            <element column="bpInicioSuspension" name="bpInicioSuspension" xsdType="xs:string" />
+            <element column="bpFinSuspension" name="bpFinSuspension" xsdType="xs:string" />
+        </result>
+    </query>
+    <query id="select_user_actions_massive_process_tcs_query" useConfig="default">
+        <!--13/oct/2022 se agrega -->
+        <sql>
+            SELECT DISTINCT
+                'Accion' Accion,
+                'uid' uid,
+                '%FULL_NAME%' FULL_NAME,
+                'bpApPaterno' bpApPaterno,
+                'bpApMaterno' bpApMaterno,
+                '%FIRST_NAME%' FIRST_NAME,
+                'bpIdentificacion' bpIdentificacion,
+                'bpTipoIdentificacion' bpTipoIdentificacion,
+                'bpSupervisor' bpSupervisor,
+                'bpCustom01' bpCustom01,
+                'bpUnidad' bpUnidad,
+                'bpArea' bpArea,
+                'bpDepartamento'bpDepartamento,
+                'bpCargo' bpCargo,
+                'bpCentroCostos' bpCentroCostos,
+                'bpTipoCuentaTALLA' bpTipoCuentaTALLA,
+                'bpNumeroCuentaTALLA' bpNumeroCuentaTALLA,
+                'bpInicioVigencia' bpInicioVigencia,
+                'bpFinVigencia' bpFinVigencia,
+                'bpMotivoSuspension' bpMotivoSuspension,
+                'bpInicioSuspension' bpInicioSuspension,
+                'bpFinSuspension' bpFinSuspension
+            UNION ALL
+            SELECT 
+            --Accion
+                CASE 
+                WHEN a.TYPE_ACTION='C' THEN 'CREATE'
+                WHEN a.TYPE_ACTION='U' THEN 'MODIFY'
+                WHEN a.TYPE_ACTION='D' THEN 'DELETE'
+                END Accion,
+            --uid
+                ISNULL(a.USERNAME,'') uid,
+            --%FULL_NAME%
+                ISNULL(b.EMPLOYEE_COMPLETE_NAME,'') FULL_NAME,
+            --bpApPaterno
+                ISNULL(b.EMPLOYEE_FIRST_SURNAME,'') bpApPaterno,
+            --bpApMaterno
+                ISNULL(b.EMPLOYEE_SECOND_SURNAME,'') bpApMaterno,
+            --FIRST_NAME
+                ISNULL(b.EMPLOYEE_FIRST_NAME,'') + ' ' + ISNULL(b.EMPLOYEE_SECOND_NAME,'') FIRST_NAME,
+            -- bpIdentificacion
+                ISNULL(a.IDENTIFICACION,'') bpIdentificacion,
+            --bpTipoIdentificacion
+                CASE 
+                WHEN a.TIPO_IDENTIFICACION='C' THEN '0001'
+                WHEN a.TIPO_IDENTIFICACION='P' THEN '0002'  
+                END bpTipoIdentificacion,
+            -- bpSupervisor
+                CASE 
+                WHEN c.USERNAME IS NOT NULL THEN 'uid='+c.USERNAME+',ou=Usuarios,o=Bpichincha'
+                WHEN c.USERNAME IS NULL THEN ''
+                END bpSupervisor,
+            -- bpCustom01
+                ISNULL(a.CODIGO_COMPANIA,'') bpCustom01,
+            --bpUnidad
+                ISNULL(a.NOMBRE_DIVISION,'') bpUnidad,
+            -- bpArea
+                ISNULL(a.NOMBRE_AREA,'') bpArea,
+            --bpDepartamento
+                ISNULL(a.NOMBRE_DEPARTAMENTO,'') bpDepartamento,
+            -- bpCargo
+                ISNULL(a.NOMBRE_CARGO,'') bpCargo,
+            -- bpCentroCostos
+                ISNULL(a.CODIGO_CENTRO_COSTO,'') bpCentroCostos,
+            -- bpTipoCuentaTALLA
+                '00' bpTipoCuentaTALLA,
+            -- bpNumeroCuentaTALLA 
+                ISNULL(a.NUMERO_CUENTA_DEPOSITO,'')  bpNumeroCuentaTALLA,
+            -- bpInicioVigencia
+                ISNULL(FORMAT(b.REGISTRATION_DATE,'dd-MM-yyyy'),'') bpInicioVigencia,
+            -- bpFinVigencia
+                ISNULL(FORMAT(b.ENDING_WORK_DATE,'dd-MM-yyyy'),'') bpFinVigencia,
+            -- bpMotivoSuspension
+                CASE WHEN a.TYPE_ACTION='D'THEN 'ELIMINAR' ELSE 'A'END  bpMotivoSuspension,
+                '' bpInicioSuspension,
+                '' bpFinSuspension
+            FROM SCH_CENTRA_ID.MASSIVE_PROCESS a 
+            LEFT JOIN SCH_CENTRA_ID.USERDATA b ON a.USERNAME=b.USERNAME
+            LEFT JOIN SCH_CENTRA_ID.USERDATA c ON a.IDENTIFICACION_SUPERVISOR=c.IDENTIFICATION
+            WHERE a.TYPE_EVENT='C' AND a.CODIGO_COMPANIA='TCS'
+            and cast(a.FECHA_REGISTRO as date) = cast(getDate() as date)
+            UNION ALL
+            SELECT DISTINCT
+                'DELETE' Accion,
+                'plmorale' uid,
+                'MORALES CALAHORRANO PAQUITA LORENA' FULL_NAME,
+                'MORALES' bpApPaterno,
+                'CALAHORRANO' bpApMaterno,
+                'PAQUITA LORENA' FIRST_NAME,
+                '1710828060' bpIdentificacion,
+                '0001' bpTipoIdentificacion,
+                '' bpSupervisor,
+                'TCS' bpCustom01,
+                'SECURITY_NETWORKING ' bpUnidad,
+                'SECURITY' bpArea,
+                'ID_MANAGEMENT' bpDepartamento,
+                'COORDINADOR TECNOLOGICO IT ' bpCargo,
+                '8464' bpCentroCostos,
+                '00' bpTipoCuentaTALLA,
+                '' bpNumeroCuentaTALLA,
+                '01-06-2007' bpInicioVigencia,
+                '03-01-2020' bpFinVigencia,
+                'ELIMINAR' bpMotivoSuspension,
+                '' bpInicioSuspension,
+                '' bpFinSuspension
+        </sql>
+        <result element="UserList" rowName="User">
+            <element column="Accion" name="Accion" xsdType="xs:string" />
+            <element column="uid" name="uid" xsdType="xs:string" />
+            <element column="FULL_NAME" name="FULL_NAME" xsdType="xs:string" />
+            <element column="bpApPaterno" name="bpApPaterno" xsdType="xs:string" />
+            <element column="bpApMaterno" name="bpApMaterno" xsdType="xs:string" />
+            <element column="FIRST_NAME" name="FIRST_NAME" xsdType="xs:string" />
+            <element column="bpIdentificacion" name="bpIdentificacion" xsdType="xs:string" />
+            <element column="bpTipoIdentificacion" name="bpTipoIdentificacion" xsdType="xs:string" />
+            <element column="bpSupervisor" name="bpSupervisor" xsdType="xs:string" />
+            <element column="bpCustom01" name="bpCustom01" xsdType="xs:string" />
+            <element column="bpUnidad" name="bpUnidad" xsdType="xs:string" />
+            <element column="bpArea" name="bpArea" xsdType="xs:string" />
+            <element column="bpDepartamento" name="bpDepartamento" xsdType="xs:string" />
+            <element column="bpCargo" name="bpCargo" xsdType="xs:string" />
+            <element column="bpCentroCostos" name="bpCentroCostos" xsdType="xs:string" />
+            <element column="bpTipoCuentaTALLA" name="bpTipoCuentaTALLA" xsdType="xs:string" />
+            <element column="bpNumeroCuentaTALLA" name="bpNumeroCuentaTALLA" xsdType="xs:string" />
+            <element column="bpInicioVigencia" name="bpInicioVigencia" xsdType="xs:string" />
+            <element column="bpFinVigencia" name="bpFinVigencia" xsdType="xs:string" />
+            <element column="bpMotivoSuspension" name="bpMotivoSuspension" xsdType="xs:string" />
+            <element column="bpInicioSuspension" name="bpInicioSuspension" xsdType="xs:string" />
+            <element column="bpFinSuspension" name="bpFinSuspension" xsdType="xs:string" />
+        </result>
+    </query>    
+    <query id="update_all_query" useConfig="default" returnUpdatedRowCount="true">
+        <sql>
+           UPDATE :table SET :set WHERE :where
+        </sql>
+        <result element="UpdatedRowCount" rowName="" useColumnNumbers="true">
+            <element column="1" name="Value" xsdType="integer" />
+        </result>
+        <param name="table" sqlType="QUERY_STRING" />
+        <param name="set" sqlType="QUERY_STRING" />
+        <param name="where" sqlType="QUERY_STRING" />
+    </query>
+    <query id="select_count_user_query" useConfig="default">
+        <sql>
+            SELECT COUNT(*) AS COUNT FROM SCH_CENTRA_ID.USERDATA WITH (NOLOCK) WHERE EMPLOYEE_CODE=?
+        </sql>
+        <param name="employeeCode" ordinal="1" paramType="SCALAR" sqlType="STRING" type="IN" />
+        <result element="Users" rowName="User">
+            <element column="COUNT" name="count" xsdType="xs:long" />
+        </result>
+    </query>
+    <query id="select_transacionational_profile_user_query" useConfig="default">
+        <sql>
+            SELECT TP.ID, TP.CODE,TP.NAME
+            FROM SCH_CENTRA_ID.TRANSACTIONAL_PROFILES tp WITH (NOLOCK) 
+            JOIN SCH_CENTRA_ID.APPLICATIONS a WITH (NOLOCK) ON tp.application_id=a.ID
+            JOIN SCH_CENTRA_ID.GLOBAL_TRANSACTIONAL_PROFILES gtp WITH (NOLOCK) ON gtp.TRANSACTIONAL_PROFILE_ID=tp.ID
+            JOIN SCH_CENTRA_ID.GLOBAL_PROFILES gp WITH (NOLOCK) ON gtp.GLOBAL_PROFILE_ID = gp.ID
+            JOIN SCH_CENTRA_ID.USERDATA u WITH (NOLOCK) ON u.GLOBAL_PROFILE_ID=gp.ID
+            WHERE gtp.VALID=1  AND u.USERNAME=?  AND a.CODE=?
+        </sql>
+        <param name="username" ordinal="1" paramType="SCALAR" sqlType="STRING" type="IN" />
+        <param name="application" ordinal="2" paramType="SCALAR" sqlType="STRING" type="IN" />
+        <result element="TransactionalProfileList" rowName="TransactionalProfile">
+            <element column="ID" name="id" xsdType="xs:integer" />
+            <element column="CODE" name="code" xsdType="xs:string" />
+            <element column="NAME" name="name" xsdType="xs:string" />
+        </result>
+    </query>
+    <query id="select_expire_user_query" useConfig="default">
+        <sql>
+            SELECT ID
+            FROM  SCH_CENTRA_ID.USERDATA WITH (NOLOCK) 
+            WHERE EMPLOYEE_STATUS='ACTIVO' AND VALID=1 AND CAST(EXPIRATION_DATE_USER AS DATE) &lt;= CAST(GETDATE() AS DATE)
+        </sql>
+        <result element="UserDataList" rowName="UserData">
+            <element column="ID" name="id" xsdType="xs:integer" />
+        </result>
+    </query>
+    <query id="select_expire_global_profile_query" useConfig="default">
+        <sql>
+            SELECT ID,GLOBAL_PROFILE_ID,GLOBAL_PROFILE_ORIGINAL_ID
+            FROM  SCH_CENTRA_ID.USERDATA WITH (NOLOCK) 
+            WHERE EMPLOYEE_STATUS='ACTIVO' AND VALID=1 AND CAST(EXPIRATION_DATE_GLOBAL_PROFILE AS DATE) &lt;= CAST(GETDATE() AS DATE) AND
+            AND GLOBAL_PROFILE_ORIGINAL_ID IS NOT NULL AND GLOBAL_PROFILE_ID &lt;> GLOBAL_PROFILE_ORIGINAL_ID
+        </sql>
+        <result element="UserDataList" rowName="UserData">
+            <element column="ID" name="id" xsdType="xs:integer" />
+            <element column="GLOBAL_PROFILE_ID" name="globalProfileId" xsdType="xs:integer" />
+            <element column="GLOBAL_PROFILE_ORIGINAL_ID" name="globalProfileOriginalId" xsdType="xs:integer" />
+        </result>
+    </query>
+    <query id="select_tasks_with_operation_query" useConfig="default">
+        <sql>
+            SELECT
+                tp.ID ID,
+                tp.UUID UUID,
+                tp2.UUID UUID_PARENT
+            FROM  SCH_CENTRA_ID.TAKS_PROVISIONING tp WITH (NOLOCK) 
+            JOIN  SCH_CENTRA_ID.APPLICATIONS a WITH (NOLOCK) ON tp.APPLICATION_ID=a.ID
+            LEFT JOIN SCH_CENTRA_ID.TAKS_PROVISIONING tp2 WITH (NOLOCK) ON tp2.OPERATION_PROVISIONING_ID=? AND tp2.APPLICATION_ID=a.PARENT_ID
+            WHERE tp.ID=? AND tp.OPERATION_PROVISIONING_ID=?
+        </sql>
+        <param name="operationProvisioningId" ordinal="1" paramType="SCALAR" sqlType="INTEGER" type="IN" />
+        <param name="taskProvisioningId" ordinal="2" paramType="SCALAR" sqlType="INTEGER" type="IN" />
+        <param name="operationProvisioning2Id" ordinal="3" paramType="SCALAR" sqlType="INTEGER" type="IN" />
+        <result element="TaskProvisioning" rowName="User">
+            <element column="ID" name="id" xsdType="xs:integer" />
+            <element column="UUID" name="uuid" xsdType="xs:string" />
+            <element column="UUID_PARENT" name="uuidParent" xsdType="xs:string" />
+        </result>
+    </query>
+    <query id="select_with_all_full_users_query" useConfig="default">
+        <sql>
+        SELECT
+            USERNAME,
+            CODIGO_EMPLEADO,
+            CODIGO_TRABAJADOR,
+            IDENTIFICACION,
+            APELLIDOS_EMPLEADO,
+            NOMBRES_EMPLEADO,
+            CELULAR,
+            NUMERO_CUENTA_DEPOSITO,
+            FECHA_INGRESO,
+            FECHA_SALIDA,
+            IDENTIFICACION_SUPERVISOR,
+            NOMBRE_SUPERVISOR,
+            CODIGO_COMPANIA,
+            NOMBRE_COMPANIA,
+            CODIGO_DIVISION,
+            NOMBRE_DIVISION,
+            CODIGO_AREA,
+            NOMBRE_AREA,
+            CODIGO_DEPARTAMENTO,
+            NOMBRE_DEPARTAMENTO,
+            NOMBRE_CARGO,
+            CODIGO_CENTRO_COSTO,
+            NOMBRE_CENTRO_COSTO,
+            CODIGO_AGRUPACION,
+            CODIGO_NIVEL_JERARQUICO,
+            TIPOUSUARIO,
+            SUBTIPO,
+            ESTADO_EMPLEADO,
+            NOMBRELOCALIDAD,
+            CORREO_ELECTRONICO,
+            ID_PERFIL_GLOBAL,
+            CODIGO_PERFIL_GLOBAL,
+            NOMBRE_PERFIL_GLOBAL,
+            ID_USUARIO
+        FROM sch_centra_id.USERDATA_VW WITH (NOLOCK) 
+        ORDER BY APELLIDOS_EMPLEADO,NOMBRES_EMPLEADO
+        OFFSET ? ROWS
+        FETCH NEXT ? ROWS ONLY
+        </sql>
+        <param name="startIndex" ordinal="1" paramType="SCALAR" sqlType="INTEGER" type="IN" />
+        <param name="count" ordinal="2" paramType="SCALAR" sqlType="INTEGER" type="IN" />
+        <result element="Users" rowName="User">
+            <element column="USERNAME" name="username" xsdType="xs:string" />
+            <element column="CODIGO_EMPLEADO" name="codigoEmpleado" xsdType="xs:string" />
+            <element column="CODIGO_TRABAJADOR" name="codigoTrabajador" xsdType="xs:string" />
+            <element column="IDENTIFICACION" name="identificacion" xsdType="xs:string" />
+            <element column="APELLIDOS_EMPLEADO" name="apellidosEmpleado" xsdType="xs:string" />
+            <element column="NOMBRES_EMPLEADO" name="nombresEmpleado" xsdType="xs:string" />
+            <element column="CELULAR" name="celular" xsdType="xs:string" />
+            <element column="NUMERO_CUENTA_DEPOSITO" name="numeroCuentaDeposito" xsdType="xs:string" />
+            <element column="FECHA_INGRESO" name="fechaIngreso" xsdType="xs:string" />
+            <element column="FECHA_SALIDA" name="fechaSalida" xsdType="xs:string" />
+            <element column="IDENTIFICACION_SUPERVISOR" name="identificacionSupervisor" xsdType="xs:string" />
+            <element column="NOMBRE_SUPERVISOR" name="nombreSupervisor" xsdType="xs:string" />
+            <element column="CODIGO_COMPANIA" name="codigoCompania" xsdType="xs:string" />
+            <element column="NOMBRE_COMPANIA" name="nombreCompania" xsdType="xs:string" />
+            <element column="CODIGO_DIVISION" name="codigoDivision" xsdType="xs:string" />
+            <element column="NOMBRE_DIVISION" name="nombreDivision" xsdType="xs:string" />
+            <element column="CODIGO_AREA" name="codigoArea" xsdType="xs:string" />
+            <element column="NOMBRE_AREA" name="nombreArea" xsdType="xs:string" />
+            <element column="CODIGO_DEPARTAMENTO" name="codigoDepartamento" xsdType="xs:string" />
+            <element column="NOMBRE_DEPARTAMENTO" name="nombreDepartamento" xsdType="xs:string" />
+            <element column="NOMBRE_CARGO" name="nombreCargo" xsdType="xs:string" />
+            <element column="CODIGO_CENTRO_COSTO" name="codigoCentroCosto" xsdType="xs:string" />
+            <element column="NOMBRE_CENTRO_COSTO" name="nombreCentroCosto" xsdType="xs:string" />
+            <element column="CODIGO_AGRUPACION" name="codigoAgrupacion" xsdType="xs:string" />
+            <element column="CODIGO_NIVEL_JERARQUICO" name="codigoNivelJerarquico" xsdType="xs:string" />
+            <element column="TIPOUSUARIO" name="tipoUsuario" xsdType="xs:string" />
+            <element column="SUBTIPO" name="subTipo" xsdType="xs:string" />
+            <element column="ESTADO_EMPLEADO" name="estadoEmpleado" xsdType="xs:string" />
+            <element column="NOMBRELOCALIDAD" name="nombreLocalidad" xsdType="xs:string" />
+            <element column="CORREO_ELECTRONICO" name="correoElectronico" xsdType="xs:string" />
+            <element column="ID_PERFIL_GLOBAL" name="globalProfileId" xsdType="xs:string" />
+            <element column="CODIGO_PERFIL_GLOBAL" name="globalProfileCode" xsdType="xs:string" />
+            <element column="NOMBRE_PERFIL_GLOBAL" name="globalProfileName" xsdType="xs:string" />
+            <element column="ID_USUARIO" name="userDataId" xsdType="xs:string" />
+        </result>
+    </query>
+    <query id="select_with_name_and_company_and_division_and_hierarchy_users_query" useConfig="default">
+        <sql>
+        SELECT
+            USERNAME,
+            CODIGO_EMPLEADO,
+            APELLIDOS_EMPLEADO,
+            NOMBRES_EMPLEADO,
+            ID_USUARIO
+        FROM sch_centra_id.USERDATA_VW WITH (NOLOCK) 
+        WHERE UPPER(APELLIDOS_EMPLEADO+NOMBRES_EMPLEADO) LIKE UPPER(?) AND CODIGO_COMPANIA='BCPI'  AND ESTADO_EMPLEADO='ACTIVO' AND
+          cast(CODIGO_NIVEL_JERARQUICO as decimal(10,6)) &lt;= cast(? as decimal(10,6))
+        ORDER BY APELLIDOS_EMPLEADO,NOMBRES_EMPLEADO
+        </sql>
+        <param name="name" ordinal="1" paramType="SCALAR" sqlType="STRING" type="IN" />
+        <param name="hierarchyCode" ordinal="2" paramType="SCALAR" sqlType="STRING" type="IN" />
+        <result element="Users" rowName="User">
+            <element column="USERNAME" name="username" xsdType="xs:string" />
+            <element column="CODIGO_EMPLEADO" name="codigoEmpleado" xsdType="xs:string" />
+            <element column="APELLIDOS_EMPLEADO" name="apellidosEmpleado" xsdType="xs:string" />
+            <element column="NOMBRES_EMPLEADO" name="nombresEmpleado" xsdType="xs:string" />
+            <element column="ID_USUARIO" name="userDataId" xsdType="xs:string" />
+        </result>
+    </query>
+    <query id="select_with_name_and_company_and_hierarchy_users_query" useConfig="default">
+        <sql>
+        SELECT 
+            t1.username USERNAME,
+            t1.EMPLOYEE_CODE CODIGO_EMPLEADO,
+            ISNULL(t1.EMPLOYEE_FIRST_SURNAME,'') + ISNULL(' ' + t1.EMPLOYEE_SECOND_SURNAME,'') APELLIDOS_EMPLEADO,
+            ISNULL(t1.EMPLOYEE_FIRST_NAME,'') + ISNULL(' ' + EMPLOYEE_SECOND_NAME,'') + ' - ' + t2.CODE NOMBRES_EMPLEADO,
+            t1.ID ID_USUARIO
+        FROM SCH_CENTRA_ID.USERDATA t1 
+                join SCH_CENTRA_ID.COMPANIES t2 ON  t1.COMPANY_ID = t2.ID
+                join SCH_CENTRA_ID.CATALOGS t3 ON t2.CATALOG_COMPANY_TYPE_ID=t3.ID
+        WHERE  
+                UPPER( t1.EMPLOYEE_COMPLETE_NAME) LIKE UPPER(?) AND 
+                t1.EMPLOYEE_STATUS='ACTIVO' AND
+                cast(t1.HIERARCHICAL_LEVEL as decimal(10,6)) &lt;= cast(? as decimal(10,6)) AND
+                t3.CODE IN ('BAN','FIL')
+        ORDER BY t1.EMPLOYEE_COMPLETE_NAME
+        </sql>
+        <param name="name" ordinal="1" paramType="SCALAR" sqlType="STRING" type="IN" />
+        <param name="hierarchyCode" ordinal="2" paramType="SCALAR" sqlType="STRING" type="IN" />
+        <result element="Users" rowName="User">
+            <element column="USERNAME" name="username" xsdType="xs:string" />
+            <element column="CODIGO_EMPLEADO" name="codigoEmpleado" xsdType="xs:string" />
+            <element column="APELLIDOS_EMPLEADO" name="apellidosEmpleado" xsdType="xs:string" />
+            <element column="NOMBRES_EMPLEADO" name="nombresEmpleado" xsdType="xs:string" />
+            <element column="ID_USUARIO" name="userDataId" xsdType="xs:string" />
+        </result>
+    </query>
+    <query id="select_with_name_and_costcenter_and_hierarchy_users_query" useConfig="default">
+        <sql>
+        SELECT
+            USERNAME,
+            CODIGO_EMPLEADO,
+            APELLIDOS_EMPLEADO,
+            NOMBRES_EMPLEADO,
+            ID_USUARIO
+        FROM sch_centra_id.USERDATA_VW WITH (NOLOCK) 
+        WHERE UPPER(APELLIDOS_EMPLEADO+NOMBRES_EMPLEADO) LIKE UPPER(?) AND CODIGO_COMPANIA='BCPI' AND ESTADO_EMPLEADO='ACTIVO'  AND  
+          cast(CODIGO_NIVEL_JERARQUICO as decimal(10,6)) &lt;= cast(? as decimal(10,6))
+        ORDER BY APELLIDOS_EMPLEADO,NOMBRES_EMPLEADO
+        </sql>
+        <param name="name" ordinal="1" paramType="SCALAR" sqlType="STRING" type="IN" />
+        <param name="hierarchyCode" ordinal="2" paramType="SCALAR" sqlType="STRING" type="IN" />
+        <result element="Users" rowName="User">
+            <element column="USERNAME" name="username" xsdType="xs:string" />
+            <element column="CODIGO_EMPLEADO" name="codigoEmpleado" xsdType="xs:string" />
+            <element column="APELLIDOS_EMPLEADO" name="apellidosEmpleado" xsdType="xs:string" />
+            <element column="NOMBRES_EMPLEADO" name="nombresEmpleado" xsdType="xs:string" />
+            <element column="ID_USUARIO" name="userDataId" xsdType="xs:string" />
+        </result>
+    </query>
+    <query id="select_with_all_users_query" useConfig="default">
+        <sql>
+        SELECT
+            USERNAME,
+            IDENTIFICACION,
+            APELLIDOS_EMPLEADO,
+            NOMBRES_EMPLEADO,
+            ESTADO_EMPLEADO
+        FROM sch_centra_id.USERDATA_VW WITH (NOLOCK) 
+        ORDER BY APELLIDOS_EMPLEADO,NOMBRES_EMPLEADO
+        OFFSET ? ROWS
+        FETCH NEXT ? ROWS ONLY
+        </sql>
+        <param name="startIndex" ordinal="1" paramType="SCALAR" sqlType="INTEGER" type="IN" />
+        <param name="count" ordinal="2" paramType="SCALAR" sqlType="INTEGER" type="IN" />
+        <result element="Users" rowName="User">
+            <element column="USERNAME" name="username" xsdType="xs:string" />
+            <element column="IDENTIFICACION" name="identificacion" xsdType="xs:string" />
+            <element column="APELLIDOS_EMPLEADO" name="apellidosEmpleado" xsdType="xs:string" />
+            <element column="NOMBRES_EMPLEADO" name="nombresEmpleado" xsdType="xs:string" />
+        </result>
+    </query>
+    <query id="select_with_by_code_employee_users_query" useConfig="default">
+        <sql>
+        SELECT
+            USERNAME,
+            CODIGO_EMPLEADO,
+            CODIGO_TRABAJADOR,
+            IDENTIFICACION,
+            APELLIDOS_EMPLEADO,
+            NOMBRES_EMPLEADO,
+            CELULAR,
+            NUMERO_CUENTA_DEPOSITO,
+            FECHA_INGRESO,
+            FECHA_SALIDA,
+            IDENTIFICACION_SUPERVISOR,
+            NOMBRE_SUPERVISOR,
+            CODIGO_COMPANIA,
+            NOMBRE_COMPANIA,
+            CODIGO_DIVISION,
+            NOMBRE_DIVISION,
+            CODIGO_AREA,
+            NOMBRE_AREA,
+            CODIGO_DEPARTAMENTO,
+            NOMBRE_DEPARTAMENTO,
+            NOMBRE_CARGO,
+            CODIGO_CENTRO_COSTO,
+            NOMBRE_CENTRO_COSTO,
+            CODIGO_AGRUPACION,
+            CODIGO_NIVEL_JERARQUICO,
+            TIPOUSUARIO,
+            SUBTIPO,
+            ESTADO_EMPLEADO,
+            NOMBRELOCALIDAD,
+            CORREO_ELECTRONICO,
+            ID_PERFIL_GLOBAL,
+            CODIGO_PERFIL_GLOBAL,
+            NOMBRE_PERFIL_GLOBAL,
+            ID_USUARIO
+        FROM sch_centra_id.USERDATA_VW WITH (NOLOCK) 
+        WHERE CODIGO_EMPLEADO=?
+        </sql>
+        <param name="code" ordinal="1" paramType="SCALAR" sqlType="STRING" type="IN" />
+        <result element="Users" rowName="User">
+            <element column="USERNAME" name="username" xsdType="xs:string" />
+            <element column="CODIGO_EMPLEADO" name="codigoEmpleado" xsdType="xs:string" />
+            <element column="CODIGO_TRABAJADOR" name="codigoTrabajador" xsdType="xs:string" />
+            <element column="IDENTIFICACION" name="identificacion" xsdType="xs:string" />
+            <element column="APELLIDOS_EMPLEADO" name="apellidosEmpleado" xsdType="xs:string" />
+            <element column="NOMBRES_EMPLEADO" name="nombresEmpleado" xsdType="xs:string" />
+            <element column="CELULAR" name="celular" xsdType="xs:string" />
+            <element column="NUMERO_CUENTA_DEPOSITO" name="numeroCuentaDeposito" xsdType="xs:string" />
+            <element column="FECHA_INGRESO" name="fechaIngresoEmpleado" xsdType="xs:string" />
+            <element column="FECHA_SALIDA" name="fechaSalidaEmpleado" xsdType="xs:string" />
+            <element column="IDENTIFICACION_SUPERVISOR" name="identificacionSupervisor" xsdType="xs:string" />
+            <element column="NOMBRE_SUPERVISOR" name="nombreSupervisor" xsdType="xs:string" />
+            <element column="CODIGO_COMPANIA" name="codigoCompania" xsdType="xs:string" />
+            <element column="NOMBRE_COMPANIA" name="nombreCompania" xsdType="xs:string" />
+            <element column="CODIGO_DIVISION" name="codigoDivision" xsdType="xs:string" />
+            <element column="NOMBRE_DIVISION" name="nombreDivision" xsdType="xs:string" />
+            <element column="CODIGO_AREA" name="codigoArea" xsdType="xs:string" />
+            <element column="NOMBRE_AREA" name="nombreArea" xsdType="xs:string" />
+            <element column="CODIGO_DEPARTAMENTO" name="codigoDepartamento" xsdType="xs:string" />
+            <element column="NOMBRE_DEPARTAMENTO" name="nombreDepartamento" xsdType="xs:string" />
+            <element column="NOMBRE_CARGO" name="nombreCargo" xsdType="xs:string" />
+            <element column="CODIGO_CENTRO_COSTO" name="codigoCentroCosto" xsdType="xs:string" />
+            <element column="NOMBRE_CENTRO_COSTO" name="nombreCentroCosto" xsdType="xs:string" />
+            <element column="CODIGO_AGRUPACION" name="codigoAgrupacion" xsdType="xs:string" />
+            <element column="CODIGO_NIVEL_JERARQUICO" name="codigoNivelJerarquico" xsdType="xs:string" />
+            <element column="TIPOUSUARIO" name="tipoUsuario" xsdType="xs:string" />
+            <element column="SUBTIPO" name="subTipo" xsdType="xs:string" />
+            <element column="ESTADO_EMPLEADO" name="estadoEmpleado" xsdType="xs:string" />
+            <element column="NOMBRELOCALIDAD" name="nombreLocalidad" xsdType="xs:string" />
+            <element column="CORREO_ELECTRONICO" name="correoElectronico" xsdType="xs:string" />
+            <element column="ID_PERFIL_GLOBAL" name="globalProfileId" xsdType="xs:string" />
+            <element column="CODIGO_PERFIL_GLOBAL" name="globalProfileCode" xsdType="xs:string" />
+            <element column="NOMBRE_PERFIL_GLOBAL" name="globalProfileName" xsdType="xs:string" />
+            <element column="ID_USUARIO" name="userDataId" xsdType="xs:string" />
+        </result>
+    </query>
+    <query id="select_with_identification_employee_users_query" useConfig="default">
+        <sql>
+        SELECT
+            USERNAME,
+            CODIGO_EMPLEADO,
+            CODIGO_TRABAJADOR,
+            IDENTIFICACION,
+            APELLIDOS_EMPLEADO,
+            NOMBRES_EMPLEADO,
+            CELULAR,
+            NUMERO_CUENTA_DEPOSITO,
+            FECHA_INGRESO,
+            FECHA_SALIDA,
+            IDENTIFICACION_SUPERVISOR,
+            NOMBRE_SUPERVISOR,
+            CODIGO_COMPANIA,
+            NOMBRE_COMPANIA,
+            CODIGO_DIVISION,
+            NOMBRE_DIVISION,
+            CODIGO_AREA,
+            NOMBRE_AREA,
+            CODIGO_DEPARTAMENTO,
+            NOMBRE_DEPARTAMENTO,
+            NOMBRE_CARGO,
+            CODIGO_CENTRO_COSTO,
+            NOMBRE_CENTRO_COSTO,
+            CODIGO_AGRUPACION,
+            CODIGO_NIVEL_JERARQUICO,
+            TIPOUSUARIO,
+            SUBTIPO,
+            ESTADO_EMPLEADO,
+            NOMBRELOCALIDAD,
+            CORREO_ELECTRONICO,
+            ID_PERFIL_GLOBAL,
+            CODIGO_PERFIL_GLOBAL,
+            NOMBRE_PERFIL_GLOBAL,
+            ID_USUARIO
+        FROM sch_centra_id.USERDATA_VW WITH (NOLOCK) 
+        WHERE IDENTIFICACION=? AND ESTADO_EMPLEADO='ACTIVO'
+        </sql>
+        <param name="noIdentificacion" ordinal="1" paramType="SCALAR" sqlType="STRING" type="IN" />
+        <result element="Users" rowName="User">
+            <element column="USERNAME" name="username" xsdType="xs:string" />
+            <element column="CODIGO_EMPLEADO" name="codigoEmpleado" xsdType="xs:string" />
+            <element column="CODIGO_TRABAJADOR" name="codigoTrabajador" xsdType="xs:string" />
+            <element column="IDENTIFICACION" name="identificacion" xsdType="xs:string" />
+            <element column="APELLIDOS_EMPLEADO" name="apellidosEmpleado" xsdType="xs:string" />
+            <element column="NOMBRES_EMPLEADO" name="nombresEmpleado" xsdType="xs:string" />
+            <element column="CELULAR" name="celular" xsdType="xs:string" />
+            <element column="NUMERO_CUENTA_DEPOSITO" name="numeroCuentaDeposito" xsdType="xs:string" />
+            <element column="FECHA_INGRESO" name="fechaIngreso" xsdType="xs:string" />
+            <element column="FECHA_SALIDA" name="fechaSalida" xsdType="xs:string" />
+            <element column="IDENTIFICACION_SUPERVISOR" name="identificacionSupervisor" xsdType="xs:string" />
+            <element column="NOMBRE_SUPERVISOR" name="nombreSupervisor" xsdType="xs:string" />
+            <element column="CODIGO_COMPANIA" name="codigoCompania" xsdType="xs:string" />
+            <element column="NOMBRE_COMPANIA" name="nombreCompania" xsdType="xs:string" />
+            <element column="CODIGO_DIVISION" name="codigoDivision" xsdType="xs:string" />
+            <element column="NOMBRE_DIVISION" name="nombreDivision" xsdType="xs:string" />
+            <element column="CODIGO_AREA" name="codigoArea" xsdType="xs:string" />
+            <element column="NOMBRE_AREA" name="nombreArea" xsdType="xs:string" />
+            <element column="CODIGO_DEPARTAMENTO" name="codigoDepartamento" xsdType="xs:string" />
+            <element column="NOMBRE_DEPARTAMENTO" name="nombreDepartamento" xsdType="xs:string" />
+            <element column="NOMBRE_CARGO" name="nombreCargo" xsdType="xs:string" />
+            <element column="CODIGO_CENTRO_COSTO" name="codigoCentroCosto" xsdType="xs:string" />
+            <element column="NOMBRE_CENTRO_COSTO" name="nombreCentroCosto" xsdType="xs:string" />
+            <element column="CODIGO_AGRUPACION" name="codigoAgrupacion" xsdType="xs:string" />
+            <element column="CODIGO_NIVEL_JERARQUICO" name="codigoNivelJerarquico" xsdType="xs:string" />
+            <element column="TIPOUSUARIO" name="tipoUsuario" xsdType="xs:string" />
+            <element column="SUBTIPO" name="subTipo" xsdType="xs:string" />
+            <element column="ESTADO_EMPLEADO" name="estadoEmpleado" xsdType="xs:string" />
+            <element column="NOMBRELOCALIDAD" name="nombreLocalidad" xsdType="xs:string" />
+            <element column="CORREO_ELECTRONICO" name="correoElectronico" xsdType="xs:string" />
+            <element column="ID_PERFIL_GLOBAL" name="globalProfileId" xsdType="xs:string" />
+            <element column="CODIGO_PERFIL_GLOBAL" name="globalProfileCode" xsdType="xs:string" />
+            <element column="NOMBRE_PERFIL_GLOBAL" name="globalProfileName" xsdType="xs:string" />
+            <element column="ID_USUARIO" name="userDataId" xsdType="xs:string" />
+        </result>
+    </query>
+    <query id="select_with_by_code_costcenter_users_query" useConfig="default">
+        <sql>
+            SELECT
+                USERNAME,
+                IDENTIFICACION,
+                APELLIDOS_EMPLEADO,
+                NOMBRES_EMPLEADO,
+                ESTADO_EMPLEADO
+            FROM sch_centra_id.USERDATA_VW WITH (NOLOCK) 
+            WHERE CODIGO_CENTRO_COSTO=?
+            ORDER BY APELLIDOS_EMPLEADO,NOMBRES_EMPLEADO
+            OFFSET ? ROWS
+            FETCH NEXT ? ROWS ONLY
+        </sql>
+        <param name="code" ordinal="1" paramType="SCALAR" sqlType="STRING" type="IN" />
+        <param name="startIndex" ordinal="2" paramType="SCALAR" sqlType="INTEGER" type="IN" />
+        <param name="count" ordinal="3" paramType="SCALAR" sqlType="INTEGER" type="IN" />
+        <result element="Users" rowName="User">
+            <element column="USERNAME" name="username" xsdType="xs:string" />
+            <element column="IDENTIFICACION" name="identificacion" xsdType="xs:string" />
+            <element column="APELLIDOS_EMPLEADO" name="apellidosEmpleado" xsdType="xs:string" />
+            <element column="NOMBRES_EMPLEADO" name="nombresEmpleado" xsdType="xs:string" />
+        </result>
+    </query>
+    <query id="select_with_by_username_users_query" useConfig="default">
+        <sql>
+			 select a.username from (
+				 select ? as username
+				 union all
+				 select ? as username
+				 union all
+				 select ? as username
+				 union all
+				 select ? as username
+				 union all
+				 select ? as username
+				 union all
+				 select ? as username
+				 union all
+				 select ? as username
+				 union all
+				 select ? as username
+			 ) a 
+			 WHERE a.username NOT IN ( select USERNAME as username from sch_centra_id.USERDATA  WITH (NOLOCK) ) 
+        </sql>
+        <param name="username1" ordinal="1" paramType="SCALAR" sqlType="STRING" type="IN" />
+        <param name="username2" ordinal="2" paramType="SCALAR" sqlType="STRING" type="IN" />
+        <param name="username3" ordinal="3" paramType="SCALAR" sqlType="STRING" type="IN" />
+        <param name="username4" ordinal="4" paramType="SCALAR" sqlType="STRING" type="IN" />
+        <param name="username5" ordinal="5" paramType="SCALAR" sqlType="STRING" type="IN" />
+        <param name="username6" ordinal="6" paramType="SCALAR" sqlType="STRING" type="IN" />
+        <param name="username7" ordinal="7" paramType="SCALAR" sqlType="STRING" type="IN" />
+        <param name="username8" ordinal="8" paramType="SCALAR" sqlType="STRING" type="IN" />
+        <result element="Users" rowName="User">
+            <element column="username" name="username" xsdType="xs:string" />
+        </result>
+    </query>
+    <query id="select_with_by_alias_users_query" useConfig="default">
+        <sql>
+			 select a.alias from (
+				 select ? as alias
+				 union all
+				 select ? as alias
+				 union all
+				 select ? as alias
+			 ) a 
+			 WHERE a.alias NOT IN ( select ALIAS as alias from sch_centra_id.USERDATA  WITH (NOLOCK) WHERE EMPLOYEE_STATUS='ACTIVO' AND VALID=1 AND ALIAS IS NOT NULL) 
+        </sql>
+        <param name="alias1" ordinal="1" paramType="SCALAR" sqlType="STRING" type="IN" />
+        <param name="alias2" ordinal="2" paramType="SCALAR" sqlType="STRING" type="IN" />
+        <param name="alias3" ordinal="3" paramType="SCALAR" sqlType="STRING" type="IN" />
+        <result element="Users" rowName="User">
+            <element column="alias" name="alias" xsdType="xs:string" />
+        </result>
+    </query>
+
+    <operation name="select_user_actions_massive_process_operation">
+        <call-query href="select_user_actions_massive_process_query"></call-query>
+    </operation>
+
+    <operation name="select_count_user_operation">
+        <call-query href="select_count_user_query">
+            <with-param name="employeeCode" query-param="employeeCode" />
+        </call-query>
+    </operation>
+    <operation name="update_all_query_operation">
+        <call-query href="update_all_query">
+            <with-param name="table" query-param="table" />
+            <with-param name="set" query-param="set" />
+            <with-param name="where" query-param="where" />
+        </call-query>
+    </operation>
+
+    <operation name="select_transacionational_profile_user_operation">
+        <call-query href="select_transacionational_profile_user_query">
+            <with-param name="username" query-param="username" />
+            <with-param name="application" query-param="application" />
+        </call-query>
+    </operation>
+
+    <operation name="select_expire_user_operation">
+        <call-query href="select_expire_user_query"></call-query>
+    </operation>
+
+    <operation name="select_expire_global_profile_operation">
+        <call-query href="select_expire_global_profile_query"></call-query>
+    </operation>
+
+    <operation name="select_tasks_with_operation_operation">
+        <call-query href="select_tasks_with_operation_query">
+            <with-param name="operationProvisioningId" query-param="operationProvisioningId" />
+            <with-param name="taskProvisioningId" query-param="taskProvisioningId" />
+            <with-param name="operationProvisioning2Id" query-param="operationProvisioning2Id" />
+        </call-query>
+    </operation>
+    <operation name="select_with_name_and_company_and_division_and_hierarchy_users_operation">
+        <call-query href="select_with_name_and_company_and_division_and_hierarchy_users_query">
+            <with-param name="name" query-param="name" />
+            <with-param name="hierarchyCode" query-param="hierarchyCode" />
+        </call-query>
+    </operation>
+    <operation name="select_with_name_and_company_and_hierarchy_users_operation">
+        <call-query href="select_with_name_and_company_and_hierarchy_users_query">
+            <with-param name="name" query-param="name" />
+            <with-param name="hierarchyCode" query-param="hierarchyCode" />
+        </call-query>
+    </operation>
+    <operation name="select_with_name_and_costcenter_and_hierarchy_users_operation">
+        <call-query href="select_with_name_and_costcenter_and_hierarchy_users_query">
+            <with-param name="name" query-param="name" />
+            <with-param name="hierarchyCode" query-param="hierarchyCode" />
+        </call-query>
+    </operation>
+    <operation name="select_with_all_full_users_operation">
+        <call-query href="select_with_all_full_users_query">
+            <with-param name="startIndex" query-param="startIndex" />
+            <with-param name="count" query-param="count" />
+        </call-query>
+    </operation>
+    <operation name="select_with_by_code_employee_users_operation">
+        <call-query href="select_with_by_code_employee_users_query">
+            <with-param name="code" query-param="code" />
+        </call-query>
+    </operation>
+    <operation name="select_with_identification_employee_users_operation">
+        <call-query href="select_with_identification_employee_users_query">
+            <with-param name="noIdentificacion" query-param="noIdentificacion" />
+        </call-query>
+    </operation>
+    <operation name="select_with_by_code_costcenter_users_operation">
+        <call-query href="select_with_by_code_costcenter_users_query">
+            <with-param name="code" query-param="code" />
+            <with-param name="startIndex" query-param="startIndex" />
+            <with-param name="count" query-param="count" />
+        </call-query>
+    </operation>
+    <operation name="select_with_by_username_users_operarion">
+        <call-query href="select_with_by_username_users_query">
+            <with-param name="username1" query-param="username1" />
+            <with-param name="username2" query-param="username2" />
+            <with-param name="username3" query-param="username3" />
+            <with-param name="username4" query-param="username4" />
+            <with-param name="username5" query-param="username5" />
+            <with-param name="username6" query-param="username6" />
+            <with-param name="username7" query-param="username7" />
+            <with-param name="username8" query-param="username8" />
+        </call-query>
+    </operation>
+    <operation name="select_with_by_alias_users_operarion">
+        <call-query href="select_with_by_alias_users_query">
+            <with-param name="alias1" query-param="alias1" />
+            <with-param name="alias2" query-param="alias2" />
+            <with-param name="alias3" query-param="alias3" />
+        </call-query>
+    </operation>
+    <resource method="PUT" path="updateAll">
+        <call-query href="update_all_query">
+            <with-param name="table" query-param="table" />
+            <with-param name="set" query-param="set" />
+            <with-param name="where" query-param="where" />
+        </call-query>
+    </resource>
+    <resource method="GET" path="GetCountUser">
+        <call-query href="select_count_user_query">
+            <with-param name="employeeCode" query-param="employeeCode" />
+        </call-query>
+    </resource>
+
+
+    <resource method="GET" path="GetUserActionsMassiveProcess">
+        <call-query href="select_user_actions_massive_process_query"></call-query>
+    </resource>
+    <resource method="GET" path="GetUserActionsMassiveProcessTCS">
+        <call-query href="select_user_actions_massive_process_tcs_query"></call-query>
+    </resource>
+
+    <resource method="GET" path="GetExpireUser">
+        <call-query href="select_expire_user_query"></call-query>
+    </resource>
+    <resource method="GET" path="GetExpireGlobalProfile">
+        <call-query href="select_expire_global_profile_query"></call-query>
+    </resource>
+
+    <resource method="GET" path="GetTransacionationalProfileUser">
+        <call-query href="select_transacionational_profile_user_query">
+            <with-param name="username" query-param="username" />
+            <with-param name="application" query-param="application" />
+        </call-query>
+    </resource>
+
+
+    <resource method="GET" path="getTasksWithOperation">
+        <call-query href="select_tasks_with_operation_query">
+            <with-param name="operationProvisioningId" query-param="operationProvisioningId" />
+            <with-param name="taskProvisioningId" query-param="taskProvisioningId" />
+            <with-param name="operationProvisioning2Id" query-param="operationProvisioning2Id" />
+        </call-query>
+    </resource>
+
+    <resource method="GET" path="getUsersFull">
+        <call-query href="select_with_all_full_users_query">
+            <with-param name="startIndex" query-param="startIndex" />
+            <with-param name="count" query-param="count" />
+        </call-query>
+    </resource>
+    <resource method="GET" path="getUsers">
+        <call-query href="select_with_all_users_query">
+            <with-param name="startIndex" query-param="startIndex" />
+            <with-param name="count" query-param="count" />
+        </call-query>
+    </resource>
+    <resource method="GET" path="getUserByCodeEmployee">
+        <call-query href="select_with_by_code_employee_users_query">
+            <with-param name="code" query-param="code" />
+        </call-query>
+    </resource>
+    <resource method="GET" path="getUserByNameAndCompanyAndDivisionAndHierarchy">
+        <call-query href="select_with_name_and_company_and_division_and_hierarchy_users_query">
+            <with-param name="name" query-param="name" />
+            <with-param name="hierarchyCode" query-param="hierarchyCode" />
+        </call-query>
+    </resource>
+    <resource method="GET" path="getUserByNameAndCompanyAndHierarchy">
+        <call-query href="select_with_name_and_company_and_hierarchy_users_query">
+            <with-param name="name" query-param="name" />
+            <with-param name="hierarchyCode" query-param="hierarchyCode" />
+        </call-query>
+    </resource>
+    <resource method="GET" path="getUserByNameAndCostCenterAndHierarchy">
+        <call-query href="select_with_name_and_costcenter_and_hierarchy_users_query">
+            <with-param name="name" query-param="name" />
+            <with-param name="hierarchyCode" query-param="hierarchyCode" />
+        </call-query>
+    </resource>
+    <resource method="GET" path="getUserByCodeEmployee">
+        <call-query href="select_with_by_code_employee_users_query">
+            <with-param name="code" query-param="code" />
+        </call-query>
+    </resource>
+    <resource method="GET" path="getUserByIdentificationEmployee">
+        <call-query href="select_with_identification_employee_users_query">
+            <with-param name="noIdentificacion" query-param="noIdentificacion" />
+        </call-query>
+    </resource>
+    <resource method="GET" path="getUserByUsername">
+        <call-query href="select_with_by_username_users_query">
+            <with-param name="username1" query-param="username1" />
+            <with-param name="username2" query-param="username2" />
+            <with-param name="username3" query-param="username3" />
+            <with-param name="username4" query-param="username4" />
+            <with-param name="username5" query-param="username5" />
+            <with-param name="username6" query-param="username6" />
+            <with-param name="username7" query-param="username7" />
+            <with-param name="username8" query-param="username8" />
+        </call-query>
+    </resource>
+    <resource method="GET" path="getUserByAlias">
+        <call-query href="select_with_by_alias_users_query">
+            <with-param name="alias1" query-param="alias1" />
+            <with-param name="alias2" query-param="alias2" />
+            <with-param name="alias3" query-param="alias3" />
+        </call-query>
+    </resource>
+    <resource method="GET" path="GetDataActivateMailFromUser">
+        <call-query href="select_user_activate_mail">
+            <with-param name="userdataId" query-param="userdataId" />
+        </call-query>
+    </resource>
+
+    <resource method="GET" path="GetListUserWithoutTellerNumber">
+        <call-query href="select_list_user_without_teller_number">
+            <with-param name="filter" query-param="filter" />
+            <with-param name="startIndex" query-param="startIndex" />
+            <with-param name="count" query-param="count" />
+        </call-query>
+    </resource>
+    <resource method="GET" path="GetCountUserWithoutTellerNumber">
+        <call-query href="select_count_user_without_teller_number">
+            <with-param name="filter" query-param="filter" />
+        </call-query>
+    </resource>
+
+</data>

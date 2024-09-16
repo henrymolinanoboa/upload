@@ -1,0 +1,111 @@
+<data description="multiple services per each table" disableLegacyBoxcarringMode="false" enableBatchRequests="false" enableBoxcarring="false" name="process_DataService" serviceNamespace="centra-id.com" serviceStatus="active" transports="https">
+   <config id="default">
+      <property name="carbon_datasource_name">CENTRA_ID</property>
+   </config>
+
+   <!-- Crear un registro de ADD_EXCHANGE_ONLINE_LICENSES-->
+   <query id="insert_add_exchange_online_licences_query" useConfig="default">
+      <sql>
+         INSERT INTO SCH_CENTRA_ID.ADD_EXCHANGE_ONLINE_LICENSES
+            (
+               USERNAME,
+               TRANSACTIONAL_PROFILE_CODE,
+               GROUPS,
+               DATE_PLANNED,
+               STATUS,
+               VALID,
+               DATA,
+               RETRY
+            )
+            VALUES
+            (?,?,?,DATEADD(MINUTE,?,GETDATE()),'REG',1,?,0)      
+      </sql>
+      <param name="username" ordinal="1" paramType="SCALAR" sqlType="STRING" type="IN"/>
+      <param name="transactionalProfileCode" ordinal="2" paramType="SCALAR" sqlType="STRING" type="IN"/>
+      <param name="groups" ordinal="3" paramType="SCALAR" sqlType="STRING" type="IN"/>
+      <param name="duration" ordinal="4" paramType="SCALAR" sqlType="INTEGER" type="IN"/>
+      <param name="data" ordinal="5" paramType="SCALAR" sqlType="STRING" type="IN"/>
+   </query>
+
+   <!-- Registrado como procesado exitoso -->
+   <query id="update_ok_add_exchange_online_licences_query" useConfig="default">
+      <sql>
+         UPDATE SCH_CENTRA_ID.ADD_EXCHANGE_ONLINE_LICENSES SET STATUS='OK',
+            DATE_EXECUTE = GETDATE()
+         WHERE ID = ?     
+      </sql>
+      <param name="id" ordinal="1" paramType="SCALAR" sqlType="BIGINT" type="IN"/>
+   </query>
+   <!-- Registrado como procesado error -->
+   <query id="update_error_add_exchange_online_licences_query" useConfig="default">
+      <sql>
+         UPDATE SCH_CENTRA_ID.ADD_EXCHANGE_ONLINE_LICENSES
+         SET 
+            RETRY = RETRY + 1,
+            DATE_EXECUTE = GETDATE(),
+            ERROR =  CONVERT(NVARCHAR(MAX),ERROR) + '***' + ?,
+            STATUS = (CASE WHEN  RETRY>1 THEN 'ERROR' ELSE 'RETRY' END )
+         WHERE ID = ? AND STATUS IN ('REG','RETRY')
+
+      </sql>
+      <param name="error" ordinal="1" paramType="SCALAR" sqlType="STRING" type="IN"/>
+      <param name="id" ordinal="2" paramType="SCALAR" sqlType="BIGINT" type="IN"/>
+   </query>
+   <!-- Lista el ultimo licencia de exchange que se debe agregar -->
+   <query id="list_last_add_exchange_online_licences_query" useConfig="default">
+      <sql>
+         SELECT
+            TOP 1
+            ID,
+            USERNAME,
+            TRANSACTIONAL_PROFILE_CODE,
+            GROUPS,
+            DATE_PLANNED,
+            DATE_EXECUTE,
+            STATUS,
+            DATA,
+            RETRY
+         FROM SCH_CENTRA_ID.ADD_EXCHANGE_ONLINE_LICENSES
+         WHERE DATE_PLANNED &lt;= GETDATE() AND STATUS IN ('REG','RETRY')
+         ORDER BY DATE_PLANNED 
+      </sql>
+      <result element="AddExchangeOnlineLicencesList" rowName="AddExchangeOnlineLicences">
+         <element column="ID" name="id" xsdType="xs:long"/>
+         <element column="USERNAME" name="username" xsdType="xs:string"/>
+         <element column="TRANSACTIONAL_PROFILE_CODE" name="transactionalProfileCode" xsdType="xs:string"/>
+         <element column="GROUPS" name="groups" xsdType="xs:string"/>
+         <element column="DATE_PLANNED" name="datePlanned" xsdType="xs:dateTime"/>
+         <element column="STATUS" name="status" xsdType="xs:string"/>
+         <element column="DATA" name="data" xsdType="xs:string"/>
+         <element column="RETRY" name="retry" xsdType="xs:integer"/>
+      </result>
+   </query>
+
+
+   <resource method="POST" path="PostAddExchangeOnlineLicences">
+      <call-query href="insert_add_exchange_online_licences_query">
+         <with-param name="username" query-param="username" />
+         <with-param name="transactionalProfileCode" query-param="transactionalProfileCode" />
+         <with-param name="groups" query-param="groups" />
+         <with-param name="duration" query-param="duration" />
+         <with-param name="data" query-param="data" />
+      </call-query>
+   </resource>
+   <resource method="PUT" path="PutOkAddExchangeOnlineLicences">
+      <call-query href="update_ok_add_exchange_online_licences_query">
+         <with-param name="id" query-param="id" />
+      </call-query>
+   </resource>
+   <resource method="PUT" path="PutErrorAddExchangeOnlineLicences">
+      <call-query href="update_error_add_exchange_online_licences_query">
+         <with-param name="error" query-param="error" />
+         <with-param name="id" query-param="id" />
+      </call-query>
+   </resource>
+
+   <resource method="GET" path="GetAddExchangeOnlineLicences">
+      <call-query href="list_last_add_exchange_online_licences_query">
+      </call-query>
+   </resource>
+
+</data>
