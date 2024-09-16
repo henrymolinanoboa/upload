@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><artifact name="LogPerformance_DataService" version="1.0.0" type="service/dataservice" serverRole="DataServicesServer">
-    <file>LogPerformance_DataService-1.0.0.dbs</file>
-</artifact>
