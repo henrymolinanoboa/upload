@@ -1,4 +1,7 @@
- <property name="IDENTITY" expression="fn:concat($ctx:username,'@pichincha.com')" />
+
+escapeNonPrintableChar="true"
+
+<property name="IDENTITY" expression="fn:concat($ctx:username,'@pichincha.com')" />
 
    <arg evaluator="xml" expression="base64Encode($ctx:payloadRespondeServiceNow)" />
 
