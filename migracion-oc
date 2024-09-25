@@ -1,3 +1,25 @@
+	Rutas OCP3	Rutas OCP4			
+	https://apim.apps.desa.bpichincha.com/	https://apim.apps.ocpdev.uiotest.bpichinchatest.test			
+	https://gw.apps.desa.bpichincha.com/	https://gw-apim.apps.ocpdev.uiotest.bpichinchatest.test			
+	https://bps.apps.desa.bpichincha.com	https://bps.apps.ocpdev.uiotest.bpichinchatest.test			
+	https://integrator.apps.desa.bpichincha.com	https://integrator.apps.ocpdev.uiotest.bpichinchatest.test			
+	https://gw-integrator.apps.desa.bpichincha.com	https://gw-integrator.apps.ocpdev.uiotest.bpichinchatest.test			
+	https://mb.apps.desa.bpichincha.com	https://mb.apps.ocpdev.uiotest.bpichinchatest.test			
+	https://identity.apps.desa.bpichincha.com	https://identity.apps.ocpdev.uiotest.bpichinchatest.test			
+					
+					
+	dev				
+	Host - Nombre ruta en OCP4	Location - URL	Servicio		
+	route-enp-https-centraid-admin-web-ocp3	https://centra-id-admin-web-banco-pichincha-dev.apps.ocpdev.uiotest.bpichinchatest.test	ServiceSservice-cse-mfa-wso2-centra-id-admin-web		
+	route-enp-https-centraid-operation-web-ocp3	https://centra-id-operation-web-banco-pichincha-dev.apps.ocpdev.uiotest.bpichinchatest.test	service-cse-mfa-wso2-centra-id-operation-web		
+	route-enp-https-centra-id-report-route-ocp3	https://centra-id-report.apps.ocpdev.uiotest.bpichinchatest.test	ServiceSservice-cse-msa-dm-centra-id-reports		
+	test				
+	route-enp-https-centraid-admin-web-ocp3	https://centra-id-admin-web-banco-pichincha-test.apps.ocptest.uiotest.bpichinchatest.test	ServiceSservice-cse-mfa-wso2-centra-id-admin-web		
+	route-enp-https-centraid-operation-web-ocp3	https://centra-id-operation-web-banco-pichincha-test.apps.ocptest.uiotest.bpichinchatest.test	ServiceSservice-cse-mfa-wso2-centra-id-operation-web		
+	route-enp-https-centra-id-report-route-ocp3	https://centra-id-report.apps.ocptest.uiotest.bpichinchatest.test	ServiceSservice-cse-msa-dm-centra-id-reports		
+
+
+
 PRODUCTOS WSO2
 
 --mb --ok
