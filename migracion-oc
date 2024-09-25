@@ -14,14 +14,14 @@ Rutas OCP3	Rutas OCP4
 					
 					
 	dev				
-	Host - Nombre ruta en OCP4	Location - URL	Servicio		
-	route-enp-https-centraid-admin-web-ocp3	https://centra-id-admin-web-banco-pichincha-dev.apps.ocpdev.uiotest.bpichinchatest.test	ServiceSservice-cse-mfa-wso2-centra-id-admin-web		
+	Host - Nombre ruta en OCP4	                Location - URL	                                                                                Servicio		
+	route-enp-https-centraid-admin-web-ocp3	        https://centra-id-admin-web-banco-pichincha-dev.apps.ocpdev.uiotest.bpichinchatest.test	        ServiceSservice-cse-mfa-wso2-centra-id-admin-web		
 	route-enp-https-centraid-operation-web-ocp3	https://centra-id-operation-web-banco-pichincha-dev.apps.ocpdev.uiotest.bpichinchatest.test	service-cse-mfa-wso2-centra-id-operation-web		
-	route-enp-https-centra-id-report-route-ocp3	https://centra-id-report.apps.ocpdev.uiotest.bpichinchatest.test	ServiceSservice-cse-msa-dm-centra-id-reports		
+	route-enp-https-centra-id-report-route-ocp3	https://centra-id-report.apps.ocpdev.uiotest.bpichinchatest.test	                        ServiceSservice-cse-msa-dm-centra-id-reports		
 	test				
-	route-enp-https-centraid-admin-web-ocp3	https://centra-id-admin-web-banco-pichincha-test.apps.ocptest.uiotest.bpichinchatest.test	ServiceSservice-cse-mfa-wso2-centra-id-admin-web		
+	route-enp-https-centraid-admin-web-ocp3	        https://centra-id-admin-web-banco-pichincha-test.apps.ocptest.uiotest.bpichinchatest.test	ServiceSservice-cse-mfa-wso2-centra-id-admin-web		
 	route-enp-https-centraid-operation-web-ocp3	https://centra-id-operation-web-banco-pichincha-test.apps.ocptest.uiotest.bpichinchatest.test	ServiceSservice-cse-mfa-wso2-centra-id-operation-web		
-	route-enp-https-centra-id-report-route-ocp3	https://centra-id-report.apps.ocptest.uiotest.bpichinchatest.test	ServiceSservice-cse-msa-dm-centra-id-reports		
+	route-enp-https-centra-id-report-route-ocp3	https://centra-id-report.apps.ocptest.uiotest.bpichinchatest.test	                        ServiceSservice-cse-msa-dm-centra-id-reports		
 
 
 
