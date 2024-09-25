@@ -1,4 +1,9 @@
-	Rutas OCP3	Rutas OCP4			
+curl --location 'https://gw-integrator.apps.ocpdev.uiotest.bpichinchatest.test/api.centraid/common/CatalogType' \
+--header 'Accept: application/json'
+
+
+
+Rutas OCP3	Rutas OCP4			
 	https://apim.apps.desa.bpichincha.com/	https://apim.apps.ocpdev.uiotest.bpichinchatest.test			
 	https://gw.apps.desa.bpichincha.com/	https://gw-apim.apps.ocpdev.uiotest.bpichinchatest.test			
 	https://bps.apps.desa.bpichincha.com	https://bps.apps.ocpdev.uiotest.bpichinchatest.test			
