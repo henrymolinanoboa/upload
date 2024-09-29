@@ -1,4 +1,73 @@
-mk1&l$$9T&44kdwe
+DROP VIEW sch_precredenciales.cursos_inscripciones_vw;
+CREATE VIEW sch_precredenciales.cursos_inscripciones_vw (id, curso_id, curso_numero, curso_nombre, curso_inicio, estado_incripcion, tipo_credencial_codigo, tipo_curso_nombre, lugar_curso, total_horas, colaborador_tipo_identificacion_id, colaborador_tipo_identificacion_codigo, colaborador_tipo_identificacion_nombre, colaborador, colaborador_identificacion, usuario_creacion, fecha_creacion, ruc_empresa, nombre_empresa, aprobado, asistencia, calificacion, comentario, fecha_desde, fecha_hasta, asiste_familiarizacion, con_familiarizacion, fecha_final_evaluacion_practica, item_id ,filtro) AS  SELECT v.id,
+    v.curso_id,
+    v.curso_numero,
+    v.curso_nombre,
+    v.curso_inicio,
+    v.estado_incripcion,
+    v.tipo_credencial_codigo,
+    v.tipo_curso_nombre,
+    v.lugar_curso,
+    v.total_horas,
+    v.colaborador_tipo_identificacion_id,
+    v.colaborador_tipo_identificacion_codigo,
+    v.colaborador_tipo_identificacion_nombre,
+    v.colaborador,
+    v.colaborador_identificacion,
+    v.usuario_creacion,
+    v.fecha_creacion,
+    v.ruc_empresa,
+    v.nombre_empresa,
+    v.aprobado,
+    v.asistencia,
+    v.calificacion,
+    v.comentario,
+    v.fecha_desde,
+    v.fecha_hasta,
+    v.asiste_familiarizacion,
+    v.con_familiarizacion,
+    v.fecha_final_evaluacion_practica,
+    v.item_id,
+    (((((((((((v.curso_numero)::text || '|'::text) || (v.curso_nombre)::text) || '|'::text) || (v.estado_incripcion)::text) || '|'::text) || (v.tipo_credencial_codigo)::text) || '|'::text) || (v.tipo_curso_nombre)::text) || '|'::text) || v.colaborador) AS filtro
+   FROM ( SELECT t1.id,
+            t1.curso_id,
+            t2.numero AS curso_numero,
+            t2.nombre AS curso_nombre,
+            t2.fecha_desde AS curso_inicio,
+            t1.estado AS estado_incripcion,
+            t3.codigo AS tipo_credencial_codigo,
+            t4.nombre AS tipo_curso_nombre,
+            t7.nombre AS lugar_curso,
+            t2.total_horas,
+            t1.tipo_identificacion_catalogo_id AS colaborador_tipo_identificacion_id,
+            t8.codigo AS colaborador_tipo_identificacion_codigo,
+            t8.nombre AS colaborador_tipo_identificacion_nombre,
+            (((t1.apellidos)::text || ' '::text) || (t1.nombres)::text) AS colaborador,
+            t1.identificacion AS colaborador_identificacion,
+            t1.usuario_creacion,
+            t1.fecha_creacion,
+            t1.ruc_empresa,
+            t1.nombre_empresa,
+            t1.aprobado,
+            t1.asistencia,
+            t1.calificacion,
+            t1.comentario,
+            t2.fecha_desde,
+            t2.fecha_hasta,
+            t1.asiste_familiarizacion,
+            t2.con_familiarizacion,
+            t1.fecha_final_evaluacion_practica,
+            t1.item_id
+           FROM (((((sch_precredenciales.cursos_inscripciones t1
+             JOIN sch_precredenciales.cursos t2 ON ((t1.curso_id = t2.id)))
+             JOIN sch_catalogos.catalogos t3 ON ((t2.catalogo_tipo_credencial_id = t3.id)))
+             JOIN sch_catalogos.catalogos t4 ON ((t2.catalogo_tipo_curso_id = t4.id)))
+             JOIN sch_catalogos.catalogos t7 ON ((t2.catalogo_lugar_curso_id = t7.id)))
+             JOIN sch_catalogos.catalogos t8 ON ((t1.tipo_identificacion_catalogo_id = t8.id)))
+          WHERE (t1.vigente = true)) v;
+
+
+--------------------
 
 {{url}}/seguridadesatk/externo/selecciona_usuario/hvacas
 
