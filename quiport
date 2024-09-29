@@ -1,9 +1,1 @@
-CREATE TABLE sch_sms.asignacion_usuarios (id BIGSERIAL NOT NULL, username CHARACTER VARYING(50) NOT NULL, seleccion BOOLEAN NOT NULL, asignacion_usuario_siguiente_id BIGINT NOT NULL, 
-CONSTRAINT asignacion_usuarios_pk PRIMARY KEY (id));
-
-
-INSERT INTO sch_sms.asignacion_usuarios (id, username, seleccion, asignacion_usuario_siguiente_id) VALUES (5, 'csola', false, 6);
-INSERT INTO sch_sms.asignacion_usuarios (id, username, seleccion, asignacion_usuario_siguiente_id) VALUES (6, 'mguevara', false, 2);
-INSERT INTO sch_sms.asignacion_usuarios (id, username, seleccion, asignacion_usuario_siguiente_id) VALUES (2, 'csola', false, 3);
-INSERT INTO sch_sms.asignacion_usuarios (id, username, seleccion, asignacion_usuario_siguiente_id) VALUES (3, 'mguevara', false, 4);
-INSERT INTO sch_sms.asignacion_usuarios (id, username, seleccion, asignacion_usuario_siguiente_id) VALUES (4, 'dalmeida', true, 5);
+mk1&l$$9T&44kdwe
