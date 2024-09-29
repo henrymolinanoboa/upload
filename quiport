@@ -1,1 +1,17 @@
 mk1&l$$9T&44kdwe
+
+{{url}}/seguridadesatk/externo/selecciona_usuario/hvacas
+
+{
+  "Item": {
+    "username": "hvacas",
+    "correo_electronico": "hernan.vacas@quiport.com",
+    "nombres": "Hernan",
+    "apellidos": "Vacas",
+    "tipo_identificacion": "",
+    "identificacion": "1725664344",
+    "cargo": "COORDINADOR DE SISTEMAS",
+    "ruc_empresa": "",
+    "nombre_empresa": "QUIAMA"
+  }
+}
