@@ -1,3 +1,26 @@
+deployment: deployment-cse-msa-dm-wso2-am
+pvc: pvc-cse-msa-dm-wso2-am-local
+size: 1GB
+-----------
+deployment: deployment-cse-msa-dm-wso2ei-bps
+pvc: pvc-cse-msa-dm-wso2ei-bps-local
+size: 1GB
+---------
+deployment: deployment-cse-msa-dm-wso2ei-integrator
+pvc: pvc-cse-msa-dm-wso2ei-integrator-local
+size: 1GB
+----------
+deployment: deployment-cse-msa-dm-wso2ei-mb
+pvc: pvc-cse-msa-dm-wso2ei-mb-local
+size: 1GB
+----------
+deployment: deployment-cse-msa-dm-wso2is-km
+pvc: pvc-cse-msa-dm-wso2is-km-local
+size: 1GB
+-------------------------------
+
+
+
 find . -type d -exec du -h {} + | sort -r | head -n 10
 
 
