@@ -1,3 +1,13 @@
+dd if=/ruta/al/filesystem/testfile of=/dev/null bs=1M count=1024 iflag=direct: Este comando lee el archivo de 1 GB y lo descarta (of=/dev/null). La opción iflag=direct asegura que la lectura se haga directamente del disco, sin usar el caché.
+time: Este comando mide el tiempo que tarda en ejecutarse el comando dd
+ 
+ 
+dd if=/dev/zero of=/ruta/al/filesystem/testfile bs=1M count=1024 oflag=direct: Este comando escribe un archivo de 1 GB (bs=1M count=1024) en el filesystem NFS. La opción oflag=direct asegura que la escritura se haga directamente al disco, sin usar el caché.
+
+
+-------------------------------------
+
+
 deployment: deployment-cse-msa-dm-wso2-am
 pvc: pvc-cse-msa-dm-wso2-am-local
 size: 1GB
