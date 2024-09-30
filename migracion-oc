@@ -1,3 +1,6 @@
+service mb: service-cse-msa-dm-wso2ei-mb
+
+
 curl --location 'https://gw-integrator.apps.ocpdev.uiotest.bpichinchatest.test/api.centraid/common/CatalogType' \
 --header 'Accept: application/json'
 
