@@ -1,4 +1,9 @@
+
+--------------
 service mb: service-cse-msa-dm-wso2ei-mb
+amqp://usrdwso2:w50d05hM4Y@clientID/carbon?brokerlist='tcp://wso2ei-mb-service:5675'
+amqp://usrdwso2:w50d05hM4Y@clientID/carbon?brokerlist='tcp://service-cse-msa-dm-wso2ei-mb:5675'
+
 
 
 curl --location 'https://gw-integrator.apps.ocpdev.uiotest.bpichinchatest.test/api.centraid/common/CatalogType' \
