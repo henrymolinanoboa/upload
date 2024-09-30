@@ -3,6 +3,9 @@
 service mb: service-cse-msa-dm-wso2ei-mb
 amqp://usrdwso2:w50d05hM4Y@clientID/carbon?brokerlist='tcp://wso2ei-mb-service:5675'
 amqp://usrdwso2:w50d05hM4Y@clientID/carbon?brokerlist='tcp://service-cse-msa-dm-wso2ei-mb:5675'
+S7pUA23ZGrbIz/IIKbsv79kVbLjyFqTGY4A5dznmrf3KerDTRHJFh3nXxWnS2MPaOb+DaqGXHmicy0kCqvJXLJdrs/r6nrOjfZ9oc1bQ5qHh8i+UrI5DLLp/MmHp+IyGgPdIrccOy13jKxNPKa8zVGQuoA1USvpUVUToFt4HBJdSl0+vH5RRZpE8bKsd7OJvxOCsqJe7Q24LrHYtoaPEHHcZ/k2zITO3Com8oz0MN3rxGzSa9vp35GCvvCQsTrVDL4Wx2Pi8Y+14nL3gIrTNCk6vNYYvJHKHqY0AX2CCv8gsOx194p/4sw1lPe7Cdk3oYz3p0NXcEXZXfqMU9v5yXA==
+
+
 
 
 
