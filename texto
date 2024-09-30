@@ -1,3 +1,8 @@
+du -ah --block-size=MB /ruta/ | sort -hr
+
+
+
+
 https://centra-id-report.apps.ocptest.uiotest.bpichinchatest.test/defaultProfile?userName=hamolina
 
 curl --location 'https://gw-integrator.apps.ocpdev.uiotest.bpichinchatest.test/api.centraid/common/CatalogType' --header 'Accept: application/json' -k
