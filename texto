@@ -1,3 +1,5 @@
+ui3Ok9I9ibmg-Ot*Xi
+
 dd if=/ruta/al/filesystem/testfile of=/dev/null bs=1M count=1024 iflag=direct: Este comando lee el archivo de 1 GB y lo descarta (of=/dev/null). La opción iflag=direct asegura que la lectura se haga directamente del disco, sin usar el caché.
 time: Este comando mide el tiempo que tarda en ejecutarse el comando dd
  
