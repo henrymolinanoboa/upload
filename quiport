@@ -1,4 +1,1 @@
-select  string_agg(COALESCE(a2.nombre,a1.compania_otro),', ') compania
-from sch_sms.notificaciones_companias a1
-left join sch_catalogos.catalogos a2 on a1.compania_catalogo_id=a2.id 
-where a1.vigente=true  and a1.notificacion_id= ?
+ SELECT id,  fecha_hora,  numero,  nombre_tipo_notificacion,  fecha_creacion,  lugar,  nombre_evento_catalogo_nombre,  descripcion,  incidente_accidente_catalogo_nombre,  companias,  estado_nombre,  usuario_asignado FROM sch_sms.notificaciones_vw WHERE estado_nombre NOT LIKE 'ELIMINADO' AND codigo_tipo_notificacion LIKE '%VE'% AND estado_codigo LIKE '%ENELIM'% AND lugar_catalogo_codigo LIKE '%LUGEVE_LU67'% AND incidente_accidente_catalogo_codigo LIKE '%TIPACIN_EVE'% AND companias LIKE '%ABSA'% AND usuario_asignado LIKE '%hvacas'% AND mostrar_eliminados LIKE '%true'% AND DATE(fecha_creacion) BETWEEN  CURRENT_DATE  AND  TO_DATE(':today', 'YYYY-MM-DD') ORDER BY fecha_creacion desc LIMIT 10 OFFSET ( 1 - 1)*10
