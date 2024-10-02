@@ -1,3 +1,18 @@
+Gestión Notificaciones	MENU_MENU_ITEMS.SMS.GESTION_RIESGO.GN	/sms/gestion-notificaciones
+Notificación Externa	MENU_MENU_ITEMS.SMS.GESTION_RIESGO.IP.VE	/sms/notificacion-externa
+Notificación Voluntaria	MENU_MENU_ITEMS.SMS.GESTION_RIESGO.IP.VI	/sms/notificacion-voluntaria
+Notificación Obligatorio	MENU_MENU_ITEMS.SMS.GESTION_RIESGO.IP.OI	/sms/notificacion-obligatoria
+Identificación de Peligros	MENU_MENU_ITEMS.SMS.GESTION_RIESGO.IP	/
+Gestión de Riesgos	MENU_MENU_ITEMS.SMS.GESTION_RIESGO	/
+Manuales	MENU_MENU_ITEMS.SMS.MANUALES	/sms/manual
+Objetivos	MENU_MENU_ITEMS.SMS.OBJETIVOS	/sms/objetivos
+Politicas	MENU_MENU_ITEMS.SMS.POLITICAS	/sms/politicas
+Politicas y Objetivos	MENU_MENU_ITEMS.SMS.POLITICAS_OBJETIVOS	/
+Gestión de Documentos	MENU_MENU_ITEMS.SMS.GESTION_DOCUMENTOS	/sms/documentos
+
+
+
+----------------------
 [
   {
     "id": "primary",
