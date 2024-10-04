@@ -1,9 +1,1 @@
-<#if item2??>
-    <#if item2.submenus??>
-        Submenus tiene el valor: ${item2.submenus!"Sin submenús"}
-    <#else>
-        Submenus no está definido o es null.
-    </#if>
-<#else>
-    item2 no está definido.
-</#if>
+"Error parsing FreeMarker template, Syntax error or invalid reference : item2.submenus!\"Sin submenús\" At line: 74 column: 214
