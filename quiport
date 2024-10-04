@@ -1,1 +1,5 @@
-Error parsing FreeMarker template, Syntax error or invalid reference : item2.submenus! At line: 71 column: 110
+<#if item2.submenus??>
+    Submenus tiene el valor: ${item2.submenus!}
+<#else>
+    Submenus es null o no está definido.
+</#if>
