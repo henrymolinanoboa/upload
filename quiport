@@ -1,1 +1,24 @@
-Error parsing FreeMarker template, Syntax error or invalid reference : null At line: 73 column: 203",
+<#if item2??>
+    <#list item2 as key, value>
+        <p>Clave: ${key}</p>
+        
+        <#-- Verificar si el valor es un mapa (hash) -->
+        <#if value?is_hash>
+            <p>Es un objeto anidado:</p>
+            <#list value as subkey, subvalue>
+                <p>&emsp;Subclave: ${subkey}</p>
+                <#-- Verificar si subvalue está definido o es nulo -->
+                <p>&emsp;Subvalor: <#if subvalue??>${subvalue!}</#if></p>
+            </#list>
+        
+        <#-- Si no es un mapa, verificar si es un valor nulo o vacío -->
+        <#elseif value??>
+            <p>Valor: ${value!}</p>
+        <#else>
+            <p>Valor no definido o es null.</p>
+        </#if>
+        
+    </#list>
+<#else>
+    <p>item2 no está definido.</p>
+</#if>
