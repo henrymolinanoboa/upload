@@ -1,4 +1,1 @@
-    <#list item2 as key, value>
-        <p>Clave: ${key}</p>
-        <p>Valor: ${value!}</p>
-    </#list>
+Error parsing FreeMarker template, Syntax error or invalid reference : null At line: 73 column: 203",
