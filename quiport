@@ -1,5 +1,9 @@
-<#if item2.submenus??>
-    Submenus tiene el valor: ${item2.submenus!}
+<#if item2??>
+    <#if item2.submenus??>
+        Submenus tiene el valor: ${item2.submenus!"Sin submenús"}
+    <#else>
+        Submenus no está definido o es null.
+    </#if>
 <#else>
-    Submenus es null o no está definido.
+    item2 no está definido.
 </#if>
