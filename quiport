@@ -1,9 +1,6 @@
-                                                   {
-                                                            "result" : "true",
-                                                            "es_empresa_credencial" : false,
-                                                            "token" : "${ctx.token}",
-                                                            "nombre_usuario" : "${ctx.nombre_usuario}",
-                                                            "nombres_apellidos" : "${ctx.nombres_apellidos}",
-                                                            "correo_electronico" : "${ctx.correo_electronico}",
-                                                            "accesos" : ${ctx.accesos}
-                                                        }
+curl --request POST \
+  --url http://10.16.17.15:8085/conectores/jwt/generate-token \
+  --data '{
+    "subject": "1792129036001",
+    "name": "CORBANTRADE CIA."
+}'
