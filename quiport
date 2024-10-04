@@ -1,114 +1,345 @@
-DROP VIEW sch_sms.notificaciones_vw;
-CREATE VIEW sch_sms.notificaciones_vw AS
-SELECT
-    t1.id,
-    t1.usuario_creacion,
-    t1.fecha_creacion,
-    t1.usuario_actualizacion,
-    t1.fecha_actualizacion,
-    t1.usuario_reporta_id,
-    t2.username usuario_reporta_username,
-    t2.nombre_completo usuario_reporta_nombre_completo, 
-    t1.no_acta,
-    t1.nombre_evento,
-    t1.fecha_hora,
-    t1.lugar,
-    t1.descripcion,
-    t1.matricula_aeronave,
-    t1.conocer_resultados,
-    t1.sugerencias,
-    t1.nivel_criticidad_catalogo_id,
-    t3.codigo nivel_criticidad_catalogo_codigo,
-    t3.nombre nivel_criticidad_catalogo_nombre,
-    t1.tipo_notificacion_catalogo_id,
-    t4.codigo tipo_notificacion_catalogo_codigo,
-    t4.nombre tipo_notificacion_catalogo_nombre,
-    t1.companias_otros,
-    t1.nombres,
-    t1.empresa,
-    t1.cargo,
-    t1.correo_electronico,
-    t1.codigo_tipo_notificacion,
-    CASE
-       WHEN  t1.codigo_tipo_notificacion='OI' THEN 'OBLIGATORIO INTERNO'
-       WHEN  t1.codigo_tipo_notificacion='VI' THEN 'VOLUNTARIO INTERNO'
-       WHEN  t1.codigo_tipo_notificacion='VE' THEN 'VOLUNTARIO EXTERNO'
-       ELSE '***'
-    END as nombre_tipo_notificacion,
-    t1.estado_id,
-    t5.codigo estado_codigo,
-    t5.nombre estado_nombre,
-    t1.numero,
-    t1.tipo_evento_catalogo_id,
-    t6.codigo tipo_evento_catalogo_codigo,
-    t6.nombre tipo_evento_catalogo_nombre,
-    t1.apellidos,
-    t1.apellidos_nombres,
-    t1.tipo_identificacion,
-    t1.numero_identificacion,
-    t1.codigo_nivel_confidencialidad,
-    t1.nombre_nivel_confidencialidad,
-    t1.incidente_accidente_catalogo_id,
-    t7.codigo incidente_accidente_catalogo_codigo,
-    t7.nombre incidente_accidente_catalogo_nombre,
-    t1.activo_alerta_pea,
-    t1.lugar_catalogo_id,
-    t8.codigo lugar_catalogo_codigo,
-    t8.nombre lugar_catalogo_nombre,
-    t1.nombre_evento_catalogo_id,
-    t9.codigo nombre_evento_catalogo_codigo,
-    t9.nombre nombre_evento_catalogo_nombre,
-    t1.usuario_asignado,
-    t1.accidente_incidente,
-    t1.companias,
-    t1.criticidad,
-    t1.fecha_consentimiento,
-    t1.mensaje_consentimiento,
-    t1.usuario_consentimiento,
-    t1.diff,
-    t1.resumen,
-    t1.acta_no_conformidad,
-    t1.compartir_reporte_ehs,
-    t1.usuario_reporta,
-    t1.nivel_confidencialidad
-    COALESCE(TO_CHAR(t1.fecha_hora, 'DD-MM-YYYY'),'') ||
-    COALESCE(t1.numero,'') ||
-    COALESCE(t1.codigo_tipo_notificacion,'') ||
-    COALESCE(TO_CHAR(t1.fecha_creacion, 'DD-MM-YYYY'),'') ||
-    COALESCE(t8.nombre,'') ||
-    COALESCE(t9.nombre,'') ||
-    COALESCE(t1.descripcion,'') ||
-    COALESCE(t7.nombre,'') ||
-    COALESCE(t1.companias,'') ||
-    COALESCE(t5.nombre,'')  ||
-    COALESCE(t1.acta_no_conformidad,'')  ||
-    COALESCE(t1.usuario_reporta,'')  ||
-    COALESCE(t1.nivel_confidencialidad,'')  ||
-    COALESCE(t1.usuario_asignado,'')  ||
-        CASE
-       WHEN  t1.codigo_tipo_notificacion='OI' THEN 'OBLIGATORIO INTERNO'
-       WHEN  t1.codigo_tipo_notificacion='VI' THEN 'VOLUNTARIO INTERNO'
-       WHEN  t1.codigo_tipo_notificacion='VE' THEN 'VOLUNTARIO EXTERNO'
-       ELSE '***'
-    END as filter
-FROM
-    sch_sms.notificaciones t1
-LEFT JOIN 
-    sch_usuarios.usuarios t2 ON t1.usuario_reporta_id = t2.id
-LEFT JOIN 
-   sch_catalogos.catalogos t3 ON t1.nivel_criticidad_catalogo_id = t3.id
-LEFT JOIN 
-   sch_catalogos.catalogos t4 ON t1.tipo_notificacion_catalogo_id = t4.id   
-LEFT JOIN 
-   sch_sms.estados t5 ON t1.estado_id = t5.id
-LEFT JOIN 
-   sch_catalogos.catalogos t6 ON t1.tipo_evento_catalogo_id = t6.id   
-LEFT JOIN 
-   sch_catalogos.catalogos t7 ON t1.incidente_accidente_catalogo_id = t7.id      
-
-LEFT JOIN 
-   sch_catalogos.catalogos t8 ON t1.lugar_catalogo_id = t8.id      
-LEFT JOIN 
-   sch_catalogos.catalogos t9 ON t1.nombre_evento_catalogo_id = t9.id      
-WHERE 
-    t1.vigente=true
+{
+   "List":{
+      "Item":[
+         {
+            "id":3,
+            "codigo":"SMS",
+            "nombre":"SMS",
+            "descripcion":"Sistema de reportes y gestión de incidentes del Aeropuerto de Quito",
+            "List":{
+               "Item":[
+                  {
+                     "id":35,
+                     "codigo":"SMS-ACT",
+                     "nombre":"Gestión de Actas",
+                     "ayuda":"MENU.MENU_ITEMS.ACTAS",
+                     "ubicacion":"/sms/actas",
+                     "ordinal":1,
+                     "icon":"folder",
+                     "submenus":null
+                  },
+                  {
+                     "id":49,
+                     "codigo":"SMS_GES_DOC",
+                     "nombre":"Gestión de Documentos",
+                     "ayuda":"MENU_MENU_ITEMS.SMS.GESTION_DOCUMENTOS",
+                     "ubicacion":"/sms/documentos",
+                     "ordinal":1,
+                     "icon":"folder",
+                     "submenus":null
+                  },
+                  {
+                     "id":50,
+                     "codigo":"SMS_POL_OBJ",
+                     "nombre":"Politicas y Objetivos",
+                     "ayuda":"MENU_MENU_ITEMS.SMS.POLITICAS_OBJETIVOS",
+                     "ubicacion":"/",
+                     "ordinal":2,
+                     "icon":"menu",
+                     "submenus":{
+                        "submenu":[
+                           {
+                              "id":51,
+                              "codigo":"SMS_POL_OBJ_POL",
+                              "nombre":"Politicas",
+                              "ayuda":"MENU_MENU_ITEMS.SMS.POLITICAS",
+                              "ubicacion":"/sms/politicas",
+                              "ordinal":3,
+                              "icon":"circle",
+                              "submenus":null
+                           },
+                           {
+                              "id":52,
+                              "codigo":"SMS_POL_OBJ_OBJ",
+                              "nombre":"Objetivos",
+                              "ayuda":"MENU_MENU_ITEMS.SMS.OBJETIVOS",
+                              "ubicacion":"/sms/objetivos",
+                              "ordinal":4,
+                              "icon":"circle",
+                              "submenus":null
+                           },
+                           {
+                              "id":53,
+                              "codigo":"SMS_POL_OBJ_MAN",
+                              "nombre":"Manuales",
+                              "ayuda":"MENU_MENU_ITEMS.SMS.MANUALES",
+                              "ubicacion":"/sms/manual",
+                              "ordinal":5,
+                              "icon":"circle",
+                              "submenus":null
+                           }
+                        ]
+                     }
+                  },
+                  {
+                     "id":54,
+                     "codigo":"SMS_GES_RIE",
+                     "nombre":"Gestión de Riesgos",
+                     "ayuda":"MENU_MENU_ITEMS.SMS.GESTION_RIESGO",
+                     "ubicacion":"/",
+                     "ordinal":6,
+                     "icon":"menu",
+                     "submenus":{
+                        "submenu":{
+                           "id":55,
+                           "codigo":"SMS_GES_RIE_IP",
+                           "nombre":"Identificación de Peligros",
+                           "ayuda":"MENU_MENU_ITEMS.SMS.GESTION_RIESGO.IP",
+                           "ubicacion":"/",
+                           "ordinal":7,
+                           "icon":"circle",
+                           "submenus":{
+                              "submenu":[
+                                 {
+                                    "id":57,
+                                    "codigo":"SMS_GES_RIE_IP.OI",
+                                    "nombre":"Notificación Obligatorio",
+                                    "ayuda":"MENU_MENU_ITEMS.SMS.GESTION_RIESGO.IP.OI",
+                                    "ubicacion":"/sms/notificacion-obligatoria",
+                                    "ordinal":8,
+                                    "icon":null,
+                                    "submenus":null
+                                 },
+                                 {
+                                    "id":58,
+                                    "codigo":"SMS_GES_RIE_IP.VI",
+                                    "nombre":"Notificación Voluntaria",
+                                    "ayuda":"MENU_MENU_ITEMS.SMS.GESTION_RIESGO.IP.VI",
+                                    "ubicacion":"/sms/notificacion-voluntaria",
+                                    "ordinal":9,
+                                    "icon":null,
+                                    "submenus":null
+                                 },
+                                 {
+                                    "id":59,
+                                    "codigo":"SMS_GES_RIE_IP.VE",
+                                    "nombre":"Notificación Externa",
+                                    "ayuda":"MENU_MENU_ITEMS.SMS.GESTION_RIESGO.IP.VE",
+                                    "ubicacion":"/sms/notificacion-externa",
+                                    "ordinal":10,
+                                    "icon":null,
+                                    "submenus":null
+                                 },
+                                 {
+                                    "id":60,
+                                    "codigo":"SMS_GES_RIE_IP.GN",
+                                    "nombre":"Gestión Notificaciones",
+                                    "ayuda":"MENU.MENU_ITEM.SMS.GESTION_NOTIFICACION",
+                                    "ubicacion":"/sms/gestion-notificaciones",
+                                    "ordinal":12,
+                                    "icon":null,
+                                    "submenus":null
+                                 }
+                              ]
+                           }
+                        }
+                     }
+                  }
+               ]
+            },
+            "roles":{
+               "rol":[
+                  {
+                     "id":8,
+                     "codigo":"USR_ADMI",
+                     "nombre":"ADMINISTRACIÓN SMS"
+                  },
+                  {
+                     "id":9,
+                     "codigo":"SMS_ADMI",
+                     "nombre":"ADMINISTRADOR SMS"
+                  },
+                  {
+                     "id":17,
+                     "codigo":"GES_ACT",
+                     "nombre":"GESTIÓN ACTAS"
+                  }
+               ]
+            }
+         },
+         {
+            "id":4,
+            "codigo":"CRE",
+            "nombre":"CREDENCIALES",
+            "descripcion":"Sistema de credenciales de accesos al Aeropuerto de Quito",
+            "List":{
+               "Item":[
+                  {
+                     "id":36,
+                     "codigo":"SOL_CRE",
+                     "nombre":"Solicitudes de Credenciales",
+                     "ayuda":"MENU.MENU_ITEMS.REVISION_SOLICITUD_CREDENCIALES",
+                     "ubicacion":"/revision-solicitudes-credenciales",
+                     "ordinal":1,
+                     "icon":"layers",
+                     "submenus":null
+                  },
+                  {
+                     "id":39,
+                     "codigo":"IMP_CRE",
+                     "nombre":"Impresión de Credenciales",
+                     "ayuda":"MENU.MENU_ITEMS.IMPRIMIR_CREDENCIALES",
+                     "ubicacion":"/impresion-credenciales",
+                     "ordinal":1,
+                     "icon":"layers",
+                     "submenus":null
+                  },
+                  {
+                     "id":37,
+                     "codigo":"ADM_CUR",
+                     "nombre":"Administración de Cursos",
+                     "ayuda":"MENU.MENU_ITEMS.ADMINISTRACION_CURSOS",
+                     "ubicacion":"/administracion-cursos",
+                     "ordinal":2,
+                     "icon":"database",
+                     "submenus":null
+                  },
+                  {
+                     "id":38,
+                     "codigo":"REG_TRA",
+                     "nombre":"Registro de Transferencias",
+                     "ayuda":"MENU.MENU_ITEMS.REGISTRO_TRANSFERENCIAS",
+                     "ubicacion":"/registro-pagos/pagos",
+                     "ordinal":3,
+                     "icon":"dollar-sign",
+                     "submenus":null
+                  },
+                  {
+                     "id":42,
+                     "codigo":"CRD_EMP",
+                     "nombre":"Empresas",
+                     "ayuda":"MENU.MENU_ITEMS.ADMINISTRACION_EMPRESAS",
+                     "ubicacion":"/credenciales/empresas",
+                     "ordinal":6,
+                     "icon":"database",
+                     "submenus":null
+                  },
+                  {
+                     "id":43,
+                     "codigo":"CRD_SCR",
+                     "nombre":"Tipo de Credenciales",
+                     "ayuda":"MENU.MENU_ITEMS.SUBTIPO_CREDENCIALES",
+                     "ubicacion":"/credenciales/subtipo-credenciales",
+                     "ordinal":7,
+                     "icon":"clipboard",
+                     "submenus":null
+                  },
+                  {
+                     "id":44,
+                     "codigo":"CRD_PSL",
+                     "nombre":"Precios Solicitud",
+                     "ayuda":"MENU.MENU_ITEMS.PRECIOS_SOLICITUD",
+                     "ubicacion":"/credenciales/precios-solicitud",
+                     "ordinal":8,
+                     "icon":"dollar-sign",
+                     "submenus":null
+                  },
+                  {
+                     "id":45,
+                     "codigo":"CRD_CCR",
+                     "nombre":"Consulta Credenciales",
+                     "ayuda":"MENU.MENU_ITEMS.CONSULTA_CREDENCIALES",
+                     "ubicacion":"/credenciales/consulta-credenciales",
+                     "ordinal":9,
+                     "icon":"grid",
+                     "submenus":null
+                  },
+                  {
+                     "id":46,
+                     "codigo":"CRD_DSC",
+                     "nombre":"Diseño Credenciales",
+                     "ayuda":"MENU.MENU_ITEMS.DISENIO_CREDENCIAL",
+                     "ubicacion":"/credenciales/disenio-credenciales",
+                     "ordinal":10,
+                     "icon":"layout",
+                     "submenus":null
+                  }
+               ]
+            },
+            "roles":{
+               "rol":[
+                  {
+                     "id":4,
+                     "codigo":"ADM_CRE",
+                     "nombre":"ADM CREDENCIALES"
+                  },
+                  {
+                     "id":6,
+                     "codigo":"DIS_CRE",
+                     "nombre":"DISEÑADOR CREDENCIALES"
+                  },
+                  {
+                     "id":7,
+                     "codigo":"EMI_CRE",
+                     "nombre":"EMISION CREDENCIALES"
+                  },
+                  {
+                     "id":18,
+                     "codigo":"SOL_CRE",
+                     "nombre":"SOLICITUDES DE CREDENCIALES"
+                  },
+                  {
+                     "id":19,
+                     "codigo":"ADM_CUR",
+                     "nombre":"ADMINISTRACIÓN CURSOS"
+                  },
+                  {
+                     "id":20,
+                     "codigo":"REG_TRA",
+                     "nombre":"TRANSFERENCIAS"
+                  },
+                  {
+                     "id":21,
+                     "codigo":"IMP_CRE",
+                     "nombre":"IMPRIMIR CREDENCIALES"
+                  }
+               ]
+            }
+         },
+         {
+            "id":8,
+            "codigo":"CAT",
+            "nombre":"CATALOGOS",
+            "descripcion":"Sistema de administración de catalogos",
+            "List":{
+               "Item":[
+                  {
+                     "id":40,
+                     "codigo":"ADM_PAR",
+                     "nombre":"Parámetros",
+                     "ayuda":"MENU.MENU_ITEMS.PARAMETROS",
+                     "ubicacion":"/administracion/parametros",
+                     "ordinal":4,
+                     "icon":"bookmark",
+                     "submenus":null
+                  },
+                  {
+                     "id":41,
+                     "codigo":"ADM_CAT",
+                     "nombre":"Cátalogos",
+                     "ayuda":"MENU.MENU_ITEMS.CATALOGOS",
+                     "ubicacion":"/administracion/catalogos",
+                     "ordinal":5,
+                     "icon":"clipboard",
+                     "submenus":null
+                  }
+               ]
+            },
+            "roles":{
+               "rol":[
+                  {
+                     "id":3,
+                     "codigo":"ADM_CAT",
+                     "nombre":"ADM CATALOGOS"
+                  },
+                  {
+                     "id":16,
+                     "codigo":"UPDCAT",
+                     "nombre":"UPDATE CATALOGOS"
+                  }
+               ]
+            }
+         }
+      ]
+   }
+}
