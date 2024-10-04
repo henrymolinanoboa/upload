@@ -1,392 +1,114 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<sequence name="AccesoUsuariosSeq" onError="FaultSeq" trace="disable" xmlns="http://ws.apache.org/ns/synapse" xmlns:qp="com.quiport.servicios">
-    <call-template target="LogTemplate">
-        <with-param name="stage" value="start" />
-        <with-param name="artifact" value="AccesoUsuariosSeq" />
-    </call-template>
-    <property name="app" value="${backend.app}" />
-    <!-- encriptar -->
-    <payloadFactory media-type="json" template-type="freemarker">
-        <format>
-            <![CDATA[
-                {
-                    "messages": [
-                        {
-                            "alias": "username",
-                            "message": "${ctx.username}"
-                        },
-                        {
-                            "alias": "password",
-                            "message": "${ctx.password}"
-                        },
-                        {
-                            "alias": "app",
-                            "message": "${ctx.app}"
-                        }
-                    ]
-                }
-            ]]>
-        </format>
-        <args />
-    </payloadFactory>
-    <call-template target="EncriptarDesencriptarTemplate">
-        <with-param name="tipo" value="ENCRIPTAR" />
-    </call-template>
-    <property name="username_cypher" expression="//messages[alias='username']/message_encrypt/text()" />
-    <property name="password_cypher" expression="//messages[alias='password']/message_encrypt/text()" />
-    <property name="app_cypher" expression="//messages[alias='app']/message_encrypt/text()" />
-    <!-- invocar login en backend -->
-    <payloadFactory media-type="json" template-type="freemarker">
-        <format>
-            <![CDATA[
-                {
-                    "nombre-usuario" : "${ctx.username_cypher}",
-                    "clave" : "${ctx.password_cypher}",
-                    "id-sistema" : "${ctx.app_cypher}"
-                }
-            ]]>
-        </format>
-        <args />
-    </payloadFactory>
-    <property name="Content-Type" value="application/json" scope="transport" />
-    <property name="Accept" scope="transport" type="STRING" value="application/json" />
-    <property name="DISABLE_CHUNKING" value="true" scope="axis2" />
-    <property name="uri.var.url" value="${backend.endpoint.login}" />
-    <log level="full">
-        <property name="AccesoUsuariosSeq" value="Paso.3" />
-    </log>
-    <call>
-        <endpoint key="BackendPostEP" />
-    </call>
-    <log level="full">
-        <property name="AccesoUsuariosSeq" value="Paso.4" />
-    </log>
-    <filter regex=".*20.*" source="get-property('axis2', 'HTTP_SC')">
-        <then>
-            <property name="mensaje" expression="json-eval($.mensaje)" />
-            <filter regex="true" source="boolean($ctx:mensaje)">
-                <then>
-                    <!-- Error al realizar login -->
-                    <property name="mensaje_cypher" expression="json-eval($.mensaje)" />
-                    <!-- Desencriptar -->
-                    <payloadFactory media-type="json" template-type="freemarker">
-                        <format>
-                            <![CDATA[
-                                {
-                                    "messages": [
-                                        {
-                                            "alias": "mensaje",
-                                            "message_encrypt": "${ctx.mensaje_cypher}"
-                                        }
-                                    ]
-                                }
-                            ]]>
-                        </format>
-                        <args />
-                    </payloadFactory>
-                    <call-template target="EncriptarDesencriptarTemplate">
-                        <with-param name="tipo" value="DESENCRIPTAR" />
-                    </call-template>
-                    <property name="mensaje" expression="//messages[alias='mensaje']/message_decrypt/text()" />
-                    <!-- devolver resultado login fallido -->
-                    <payloadFactory media-type="json" template-type="freemarker">
-                        <format>
-                            <![CDATA[
-                                {
-                                    "result" : "false",
-                                    "error" : "${ctx.mensaje ! "Error al realizar la autentificación del usuario"}"
-                                }
-                            ]]>
-                        </format>
-                        <args />
-                    </payloadFactory>
-                    <property name="HTTP_SC" scope="axis2" type="STRING" value="400" />
-                </then>
-                <else>
-                    <property name="datos_usuario" expression="json-eval($.datos-usuario)" />
-                    <filter regex="true" source="boolean($ctx:datos_usuario)">
-                        <then>
-                            <!-- login ok -->
-                            <property name="nombre_usuario_cypher" expression="json-eval($.datos-usuario.nombre-usuario)" />
-                            <property name="nombres_apellidos_cypher" expression="json-eval($.datos-usuario.nombres-apellidos)" />
-                            <property name="correo_electronico_cypher" expression="json-eval($.datos-usuario.correo-electronico)" />
-                            <!-- desencriptar -->
-                            <payloadFactory media-type="json" template-type="freemarker">
-                                <format>
-                                    <![CDATA[
-                                        {
-                                            "messages": [
-                                                {
-                                                    "alias": "nombre_usuario",
-                                                    "message_encrypt": "${ctx.nombre_usuario_cypher}"
-                                                },
-                                                {
-                                                    "alias": "nombres_apellidos",
-                                                    "message_encrypt": "${ctx.nombres_apellidos_cypher}"
-                                                },
-                                                {
-                                                    "alias": "correo_electronico",
-                                                    "message_encrypt": "${ctx.correo_electronico_cypher}"
-                                                }                                                        
-                                            ]
-                                        }
-                                        ]]>
-                                </format>
-                                <args />
-                            </payloadFactory>
-                            <call-template target="EncriptarDesencriptarTemplate">
-                                <with-param name="tipo" value="DESENCRIPTAR" />
-                            </call-template>
-                            <property name="nombre_usuario" expression="//messages[alias='nombre_usuario']/message_decrypt/text()" />
-                            <property name="nombres_apellidos" expression="//messages[alias='nombres_apellidos']/message_decrypt/text()" />
-                            <property name="correo_electronico" expression="//messages[alias='correo_electronico']/message_decrypt/text()" />
-                            <!-- Generar token -->
-                            <payloadFactory media-type="json" template-type="freemarker">
-                                <format>
-                                    <![CDATA[
-                                        {
-                                            "subject": "${ctx.nombre_usuario}",
-                                            "name": "${ctx.nombres_apellidos}"
-                                        }
-                                    ]]>
-                                </format>
-                                <args />
-                            </payloadFactory>
-                            <property name="Content-Type" value="application/json" scope="transport" />
-                            <property name="Accept" scope="transport" type="STRING" value="application/json" />
-                            <property name="DISABLE_CHUNKING" value="true" scope="axis2" />
-                            <property name="uri.var.url" value="${backend.endpoint.generar.token}" />
-                            <log level="full">
-                                <property name="AccesoUsuariosSeq" value="Paso.7" />
-                            </log>
-                            <call>
-                                <endpoint key="BackendPostEP" />
-                            </call>
-                            <log level="full">
-                                <property name="AccesoUsuariosSeq" value="Paso.8" />
-                            </log>
-                            <filter regex=".*20.*" source="get-property('axis2', 'HTTP_SC')">
-                                <then>
-                                    <filter regex="true" source="boolean(//result/text())">
-                                        <then>
-                                            <property name="token" expression="//token/text()" />
-                                            <sequence key="MenusSeq" />
-                                            <log level="full">
-                                                <property name="AccesoUsuariosSeq" value="Paso.9" />
-                                            </log>
-                                            <property name="messageType" value="application/json" scope="axis2" type="STRING" />
-                                            <payloadFactory media-type="json" template-type="freemarker">
-                                                <format>
-                                                    <![CDATA[
-                                                        {
-                                                            "result" : "true",
-                                                            "es_empresa_credencial" : false,
-                                                            "token" : "${ctx.token}",
-                                                            "nombre_usuario" : "${ctx.nombre_usuario}",
-                                                            "nombres_apellidos" : "${ctx.nombres_apellidos}",
-                                                            "correo_electronico" : "${ctx.correo_electronico}",
-                                                            "aplicacion" : [
-                                                                    <#list payload.List.Item as aplicacion>
-                                                                    {
-                                                                        "id" : "${aplicacion.id}",
-                                                                        "codigo" : "${aplicacion.codigo}",
-                                                                        "nombre" : "${aplicacion.nombre}",
-                                                                        "rol" : 
-                                                                        <#if aplicacion.roles.rol?has_content>
-                                                                            [
-                                                                            <#list aplicacion.roles.rol as rol>
-                                                                                {
-                                                                                    "id":"${rol.id}",
-                                                                                    "codigo":"${rol.codigo}",
-                                                                                    "nombre":"${rol.nombre}"
-                                                                                }<#if rol_has_next>,</#if>
-                                                                            </#list>
-                                                                            ] 
-                                                                        <#else>
-                                                                            null
-                                                                        </#if>                                                                                                                                           
-                                                                        
-                                                                    }<#if aplicacion_has_next>,</#if>
-                                                                    </#list>
-                                                            ],
+DROP VIEW sch_sms.notificaciones_vw;
+CREATE VIEW sch_sms.notificaciones_vw AS
+SELECT
+    t1.id,
+    t1.usuario_creacion,
+    t1.fecha_creacion,
+    t1.usuario_actualizacion,
+    t1.fecha_actualizacion,
+    t1.usuario_reporta_id,
+    t2.username usuario_reporta_username,
+    t2.nombre_completo usuario_reporta_nombre_completo, 
+    t1.no_acta,
+    t1.nombre_evento,
+    t1.fecha_hora,
+    t1.lugar,
+    t1.descripcion,
+    t1.matricula_aeronave,
+    t1.conocer_resultados,
+    t1.sugerencias,
+    t1.nivel_criticidad_catalogo_id,
+    t3.codigo nivel_criticidad_catalogo_codigo,
+    t3.nombre nivel_criticidad_catalogo_nombre,
+    t1.tipo_notificacion_catalogo_id,
+    t4.codigo tipo_notificacion_catalogo_codigo,
+    t4.nombre tipo_notificacion_catalogo_nombre,
+    t1.companias_otros,
+    t1.nombres,
+    t1.empresa,
+    t1.cargo,
+    t1.correo_electronico,
+    t1.codigo_tipo_notificacion,
+    CASE
+       WHEN  t1.codigo_tipo_notificacion='OI' THEN 'OBLIGATORIO INTERNO'
+       WHEN  t1.codigo_tipo_notificacion='VI' THEN 'VOLUNTARIO INTERNO'
+       WHEN  t1.codigo_tipo_notificacion='VE' THEN 'VOLUNTARIO EXTERNO'
+       ELSE '***'
+    END as nombre_tipo_notificacion,
+    t1.estado_id,
+    t5.codigo estado_codigo,
+    t5.nombre estado_nombre,
+    t1.numero,
+    t1.tipo_evento_catalogo_id,
+    t6.codigo tipo_evento_catalogo_codigo,
+    t6.nombre tipo_evento_catalogo_nombre,
+    t1.apellidos,
+    t1.apellidos_nombres,
+    t1.tipo_identificacion,
+    t1.numero_identificacion,
+    t1.codigo_nivel_confidencialidad,
+    t1.nombre_nivel_confidencialidad,
+    t1.incidente_accidente_catalogo_id,
+    t7.codigo incidente_accidente_catalogo_codigo,
+    t7.nombre incidente_accidente_catalogo_nombre,
+    t1.activo_alerta_pea,
+    t1.lugar_catalogo_id,
+    t8.codigo lugar_catalogo_codigo,
+    t8.nombre lugar_catalogo_nombre,
+    t1.nombre_evento_catalogo_id,
+    t9.codigo nombre_evento_catalogo_codigo,
+    t9.nombre nombre_evento_catalogo_nombre,
+    t1.usuario_asignado,
+    t1.accidente_incidente,
+    t1.companias,
+    t1.criticidad,
+    t1.fecha_consentimiento,
+    t1.mensaje_consentimiento,
+    t1.usuario_consentimiento,
+    t1.diff,
+    t1.resumen,
+    t1.acta_no_conformidad,
+    t1.compartir_reporte_ehs,
+    t1.usuario_reporta,
+    t1.nivel_confidencialidad
+    COALESCE(TO_CHAR(t1.fecha_hora, 'DD-MM-YYYY'),'') ||
+    COALESCE(t1.numero,'') ||
+    COALESCE(t1.codigo_tipo_notificacion,'') ||
+    COALESCE(TO_CHAR(t1.fecha_creacion, 'DD-MM-YYYY'),'') ||
+    COALESCE(t8.nombre,'') ||
+    COALESCE(t9.nombre,'') ||
+    COALESCE(t1.descripcion,'') ||
+    COALESCE(t7.nombre,'') ||
+    COALESCE(t1.companias,'') ||
+    COALESCE(t5.nombre,'')  ||
+    COALESCE(t1.acta_no_conformidad,'')  ||
+    COALESCE(t1.usuario_reporta,'')  ||
+    COALESCE(t1.nivel_confidencialidad,'')  ||
+    COALESCE(t1.usuario_asignado,'')  ||
+        CASE
+       WHEN  t1.codigo_tipo_notificacion='OI' THEN 'OBLIGATORIO INTERNO'
+       WHEN  t1.codigo_tipo_notificacion='VI' THEN 'VOLUNTARIO INTERNO'
+       WHEN  t1.codigo_tipo_notificacion='VE' THEN 'VOLUNTARIO EXTERNO'
+       ELSE '***'
+    END as filter
+FROM
+    sch_sms.notificaciones t1
+LEFT JOIN 
+    sch_usuarios.usuarios t2 ON t1.usuario_reporta_id = t2.id
+LEFT JOIN 
+   sch_catalogos.catalogos t3 ON t1.nivel_criticidad_catalogo_id = t3.id
+LEFT JOIN 
+   sch_catalogos.catalogos t4 ON t1.tipo_notificacion_catalogo_id = t4.id   
+LEFT JOIN 
+   sch_sms.estados t5 ON t1.estado_id = t5.id
+LEFT JOIN 
+   sch_catalogos.catalogos t6 ON t1.tipo_evento_catalogo_id = t6.id   
+LEFT JOIN 
+   sch_catalogos.catalogos t7 ON t1.incidente_accidente_catalogo_id = t7.id      
 
-                                                            "menu" : [
-                                                                        {
-                                                                            "id":"primary",
-                                                                            "title":"Principal",
-                                                                            "translate":"MENU.PRIMARY",
-                                                                            "type":"section",
-                                                                            "icon":"home",
-                                                                            "children":[
-                                                                                {
-                                                                                "id":"dashboard",
-                                                                                "title":"Inicio",
-                                                                                "translate":"MENU.DASHBOARD",
-                                                                                "type":"item",
-                                                                                "icon":"home",
-                                                                                "url":"/"
-                                                                                }
-                                                                            ]
-                                                                        },
-                                                                        <#list payload.List.Item as item>
-                                                                        {
-                                                                            "id": "${item.id}_MENUPRINCIPAL",
-                                                                            "type": "section",
-                                                                            "title": "${item.nombre}",
-                                                                             "children" : [
-                                                                                <#if item.List?has_content>
-                                                                                    <#if item.List.Item?is_sequence>
-                                                                                        <#list item.List.Item as item2>
-                                                                                        {
-                                                                                            "id": "${item2.id}_MENU",
-                                                                                            "title": "${item2.nombre}",
-                                                                                            "translate": "${item2.ayuda}",
-                                                                                            "icon": "${item2.icon}",
-                                                                                            "type": "item",
-                                                                                            "url": "${item2.ubicacion}",
-                                                                                            "externalUrl" : false,
-                                                                                            "openInNewTab" : false,
-                                                                                            "children" : [
-                                                                                                <#if item2.submenus?has_content>
-                                                                                                    <#list item2.submenus.submenu as submenu1>
-                                                                                                    {
-                                                                                                        "id": "${submenu1.id}_MENU",
-                                                                                                        "title": "${submenu1.nombre}",
-                                                                                                        "translate": "${submenu1.ayuda}",
-                                                                                                        "icon": "${submenu1.icon}",
-                                                                                                        "type": "item",
-                                                                                                        "url": "${submenu1.ubicacion}",
-                                                                                                        "externalUrl" : false,
-                                                                                                        "openInNewTab" : false,
-                                                                                                        "children" : [
-                                                                                                            <#if submenu1.submenus?has_content>
-                                                                                                                <#list submenu1.submenus.submenu as submenu2>
-                                                                                                                {
-                                                                                                                    "id": "${submenu2.id}_MENU",
-                                                                                                                    "title": "${submenu2.nombre}",
-                                                                                                                    "translate": "${submenu2.ayuda}",
-                                                                                                                    "icon": "${submenu2.icon}",
-                                                                                                                    "type": "item",
-                                                                                                                    "url": "${submenu2.ubicacion}",
-                                                                                                                    "externalUrl" : false,
-                                                                                                                    "openInNewTab" : false,
-                                                                                                                }<#if submenu2_has_next>,</#if>
-                                                                                                                </#list>
-                                                                                                            </#if>
-                                                                                                        ]
-                                                                                                    }<#if submenu1_has_next>,</#if>
-                                                                                                    </#list>
-                                                                                                </#if>
-                                                                                            ]
-                                                                                        }<#if item2_has_next>,</#if>
-                                                                                        </#list>
-                                                                                    </#if>
-                                                                                    <#if item.List.Item?is_hash_ex>
-                                                                                        {
-                                                                                            "id": "${item.List.Item.id}_MENU",
-                                                                                            "title": "${item.List.Item.nombre}",
-                                                                                            "translate": "${item.List.Item.ayuda}",
-                                                                                            "icon": "${item.List.Item.icon}",
-                                                                                            "type": "item",
-                                                                                            "url": "${item.List.Item.ubicacion}",
-                                                                                            "externalUrl" : false,
-                                                                                            "openInNewTab" : false
-                                                                                        }                                                                                  
-                                                                                    </#if>
-                                                                                </#if>
-                                                                            ]
-                                                                        }<#if item_has_next>,</#if>
-                                                                        </#list>
-                                                                    ]
-                                                        }
-                                                    ]]>
-                                                </format>
-                                                <args />
-                                            </payloadFactory>
-                                            <property name="HTTP_SC" scope="axis2" type="STRING" value="200" />
-                                        </then>
-                                        <else>
-                                            <property name="ERROR_CODE" value="MSS-00010" />
-                                            <property name="ERROR_MESSAGE" value="Error al generar token" />
-                                            <property name="ERROR_DETAIL" value="fn:concat('Error al generar token: ',//error/text()" />
-                                            <sequence key="FaultSeq" />
-                                        </else>
-                                    </filter>
-                                </then>
-                                <else>
-                                    <property name="ERROR_CODE" value="MSS-00010" />
-                                    <property name="ERROR_MESSAGE" value="Error a invocar api para generar token " />
-                                    <property name="ERROR_DETAIL" value="fn:concat('Error a invocar api para generar token: ',get-property('axis2', 'HTTP_SC'))" />
-                                    <sequence key="FaultSeq" />
-                                </else>
-                            </filter>
-                        </then>
-                        <else>
-                            <!-- No existe respuesta de login, se entiende con error -->
-                        </else>
-                    </filter>
-                </else>
-            </filter>
-        </then>
-        <else>
-            <filter regex=".*40." source="get-property('axis2', 'HTTP_SC')">
-                <then>
-                    <property name="mensaje_cypher" expression="//mensaje/text()" />
-                    <!-- Desencriptar -->
-                    <payloadFactory media-type="json" template-type="freemarker">
-                        <format>
-                            <![CDATA[
-                                {
-                                    "messages": [
-                                        {
-                                            "alias": "mensaje",
-                                            "message_encrypt": "${ctx.mensaje_cypher}"
-                                        }
-                                    ]
-                                }
-                            ]]>
-                        </format>
-                        <args />
-                    </payloadFactory>
-                    <call-template target="EncriptarDesencriptarTemplate">
-                        <with-param name="tipo" value="DESENCRIPTAR" />
-                    </call-template>
-                    <property name="mensaje" expression="//messages[alias='mensaje']/message_decrypt/text()" />
-                    <!-- devolver resultado login fallido -->
-                    <payloadFactory media-type="json" template-type="freemarker">
-                        <format>
-                            <![CDATA[
-                                {
-                                    "result" : "false",
-                                    "error" : "${ctx.mensaje ! "Error al realizar la autentificación del usuario"}"
-                                }
-                            ]]>
-                        </format>
-                        <args />
-                    </payloadFactory>
-                    <property name="HTTP_SC" scope="axis2" type="STRING" value="400" />
-                </then>
-                <else>
-                    <property name="error" expression="//error/text()" />
-                    <payloadFactory media-type="json" template-type="freemarker">
-                        <format>
-                            <![CDATA[
-                                {
-                                    "result" : "false",
-                                    "error" : "${ctx.error ! "Error al realizar la autentificación del usuario"}"
-                                }
-                            ]]>
-                        </format>
-                        <args />
-                    </payloadFactory>
-                    <property name="HTTP_SC" scope="axis2" type="STRING" value="500" />
-                </else>
-            </filter>
-        </else>
-    </filter>
-    <property name="messageType" value="application/json" scope="axis2" type="STRING" />
-    <call-template target="LogTemplate">
-        <with-param name="stage" value="end" />
-        <with-param name="artifact" value="AccesoUsuariosSeq" />
-    </call-template>
-</sequence>
+LEFT JOIN 
+   sch_catalogos.catalogos t8 ON t1.lugar_catalogo_id = t8.id      
+LEFT JOIN 
+   sch_catalogos.catalogos t9 ON t1.nombre_evento_catalogo_id = t9.id      
+WHERE 
+    t1.vigente=true
