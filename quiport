@@ -1,1 +1,4 @@
-"Error parsing FreeMarker template, Syntax error or invalid reference : item2.submenus!\"Sin submenús\" At line: 74 column: 214
+    <#list item2 as key, value>
+        <p>Clave: ${key}</p>
+        <p>Valor: ${value!}</p>
+    </#list>
