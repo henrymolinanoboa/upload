@@ -1,24 +1,281 @@
-<#if item2??>
-    <#list item2 as key, value>
-        <p>Clave: ${key}</p>
-        
-        <#-- Verificar si el valor es un mapa (hash) -->
-        <#if value?is_hash>
-            <p>Es un objeto anidado:</p>
-            <#list value as subkey, subvalue>
-                <p>&emsp;Subclave: ${subkey}</p>
-                <#-- Verificar si subvalue está definido o es nulo -->
-                <p>&emsp;Subvalor: <#if subvalue??>${subvalue!}</#if></p>
-            </#list>
-        
-        <#-- Si no es un mapa, verificar si es un valor nulo o vacío -->
-        <#elseif value??>
-            <p>Valor: ${value!}</p>
-        <#else>
-            <p>Valor no definido o es null.</p>
-        </#if>
-        
-    </#list>
-<#else>
-    <p>item2 no está definido.</p>
-</#if>
+{
+    "result": "true",
+    "es_empresa_credencial": false,
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJodmFjYXMiLCJuYW1lIjoiVkFDQVMgUEFSRURFUyBIRVJOQU4gQlJZQU4iLCJleHAiOjE3MjgwNzM1ODN9.pk3yLmytjTUYA42MlxoRgbimpPOm0ctJoiPaM-kEYJA",
+    "nombre_usuario": "hvacas",
+    "nombres_apellidos": "VACAS PAREDES HERNAN BRYAN",
+    "correo_electronico": "hernan.vacas@quiport.com",
+    "aplicacion": [
+        {
+            "id": "3",
+            "codigo": "SMS",
+            "nombre": "SMS",
+            "rol": [
+                {
+                    "id": "8",
+                    "codigo": "USR_ADMI",
+                    "nombre": "ADMINISTRACIÓN SMS"
+                },
+                {
+                    "id": "9",
+                    "codigo": "SMS_ADMI",
+                    "nombre": "ADMINISTRADOR SMS"
+                },
+                {
+                    "id": "17",
+                    "codigo": "GES_ACT",
+                    "nombre": "GESTIÓN ACTAS"
+                }
+            ]
+        },
+        {
+            "id": "4",
+            "codigo": "CRE",
+            "nombre": "CREDENCIALES",
+            "rol": [
+                {
+                    "id": "4",
+                    "codigo": "ADM_CRE",
+                    "nombre": "ADM CREDENCIALES"
+                },
+                {
+                    "id": "6",
+                    "codigo": "DIS_CRE",
+                    "nombre": "DISEÑADOR CREDENCIALES"
+                },
+                {
+                    "id": "7",
+                    "codigo": "EMI_CRE",
+                    "nombre": "EMISION CREDENCIALES"
+                },
+                {
+                    "id": "18",
+                    "codigo": "SOL_CRE",
+                    "nombre": "SOLICITUDES DE CREDENCIALES"
+                },
+                {
+                    "id": "19",
+                    "codigo": "ADM_CUR",
+                    "nombre": "ADMINISTRACIÓN CURSOS"
+                },
+                {
+                    "id": "20",
+                    "codigo": "REG_TRA",
+                    "nombre": "TRANSFERENCIAS"
+                },
+                {
+                    "id": "21",
+                    "codigo": "IMP_CRE",
+                    "nombre": "IMPRIMIR CREDENCIALES"
+                }
+            ]
+        },
+        {
+            "id": "8",
+            "codigo": "CAT",
+            "nombre": "CATALOGOS",
+            "rol": [
+                {
+                    "id": "3",
+                    "codigo": "ADM_CAT",
+                    "nombre": "ADM CATALOGOS"
+                },
+                {
+                    "id": "16",
+                    "codigo": "UPDCAT",
+                    "nombre": "UPDATE CATALOGOS"
+                }
+            ]
+        }
+    ],
+    "menu": [
+        {
+            "id": "primary",
+            "title": "Principal",
+            "translate": "MENU.PRIMARY",
+            "type": "section",
+            "icon": "home",
+            "children": [
+                {
+                    "id": "dashboard",
+                    "title": "Inicio",
+                    "translate": "MENU.DASHBOARD",
+                    "type": "item",
+                    "icon": "home",
+                    "url": "/"
+                }
+            ]
+        },
+        {
+            "id": "3_MENUPRINCIPAL",
+            "type": "section",
+            "title": "SMS",
+            "children": [
+                {
+                    "id": "35_MENU",
+                    "title": "Gestión de Actas",
+                    "translate": "MENU.MENU_ITEMS.ACTAS",
+                    "icon": "folder",
+                    "type": "item",
+                    "url": "/sms/actas",
+                    "externalUrl": false,
+                    "openInNewTab": false,
+                },
+                {
+                    "id": "49_MENU",
+                    "title": "Gestión de Documentos",
+                    "translate": "MENU.MENU_ITEMS.SMS.GESTION_DOCUMENTOS",
+                    "icon": "folder",
+                    "type": "item",
+                    "url": "/sms/documentos",
+                    "externalUrl": false,
+                    "openInNewTab": false,
+                },
+                {
+                    "id": "50_MENU",
+                    "title": "Politicas y Objetivos",
+                    "translate": "MENU.MENU_ITEMS.SMS.POLITICAS_OBJETIVOS",
+                    "icon": "menu",
+                    "type": "item",
+                    "url": "/",
+                    "externalUrl": false,
+                    "openInNewTab": false,
+                },
+                {
+                    "id": "54_MENU",
+                    "title": "Gestión de Riesgos",
+                    "translate": "MENU.MENU_ITEMS.SMS.GESTION_RIESGO",
+                    "icon": "menu",
+                    "type": "item",
+                    "url": "/",
+                    "externalUrl": false,
+                    "openInNewTab": false,
+                }
+            ]
+        },
+        {
+            "id": "4_MENUPRINCIPAL",
+            "type": "section",
+            "title": "CREDENCIALES",
+            "children": [
+                {
+                    "id": "36_MENU",
+                    "title": "Solicitudes de Credenciales",
+                    "translate": "MENU.MENU_ITEMS.REVISION_SOLICITUD_CREDENCIALES",
+                    "icon": "layers",
+                    "type": "item",
+                    "url": "/revision-solicitudes-credenciales",
+                    "externalUrl": false,
+                    "openInNewTab": false,
+                },
+                {
+                    "id": "39_MENU",
+                    "title": "Impresión de Credenciales",
+                    "translate": "MENU.MENU_ITEMS.IMPRIMIR_CREDENCIALES",
+                    "icon": "layers",
+                    "type": "item",
+                    "url": "/impresion-credenciales",
+                    "externalUrl": false,
+                    "openInNewTab": false,
+                },
+                {
+                    "id": "37_MENU",
+                    "title": "Administración de Cursos",
+                    "translate": "MENU.MENU_ITEMS.ADMINISTRACION_CURSOS",
+                    "icon": "database",
+                    "type": "item",
+                    "url": "/administracion-cursos",
+                    "externalUrl": false,
+                    "openInNewTab": false,
+                },
+                {
+                    "id": "38_MENU",
+                    "title": "Registro de Transferencias",
+                    "translate": "MENU.MENU_ITEMS.REGISTRO_TRANSFERENCIAS",
+                    "icon": "dollar-sign",
+                    "type": "item",
+                    "url": "/registro-pagos/pagos",
+                    "externalUrl": false,
+                    "openInNewTab": false,
+                },
+                {
+                    "id": "42_MENU",
+                    "title": "Empresas",
+                    "translate": "MENU.MENU_ITEMS.ADMINISTRACION_EMPRESAS",
+                    "icon": "database",
+                    "type": "item",
+                    "url": "/credenciales/empresas",
+                    "externalUrl": false,
+                    "openInNewTab": false,
+                },
+                {
+                    "id": "43_MENU",
+                    "title": "Tipo de Credenciales",
+                    "translate": "MENU.MENU_ITEMS.SUBTIPO_CREDENCIALES",
+                    "icon": "clipboard",
+                    "type": "item",
+                    "url": "/credenciales/subtipo-credenciales",
+                    "externalUrl": false,
+                    "openInNewTab": false,
+                },
+                {
+                    "id": "44_MENU",
+                    "title": "Precios Solicitud",
+                    "translate": "MENU.MENU_ITEMS.PRECIOS_SOLICITUD",
+                    "icon": "dollar-sign",
+                    "type": "item",
+                    "url": "/credenciales/precios-solicitud",
+                    "externalUrl": false,
+                    "openInNewTab": false,
+                },
+                {
+                    "id": "45_MENU",
+                    "title": "Consulta Credenciales",
+                    "translate": "MENU.MENU_ITEMS.CONSULTA_CREDENCIALES",
+                    "icon": "grid",
+                    "type": "item",
+                    "url": "/credenciales/consulta-credenciales",
+                    "externalUrl": false,
+                    "openInNewTab": false,
+                },
+                {
+                    "id": "46_MENU",
+                    "title": "Diseño Credenciales",
+                    "translate": "MENU.MENU_ITEMS.DISENIO_CREDENCIAL",
+                    "icon": "layout",
+                    "type": "item",
+                    "url": "/credenciales/disenio-credenciales",
+                    "externalUrl": false,
+                    "openInNewTab": false,
+                }
+            ]
+        },
+        {
+            "id": "8_MENUPRINCIPAL",
+            "type": "section",
+            "title": "CATALOGOS",
+            "children": [
+                {
+                    "id": "40_MENU",
+                    "title": "Parámetros",
+                    "translate": "MENU.MENU_ITEMS.PARAMETROS",
+                    "icon": "bookmark",
+                    "type": "item",
+                    "url": "/administracion/parametros",
+                    "externalUrl": false,
+                    "openInNewTab": false,
+                },
+                {
+                    "id": "41_MENU",
+                    "title": "Cátalogos",
+                    "translate": "MENU.MENU_ITEMS.CATALOGOS",
+                    "icon": "clipboard",
+                    "type": "item",
+                    "url": "/administracion/catalogos",
+                    "externalUrl": false,
+                    "openInNewTab": false,
+                }
+            ]
+        }
+    ]
+}
