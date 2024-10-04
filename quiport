@@ -1,430 +1,345 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<sequence name="AccesoUsuariosSeq" onError="FaultSeq" trace="disable" xmlns="http://ws.apache.org/ns/synapse" xmlns:qp="com.quiport.servicios">
-    <call-template target="LogTemplate">
-        <with-param name="stage" value="start" />
-        <with-param name="artifact" value="AccesoUsuariosSeq" />
-    </call-template>
-    <property name="app" value="${backend.app}" />
-    <!-- encriptar -->
-    <payloadFactory media-type="json" template-type="freemarker">
-        <format>
-            <![CDATA[
-                {
-                    "messages": [
-                        {
-                            "alias": "username",
-                            "message": "${ctx.username}"
-                        },
-                        {
-                            "alias": "password",
-                            "message": "${ctx.password}"
-                        },
-                        {
-                            "alias": "app",
-                            "message": "${ctx.app}"
+{
+   "List":{
+      "Item":[
+         {
+            "id":3,
+            "codigo":"SMS",
+            "nombre":"SMS",
+            "descripcion":"Sistema de reportes y gestión de incidentes del Aeropuerto de Quito",
+            "List":{
+               "Item":[
+                  {
+                     "id":35,
+                     "codigo":"SMS-ACT",
+                     "nombre":"Gestión de Actas",
+                     "ayuda":"MENU.MENU_ITEMS.ACTAS",
+                     "ubicacion":"/sms/actas",
+                     "ordinal":1,
+                     "icon":"folder",
+                     "submenus":null
+                  },
+                  {
+                     "id":49,
+                     "codigo":"SMS_GES_DOC",
+                     "nombre":"Gestión de Documentos",
+                     "ayuda":"MENU_MENU_ITEMS.SMS.GESTION_DOCUMENTOS",
+                     "ubicacion":"/sms/documentos",
+                     "ordinal":1,
+                     "icon":"folder",
+                     "submenus":null
+                  },
+                  {
+                     "id":50,
+                     "codigo":"SMS_POL_OBJ",
+                     "nombre":"Politicas y Objetivos",
+                     "ayuda":"MENU_MENU_ITEMS.SMS.POLITICAS_OBJETIVOS",
+                     "ubicacion":"/",
+                     "ordinal":2,
+                     "icon":"menu",
+                     "submenus":{
+                        "submenu":[
+                           {
+                              "id":51,
+                              "codigo":"SMS_POL_OBJ_POL",
+                              "nombre":"Politicas",
+                              "ayuda":"MENU_MENU_ITEMS.SMS.POLITICAS",
+                              "ubicacion":"/sms/politicas",
+                              "ordinal":3,
+                              "icon":"circle",
+                              "submenus":null
+                           },
+                           {
+                              "id":52,
+                              "codigo":"SMS_POL_OBJ_OBJ",
+                              "nombre":"Objetivos",
+                              "ayuda":"MENU_MENU_ITEMS.SMS.OBJETIVOS",
+                              "ubicacion":"/sms/objetivos",
+                              "ordinal":4,
+                              "icon":"circle",
+                              "submenus":null
+                           },
+                           {
+                              "id":53,
+                              "codigo":"SMS_POL_OBJ_MAN",
+                              "nombre":"Manuales",
+                              "ayuda":"MENU_MENU_ITEMS.SMS.MANUALES",
+                              "ubicacion":"/sms/manual",
+                              "ordinal":5,
+                              "icon":"circle",
+                              "submenus":null
+                           }
+                        ]
+                     }
+                  },
+                  {
+                     "id":54,
+                     "codigo":"SMS_GES_RIE",
+                     "nombre":"Gestión de Riesgos",
+                     "ayuda":"MENU_MENU_ITEMS.SMS.GESTION_RIESGO",
+                     "ubicacion":"/",
+                     "ordinal":6,
+                     "icon":"menu",
+                     "submenus":{
+                        "submenu":{
+                           "id":55,
+                           "codigo":"SMS_GES_RIE_IP",
+                           "nombre":"Identificación de Peligros",
+                           "ayuda":"MENU_MENU_ITEMS.SMS.GESTION_RIESGO.IP",
+                           "ubicacion":"/",
+                           "ordinal":7,
+                           "icon":"circle",
+                           "submenus":{
+                              "submenu":[
+                                 {
+                                    "id":57,
+                                    "codigo":"SMS_GES_RIE_IP.OI",
+                                    "nombre":"Notificación Obligatorio",
+                                    "ayuda":"MENU_MENU_ITEMS.SMS.GESTION_RIESGO.IP.OI",
+                                    "ubicacion":"/sms/notificacion-obligatoria",
+                                    "ordinal":8,
+                                    "icon":null,
+                                    "submenus":null
+                                 },
+                                 {
+                                    "id":58,
+                                    "codigo":"SMS_GES_RIE_IP.VI",
+                                    "nombre":"Notificación Voluntaria",
+                                    "ayuda":"MENU_MENU_ITEMS.SMS.GESTION_RIESGO.IP.VI",
+                                    "ubicacion":"/sms/notificacion-voluntaria",
+                                    "ordinal":9,
+                                    "icon":null,
+                                    "submenus":null
+                                 },
+                                 {
+                                    "id":59,
+                                    "codigo":"SMS_GES_RIE_IP.VE",
+                                    "nombre":"Notificación Externa",
+                                    "ayuda":"MENU_MENU_ITEMS.SMS.GESTION_RIESGO.IP.VE",
+                                    "ubicacion":"/sms/notificacion-externa",
+                                    "ordinal":10,
+                                    "icon":null,
+                                    "submenus":null
+                                 },
+                                 {
+                                    "id":60,
+                                    "codigo":"SMS_GES_RIE_IP.GN",
+                                    "nombre":"Gestión Notificaciones",
+                                    "ayuda":"MENU.MENU_ITEM.SMS.GESTION_NOTIFICACION",
+                                    "ubicacion":"/sms/gestion-notificaciones",
+                                    "ordinal":12,
+                                    "icon":null,
+                                    "submenus":null
+                                 }
+                              ]
+                           }
                         }
-                    ]
-                }
-            ]]>
-        </format>
-        <args />
-    </payloadFactory>
-    <call-template target="EncriptarDesencriptarTemplate">
-        <with-param name="tipo" value="ENCRIPTAR" />
-    </call-template>
-    <property name="username_cypher" expression="//messages[alias='username']/message_encrypt/text()" />
-    <property name="password_cypher" expression="//messages[alias='password']/message_encrypt/text()" />
-    <property name="app_cypher" expression="//messages[alias='app']/message_encrypt/text()" />
-    <!-- invocar login en backend -->
-    <payloadFactory media-type="json" template-type="freemarker">
-        <format>
-            <![CDATA[
-                {
-                    "nombre-usuario" : "${ctx.username_cypher}",
-                    "clave" : "${ctx.password_cypher}",
-                    "id-sistema" : "${ctx.app_cypher}"
-                }
-            ]]>
-        </format>
-        <args />
-    </payloadFactory>
-    <property name="Content-Type" value="application/json" scope="transport" />
-    <property name="Accept" scope="transport" type="STRING" value="application/json" />
-    <property name="DISABLE_CHUNKING" value="true" scope="axis2" />
-    <property name="uri.var.url" value="${backend.endpoint.login}" />
-    <log level="full">
-        <property name="AccesoUsuariosSeq" value="Paso.3" />
-    </log>
-    <call>
-        <endpoint key="BackendPostEP" />
-    </call>
-    <log level="full">
-        <property name="AccesoUsuariosSeq" value="Paso.4" />
-    </log>
-    <filter regex=".*20.*" source="get-property('axis2', 'HTTP_SC')">
-        <then>
-            <property name="mensaje" expression="json-eval($.mensaje)" />
-            <filter regex="true" source="boolean($ctx:mensaje)">
-                <then>
-                    <!-- Error al realizar login -->
-                    <property name="mensaje_cypher" expression="json-eval($.mensaje)" />
-                    <!-- Desencriptar -->
-                    <payloadFactory media-type="json" template-type="freemarker">
-                        <format>
-                            <![CDATA[
-                                {
-                                    "messages": [
-                                        {
-                                            "alias": "mensaje",
-                                            "message_encrypt": "${ctx.mensaje_cypher}"
-                                        }
-                                    ]
-                                }
-                            ]]>
-                        </format>
-                        <args />
-                    </payloadFactory>
-                    <call-template target="EncriptarDesencriptarTemplate">
-                        <with-param name="tipo" value="DESENCRIPTAR" />
-                    </call-template>
-                    <property name="mensaje" expression="//messages[alias='mensaje']/message_decrypt/text()" />
-                    <!-- devolver resultado login fallido -->
-                    <payloadFactory media-type="json" template-type="freemarker">
-                        <format>
-                            <![CDATA[
-                                {
-                                    "result" : "false",
-                                    "error" : "${ctx.mensaje ! "Error al realizar la autentificación del usuario"}"
-                                }
-                            ]]>
-                        </format>
-                        <args />
-                    </payloadFactory>
-                    <property name="HTTP_SC" scope="axis2" type="STRING" value="400" />
-                </then>
-                <else>
-                    <property name="datos_usuario" expression="json-eval($.datos-usuario)" />
-                    <filter regex="true" source="boolean($ctx:datos_usuario)">
-                        <then>
-                            <!-- login ok -->
-                            <property name="nombre_usuario_cypher" expression="json-eval($.datos-usuario.nombre-usuario)" />
-                            <property name="nombres_apellidos_cypher" expression="json-eval($.datos-usuario.nombres-apellidos)" />
-                            <property name="correo_electronico_cypher" expression="json-eval($.datos-usuario.correo-electronico)" />
-                            <!-- desencriptar -->
-                            <payloadFactory media-type="json" template-type="freemarker">
-                                <format>
-                                    <![CDATA[
-                                        {
-                                            "messages": [
-                                                {
-                                                    "alias": "nombre_usuario",
-                                                    "message_encrypt": "${ctx.nombre_usuario_cypher}"
-                                                },
-                                                {
-                                                    "alias": "nombres_apellidos",
-                                                    "message_encrypt": "${ctx.nombres_apellidos_cypher}"
-                                                },
-                                                {
-                                                    "alias": "correo_electronico",
-                                                    "message_encrypt": "${ctx.correo_electronico_cypher}"
-                                                }                                                        
-                                            ]
-                                        }
-                                        ]]>
-                                </format>
-                                <args />
-                            </payloadFactory>
-                            <call-template target="EncriptarDesencriptarTemplate">
-                                <with-param name="tipo" value="DESENCRIPTAR" />
-                            </call-template>
-                            <property name="nombre_usuario" expression="//messages[alias='nombre_usuario']/message_decrypt/text()" />
-                            <property name="nombres_apellidos" expression="//messages[alias='nombres_apellidos']/message_decrypt/text()" />
-                            <property name="correo_electronico" expression="//messages[alias='correo_electronico']/message_decrypt/text()" />
-                            <!-- Generar token -->
-                            <payloadFactory media-type="json" template-type="freemarker">
-                                <format>
-                                    <![CDATA[
-                                        {
-                                            "subject": "${ctx.nombre_usuario}",
-                                            "name": "${ctx.nombres_apellidos}"
-                                        }
-                                    ]]>
-                                </format>
-                                <args />
-                            </payloadFactory>
-                            <property name="Content-Type" value="application/json" scope="transport" />
-                            <property name="Accept" scope="transport" type="STRING" value="application/json" />
-                            <property name="DISABLE_CHUNKING" value="true" scope="axis2" />
-                            <property name="uri.var.url" value="${backend.endpoint.generar.token}" />
-                            <log level="full">
-                                <property name="AccesoUsuariosSeq" value="Paso.7" />
-                            </log>
-                            <call>
-                                <endpoint key="BackendPostEP" />
-                            </call>
-                            <log level="full">
-                                <property name="AccesoUsuariosSeq" value="Paso.8" />
-                            </log>
-                            <filter regex=".*20.*" source="get-property('axis2', 'HTTP_SC')">
-                                <then>
-                                    <filter regex="true" source="boolean(//result/text())">
-                                        <then>
-                                            <property name="token" expression="//token/text()" />
-                                            <sequence key="MenusSeq" />
-                                            <log level="full">
-                                                <property name="AccesoUsuariosSeq" value="Paso.9" />
-                                            </log>
-                                            <property name="messageType" value="application/json" scope="axis2" type="STRING" />
-                                            <payloadFactory media-type="json" template-type="freemarker">
-                                                <format>
-                                                    <![CDATA[
-                                                        {
-                                                            "result" : "true",
-                                                            "es_empresa_credencial" : false,
-                                                            "token" : "${ctx.token}",
-                                                            "nombre_usuario" : "${ctx.nombre_usuario}",
-                                                            "nombres_apellidos" : "${ctx.nombres_apellidos}",
-                                                            "correo_electronico" : "${ctx.correo_electronico}",
-                                                            "aplicacion" : [
-                                                                    <#list payload.List.Item as aplicacion>
-                                                                    {
-                                                                        "id" : "${aplicacion.id}",
-                                                                        "codigo" : "${aplicacion.codigo}",
-                                                                        "nombre" : "${aplicacion.nombre}",
-                                                                        "rol" : 
-                                                                        <#if aplicacion.roles.rol?has_content>
-                                                                            [
-                                                                            <#list aplicacion.roles.rol as rol>
-                                                                                {
-                                                                                    "id":"${rol.id}",
-                                                                                    "codigo":"${rol.codigo}",
-                                                                                    "nombre":"${rol.nombre}"
-                                                                                }<#if rol_has_next>,</#if>
-                                                                            </#list>
-                                                                            ] 
-                                                                        <#else>
-                                                                            null
-                                                                        </#if>                                                                                                                                           
-                                                                        
-                                                                    }<#if aplicacion_has_next>,</#if>
-                                                                    </#list>
-                                                            ],
-
-                                                            "menu" : [
-                                                                        {
-                                                                            "id":"primary",
-                                                                            "title":"Principal",
-                                                                            "translate":"MENU.PRIMARY",
-                                                                            "type":"section",
-                                                                            "icon":"home",
-                                                                            "children":[
-                                                                                {
-                                                                                "id":"dashboard",
-                                                                                "title":"Inicio",
-                                                                                "translate":"MENU.DASHBOARD",
-                                                                                "type":"item",
-                                                                                "icon":"home",
-                                                                                "url":"/"
-                                                                                }
-                                                                            ]
-                                                                        },
-                                                                        <#list payload.List.Item as item>
-                                                                        {
-                                                                            "id": "${item.id}_MENUPRINCIPAL",
-                                                                            "type": "section",
-                                                                            "title": "${item.nombre}",
-                                                                             "children" : [
-                                                                                <#if item.List?has_content>
-                                                                                    <#if item.submenus?? && item.List.Item?is_sequence>
-                                                                                        <#list item.List.Item as item2>
-                                                                                        {
-                                                                                            "id": "${item2.id}_MENU",
-                                                                                            "title": "${item2.nombre}",
-                                                                                            "translate": "${item2.ayuda}",
-                                                                                            "icon": "${item2.icon}",
-                                                                                            "type": "item",
-                                                                                            "url": "${item2.ubicacion}",
-                                                                                            "externalUrl" : false,
-                                                                                            "openInNewTab" : false,
-                                                                                            "children" : [
-                                                                                                <#if item2.submenus?? && item2.submenus?has_content>
-                                                                                                    <#list item2.submenus.submenu as submenu1>
-                                                                                                    {
-                                                                                                        "id": "${submenu1.id}_MENU",
-                                                                                                        "title": "${submenu1.nombre}",
-                                                                                                        "translate": "${submenu1.ayuda}",
-                                                                                                        "icon": "${submenu1.icon}",
-                                                                                                        "type": "item",
-                                                                                                        "url": "${submenu1.ubicacion}",
-                                                                                                        "externalUrl" : false,
-                                                                                                        "openInNewTab" : false,
-                                                                                                        "children" : [
-                                                                                                            <#if submenu1.submenus?? && submenu1.submenus?has_content>
-                                                                                                                <#list submenu1.submenus.submenu as submenu2>
-                                                                                                                {
-                                                                                                                    "id": "${submenu2.id}_MENU",
-                                                                                                                    "title": "${submenu2.nombre}",
-                                                                                                                    "translate": "${submenu2.ayuda}",
-                                                                                                                    "icon": "${submenu2.icon}",
-                                                                                                                    "type": "item",
-                                                                                                                    "url": "${submenu2.ubicacion}",
-                                                                                                                    "externalUrl" : false,
-                                                                                                                    "openInNewTab" : false,
-                                                                                                                }<#if submenu2_has_next>,</#if>
-                                                                                                                </#list>
-                                                                                                            </#if>
-                                                                                                        ]
-                                                                                                    }<#if submenu1_has_next>,</#if>
-                                                                                                    </#list>
-                                                                                                </#if>
-                                                                                            ]
-                                                                                        }<#if item2_has_next>,</#if>
-                                                                                        </#list>
-                                                                                    </#if>
-                                                                                    <#if item.List.Item?is_hash_ex>
-                                                                                        {
-                                                                                            "id": "${item.List.Item.id}_MENU",
-                                                                                            "title": "${item.List.Item.nombre}",
-                                                                                            "translate": "${item.List.Item.ayuda}",
-                                                                                            "icon": "${item.List.Item.icon}",
-                                                                                            "type": "item",
-                                                                                            "url": "${item.List.Item.ubicacion}",
-                                                                                            "externalUrl" : false,
-                                                                                            "openInNewTab" : false
-                                                                                        }                                                                                  
-                                                                                    </#if>
-                                                                                </#if>
-                                                                            ]
-                                                                        }<#if item_has_next>,</#if>
-                                                                        </#list>
-                                                            ]
-                                                        }
-                                                    ]]>
-                                                </format>
-                                                <args />
-                                            </payloadFactory>
-                                            <property name="HTTP_SC" scope="axis2" type="STRING" value="200" />
-                                        </then>
-                                        <else>
-                                            <property name="ERROR_CODE" value="MSS-00010" />
-                                            <property name="ERROR_MESSAGE" value="Error al generar token" />
-                                            <property name="ERROR_DETAIL" value="fn:concat('Error al generar token: ',//error/text()" />
-                                            <sequence key="FaultSeq" />
-                                        </else>
-                                    </filter>
-                                </then>
-                                <else>
-                                    <property name="ERROR_CODE" value="MSS-00010" />
-                                    <property name="ERROR_MESSAGE" value="Error a invocar api para generar token " />
-                                    <property name="ERROR_DETAIL" value="fn:concat('Error a invocar api para generar token: ',get-property('axis2', 'HTTP_SC'))" />
-                                    <sequence key="FaultSeq" />
-                                </else>
-                            </filter>
-                        </then>
-                        <else>
-                            <!-- No existe respuesta de login, se entiende con error -->
-                        </else>
-                    </filter>
-                </else>
-            </filter>
-        </then>
-        <else>
-            <filter regex=".*40." source="get-property('axis2', 'HTTP_SC')">
-                <then>
-                    <property name="mensaje_cypher" expression="//mensaje/text()" />
-                    <!-- Desencriptar -->
-                    <payloadFactory media-type="json" template-type="freemarker">
-                        <format>
-                            <![CDATA[
-                                {
-                                    "messages": [
-
-                                                <args />
-                                            </payloadFactory>
-                                            <property name="HTTP_SC" scope="axis2" type="STRING" value="200" />
-                                        </then>
-                                        <else>
-                                            <property name="ERROR_CODE" value="MSS-00010" />
-                                            <property name="ERROR_MESSAGE" value="Error al generar token" />
-                                            <property name="ERROR_DETAIL" value="fn:concat('Error al generar token: ',//error/text()" />
-                                            <sequence key="FaultSeq" />
-                                        </else>
-                                    </filter>
-                                </then>
-                                <else>
-                                    <property name="ERROR_CODE" value="MSS-00010" />
-                                    <property name="ERROR_MESSAGE" value="Error a invocar api para generar token " />
-                                    <property name="ERROR_DETAIL" value="fn:concat('Error a invocar api para generar token: ',get-property('axis2', 'HTTP_SC'))" />
-                                    <sequence key="FaultSeq" />
-                                </else>
-                            </filter>
-                        </then>
-                        <else>
-                            <!-- No existe respuesta de login, se entiende con error -->
-                        </else>
-                    </filter>
-                </else>
-            </filter>
-        </then>
-        <else>
-            <filter regex=".*40." source="get-property('axis2', 'HTTP_SC')">
-                <then>
-                    <property name="mensaje_cypher" expression="//mensaje/text()" />
-                    <!-- Desencriptar -->
-                    <payloadFactory media-type="json" template-type="freemarker">
-                        <format>
-                            <![CDATA[
-                                {
-                                    "messages": [
-                                        {
-                                            "alias": "mensaje",
-                                            "message_encrypt": "${ctx.mensaje_cypher}"
-                                        }
-                                    ]
-                                }
-                            ]]>
-                        </format>
-                        <args />
-                    </payloadFactory>
-                    <call-template target="EncriptarDesencriptarTemplate">
-                        <with-param name="tipo" value="DESENCRIPTAR" />
-                    </call-template>
-                    <property name="mensaje" expression="//messages[alias='mensaje']/message_decrypt/text()" />
-                    <!-- devolver resultado login fallido -->
-                    <payloadFactory media-type="json" template-type="freemarker">
-                        <format>
-                            <![CDATA[
-                                {
-                                    "result" : "false",
-                                    "error" : "${ctx.mensaje ! "Error al realizar la autentificación del usuario"}"
-                                }
-                            ]]>
-                        </format>
-                        <args />
-                    </payloadFactory>
-                    <property name="HTTP_SC" scope="axis2" type="STRING" value="400" />
-                </then>
-                <else>
-                    <property name="error" expression="//error/text()" />
-                    <payloadFactory media-type="json" template-type="freemarker">
-                        <format>
-                            <![CDATA[
-                                {
-                                    "result" : "false",
-                                    "error" : "${ctx.error ! "Error al realizar la autentificación del usuario"}"
-                                }
-                            ]]>
-                        </format>
-                        <args />
-                    </payloadFactory>
-                    <property name="HTTP_SC" scope="axis2" type="STRING" value="500" />
-                </else>
-            </filter>
-        </else>
-    </filter>
-    <property name="messageType" value="application/json" scope="axis2" type="STRING" />
-    <call-template target="LogTemplate">
-        <with-param name="stage" value="end" />
-        <with-param name="artifact" value="AccesoUsuariosSeq" />
-    </call-template>
-</sequence>
+                     }
+                  }
+               ]
+            },
+            "roles":{
+               "rol":[
+                  {
+                     "id":8,
+                     "codigo":"USR_ADMI",
+                     "nombre":"ADMINISTRACIÓN SMS"
+                  },
+                  {
+                     "id":9,
+                     "codigo":"SMS_ADMI",
+                     "nombre":"ADMINISTRADOR SMS"
+                  },
+                  {
+                     "id":17,
+                     "codigo":"GES_ACT",
+                     "nombre":"GESTIÓN ACTAS"
+                  }
+               ]
+            }
+         },
+         {
+            "id":4,
+            "codigo":"CRE",
+            "nombre":"CREDENCIALES",
+            "descripcion":"Sistema de credenciales de accesos al Aeropuerto de Quito",
+            "List":{
+               "Item":[
+                  {
+                     "id":36,
+                     "codigo":"SOL_CRE",
+                     "nombre":"Solicitudes de Credenciales",
+                     "ayuda":"MENU.MENU_ITEMS.REVISION_SOLICITUD_CREDENCIALES",
+                     "ubicacion":"/revision-solicitudes-credenciales",
+                     "ordinal":1,
+                     "icon":"layers",
+                     "submenus":null
+                  },
+                  {
+                     "id":39,
+                     "codigo":"IMP_CRE",
+                     "nombre":"Impresión de Credenciales",
+                     "ayuda":"MENU.MENU_ITEMS.IMPRIMIR_CREDENCIALES",
+                     "ubicacion":"/impresion-credenciales",
+                     "ordinal":1,
+                     "icon":"layers",
+                     "submenus":null
+                  },
+                  {
+                     "id":37,
+                     "codigo":"ADM_CUR",
+                     "nombre":"Administración de Cursos",
+                     "ayuda":"MENU.MENU_ITEMS.ADMINISTRACION_CURSOS",
+                     "ubicacion":"/administracion-cursos",
+                     "ordinal":2,
+                     "icon":"database",
+                     "submenus":null
+                  },
+                  {
+                     "id":38,
+                     "codigo":"REG_TRA",
+                     "nombre":"Registro de Transferencias",
+                     "ayuda":"MENU.MENU_ITEMS.REGISTRO_TRANSFERENCIAS",
+                     "ubicacion":"/registro-pagos/pagos",
+                     "ordinal":3,
+                     "icon":"dollar-sign",
+                     "submenus":null
+                  },
+                  {
+                     "id":42,
+                     "codigo":"CRD_EMP",
+                     "nombre":"Empresas",
+                     "ayuda":"MENU.MENU_ITEMS.ADMINISTRACION_EMPRESAS",
+                     "ubicacion":"/credenciales/empresas",
+                     "ordinal":6,
+                     "icon":"database",
+                     "submenus":null
+                  },
+                  {
+                     "id":43,
+                     "codigo":"CRD_SCR",
+                     "nombre":"Tipo de Credenciales",
+                     "ayuda":"MENU.MENU_ITEMS.SUBTIPO_CREDENCIALES",
+                     "ubicacion":"/credenciales/subtipo-credenciales",
+                     "ordinal":7,
+                     "icon":"clipboard",
+                     "submenus":null
+                  },
+                  {
+                     "id":44,
+                     "codigo":"CRD_PSL",
+                     "nombre":"Precios Solicitud",
+                     "ayuda":"MENU.MENU_ITEMS.PRECIOS_SOLICITUD",
+                     "ubicacion":"/credenciales/precios-solicitud",
+                     "ordinal":8,
+                     "icon":"dollar-sign",
+                     "submenus":null
+                  },
+                  {
+                     "id":45,
+                     "codigo":"CRD_CCR",
+                     "nombre":"Consulta Credenciales",
+                     "ayuda":"MENU.MENU_ITEMS.CONSULTA_CREDENCIALES",
+                     "ubicacion":"/credenciales/consulta-credenciales",
+                     "ordinal":9,
+                     "icon":"grid",
+                     "submenus":null
+                  },
+                  {
+                     "id":46,
+                     "codigo":"CRD_DSC",
+                     "nombre":"Diseño Credenciales",
+                     "ayuda":"MENU.MENU_ITEMS.DISENIO_CREDENCIAL",
+                     "ubicacion":"/credenciales/disenio-credenciales",
+                     "ordinal":10,
+                     "icon":"layout",
+                     "submenus":null
+                  }
+               ]
+            },
+            "roles":{
+               "rol":[
+                  {
+                     "id":4,
+                     "codigo":"ADM_CRE",
+                     "nombre":"ADM CREDENCIALES"
+                  },
+                  {
+                     "id":6,
+                     "codigo":"DIS_CRE",
+                     "nombre":"DISEÑADOR CREDENCIALES"
+                  },
+                  {
+                     "id":7,
+                     "codigo":"EMI_CRE",
+                     "nombre":"EMISION CREDENCIALES"
+                  },
+                  {
+                     "id":18,
+                     "codigo":"SOL_CRE",
+                     "nombre":"SOLICITUDES DE CREDENCIALES"
+                  },
+                  {
+                     "id":19,
+                     "codigo":"ADM_CUR",
+                     "nombre":"ADMINISTRACIÓN CURSOS"
+                  },
+                  {
+                     "id":20,
+                     "codigo":"REG_TRA",
+                     "nombre":"TRANSFERENCIAS"
+                  },
+                  {
+                     "id":21,
+                     "codigo":"IMP_CRE",
+                     "nombre":"IMPRIMIR CREDENCIALES"
+                  }
+               ]
+            }
+         },
+         {
+            "id":8,
+            "codigo":"CAT",
+            "nombre":"CATALOGOS",
+            "descripcion":"Sistema de administración de catalogos",
+            "List":{
+               "Item":[
+                  {
+                     "id":40,
+                     "codigo":"ADM_PAR",
+                     "nombre":"Parámetros",
+                     "ayuda":"MENU.MENU_ITEMS.PARAMETROS",
+                     "ubicacion":"/administracion/parametros",
+                     "ordinal":4,
+                     "icon":"bookmark",
+                     "submenus":null
+                  },
+                  {
+                     "id":41,
+                     "codigo":"ADM_CAT",
+                     "nombre":"Cátalogos",
+                     "ayuda":"MENU.MENU_ITEMS.CATALOGOS",
+                     "ubicacion":"/administracion/catalogos",
+                     "ordinal":5,
+                     "icon":"clipboard",
+                     "submenus":null
+                  }
+               ]
+            },
+            "roles":{
+               "rol":[
+                  {
+                     "id":3,
+                     "codigo":"ADM_CAT",
+                     "nombre":"ADM CATALOGOS"
+                  },
+                  {
+                     "id":16,
+                     "codigo":"UPDCAT",
+                     "nombre":"UPDATE CATALOGOS"
+                  }
+               ]
+            }
+         }
+      ]
+   }
+}
