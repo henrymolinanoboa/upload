@@ -1,3 +1,121 @@
-ALTER TABLE sch_usuarios.menus ADD COLUMN colapsable BOOLEAN;
-ALTER TABLE sch_usuarios.menus ALTER COLUMN colapsable SET DEFAULT false;
-update sch_usuarios.menus set colapsable=false;
+DROP VIEW sch_sms.peligros_tipos_vw;
+CREATE VIEW sch_sms.peligros_tipos_vw AS
+SELECT
+    id,
+    codigo,
+    nombre,
+    descripcion,
+    usuario_creacion,
+    fecha_creacion,
+    usuario_actualizacion,
+    fecha_actualizacion,
+    COALESCE(codigo,'') ||
+    COALESCE(nombre,'') ||
+    COALESCE(descripcion,'') as filter
+FROM
+    sch_sms.peligros_tipos
+ WHERE 
+    vigente = true   
+
+
+------------------------
+
+
+DROP VIEW sch_sms.peligros_subcategorias_vw;
+CREATE VIEW sch_sms.peligros_subcategorias_vw AS
+SELECT
+    t1.id,
+    t1.codigo,
+    t1.nombre,
+    t1.peligro_tipo_id,
+    t2.codigo peligro_tipo_codigo,
+    t2.nombre peligro_tipo_nombre,
+    t1.usuario_creacion,
+    t1.fecha_creacion,
+    t1.usuario_actualizacion,
+    t1.fecha_actualizacion,
+    COALESCE(t1.codigo,'') ||
+    COALESCE(t1.nombre,'') ||
+    COALESCE(t2.nombre,'') ||
+    COALESCE(t2.codigo,'') as filter
+FROM
+    sch_sms.peligros_subcategorias t1
+JOIN 
+   sch_sms.peligros_tipos t2 ON t1.peligro_tipo_id = t2.id
+ WHERE 
+    t1.vigente = true   
+
+
+------------------
+
+
+DROP VIEW sch_sms.peligros_eventos_inseguros_vw;
+CREATE VIEW sch_sms.peligros_eventos_inseguros_vw AS
+SELECT
+    t1.id,
+    t1.codigo,
+    t1.nombre,
+    t1.peligro_subcategoria_id,
+    t2.codigo peligro_subcategoria_codigo,
+    t2.nombre peligro_subcategoria_nombre,
+    t3.codigo peligro_tipo_codigo,
+    t3.nombre peligro_tipo_nombre,
+    t1.ultima_evaluacion_id,
+    t5.nombre ultima_evaluacion_probabilidad_nombre,
+    t5.descripcion ultima_evaluacion_probabilidad_descripcion,
+    t5.ordinal ultima_evaluacion_probabilidad_ordinal,
+    t5.valor ultima_evaluacion_probabilidad_valor,
+    t6.nombre ultima_evaluacion_gravedad_nombre,
+    t6.descripcion ultima_evaluacion_gravedad_descripcion,
+    t6.ordinal ultima_evaluacion_gravedad_ordinal,
+    t6.valor ultima_evaluacion_gravedad_valor,
+    t7.codigo ultima_evaluacion_tolerancia_codigo,
+    t7.nombre ultima_evaluacion_tolerancia_nombre,
+    t7.descripcion ultima_evaluacion_tolerancia_descripcion,
+    t7.ordinal ultima_evaluacion_tolerancia_ordinal,
+    t7.color ultima_evaluacion_tolerancia_color,
+    t7.color_fuente ultima_evaluacion_tolerancia_color_fuente,       
+    t1.evaluacion_ordinal,
+    t1.total_notificaciones_30_dias,
+    t1.total_notificaciones_180_dias,
+    t1.total_notificaciones_1_anio,
+    t1.total_notificaciones_3_anio,
+    t1.usuario_creacion,
+    t1.fecha_creacion,
+    t1.usuario_actualizacion,
+    t1.fecha_actualizacion,
+    COALESCE(t1.codigo,'') ||
+    COALESCE(t1.nombre,'') ||
+    COALESCE(t2.codigo,'') ||
+    COALESCE(t2.nombre,'') ||
+    COALESCE(t3.codigo,'') ||
+    COALESCE(t3.nombre,'') ||
+    COALESCE(t5.nombre,'') ||
+    COALESCE(t5.descripcion,'') ||
+    COALESCE(t6.nombre,'') ||
+    COALESCE(t6.descripcion,'') ||
+    COALESCE(t7.codigo,'') ||
+    COALESCE(t7.nombre,'') ||
+    COALESCE(t7.descripcion,'') ||
+    COALESCE(t7.color,'') ||
+    COALESCE(t7.color_fuente,'') ||       
+    COALESCE(t1.usuario_creacion,'') ||
+    COALESCE(t1.usuario_actualizacion,'') as filter
+FROM
+    sch_sms.peligros_eventos_inseguros t1
+JOIN 
+   sch_sms.peligros_subcategorias t2 ON t1.peligro_subcategoria_id = t2.id
+JOIN 
+   sch_sms.peligros_tipos t3 ON t2.peligro_tipo_id = t3.id
+LEFT JOIN 
+   sch_sms.peligros_evaluaciones t4 ON t1.ultima_evaluacion_id = t4.id 
+LEFT JOIN
+  sch_sms.peligros_probabilidades t5 ON t4.probabilidad_id = t5.id  
+LEFT JOIN
+  sch_sms.peligros_gravedades t6 ON t4.gravedad_id = t6.id   
+LEFT JOIN
+  sch_sms.peligros_regiones_tolerancias t7 ON t4.peligro_region_tolerancia_id = t7.id              
+WHERE 
+    t1.vigente = true   
+
+
