@@ -1,145 +1,24 @@
-DROP VIEW sch_sms.notificaciones_acciones_vw;
-CREATE VIEW sch_sms.notificaciones_acciones_vw AS
-SELECT
-    id,
-    notificacion_id,
-    descripcion,
-    hora,
-    usuario_creacion,
-    fecha_creacion,
-    usuario_actualizacion,
-    fecha_actualizacion,
-    COALESCE(descripcion,'') ||
-   COALESCE(TO_CHAR(hora, 'DD-MM-YYYY'),'')   as filter   
-FROM
-    sch_sms.notificaciones_acciones
-WHERE 
-   vigente=true    
-    
--------------------
-
-DROP VIEW sch_sms.notificaciones_aeronaves_vw;
-CREATE VIEW sch_sms.notificaciones_aeronaves_vw AS
-SELECT
-    id,
-    notificacion_id,
-    matricula,
-    empresa,
-    tipo,
-    usuario_creacion,
-    fecha_creacion,
-    usuario_actualizacion,
-    fecha_actualizacion,
-    COALESCE(matricula,'') ||
-    COALESCE(empresa,'') ||
-    COALESCE(tipo,'')   as filter     
-FROM
-    sch_sms.notificaciones_aeronaves
-WHERE
-  vigente=true
-
-
----------------
-
-DROP VIEW sch_sms.notificaciones_archivos_vw;
-CREATE VIEW sch_sms.notificaciones_archivos_vw AS
-SELECT
-    id,
-    notificacion_id,
-    descripcion,
-    fase_investigacion,
-    es_imagen,
-    archivo_base64,
-    nombre_archivo_base64,
-    tipo_archivo_base64,
-    usuario_creacion,
-    fecha_creacion,
-    usuario_actualizacion,
-    fecha_actualizacion,
-    COALESCE(descripcion,'') as filter     
-FROM    
-    sch_sms.notificaciones_archivos
-WHERE
-  vigente=true
-
-
-
------------------------
-
-
-DROP VIEW sch_sms.notificaciones_companias_vw;
-CREATE VIEW sch_sms.notificaciones_companias_vw AS
-SELECT
-    t1.id,
-    t1.notificacion_id,
-    t1.compania_catalogo_id,
-    t2.codigo compania_catalogo_codigo,
-    t2.nombre compania_catalogo_nombre,
-    t1.compania_otro,
-    t1.otro,
-    t1.usuario_creacion,
-    t1.fecha_creacion,
-    t1.usuario_actualizacion,
-    t1.fecha_actualizacion,
-    COALESCE(t2.codigo,'') ||
-    COALESCE(t2.nombre,'')   as filter       
-FROM
-    sch_sms.notificaciones_companias t1
-LEFT JOIN
-  sch_catalogos.catalogos t2 ON t1.compania_catalogo_id = t2.id 
-WHERE
-  t1.vigente=true
-
-
----------------------
-
-DROP VIEW sch_sms.notificaciones_condiciones_meteorologicas_vw;
-CREATE VIEW sch_sms.notificaciones_condiciones_meteorologicas_vw AS
-SELECT
-    t1.id,
-    t1.notificacion_id,
-    t1.catalogo_condicion_meteorologica_id,
-    t2.codigo catalogo_condicion_meteorologica_codigo,
-    t2.nombre catalogo_condicion_meteorologica_nombre,
-    t1.usuario_creacion,
-    t1.fecha_creacion,
-    t1.usuario_actualizacion,
-    t1.fecha_actualizacion,
-    COALESCE(t2.codigo,'') ||
-    COALESCE(t2.nombre,'')  as filter    
-FROM
-    sch_sms.notificaciones_condiciones_meteorologicas t1
-JOIN 
-   sch_catalogos.catalogos t2 ON t1.catalogo_condicion_meteorologica_id = t2.id
-WHERE 
-    t1.vigente = true      
-
---------------------
-
-DROP VIEW sch_sms.notificaciones_equipos_vw;
-CREATE VIEW sch_sms.notificaciones_equipos_vw AS
-SELECT
-    id,
-    codigo,
-    empresa,
-    tipo,
-    notificacion_id,
-    usuario_creacion,
-    fecha_creacion,
-    usuario_actualizacion,
-    fecha_actualizacion,
-    COALESCE(codigo,'') ||
-    COALESCE(empresa,'') ||
-    COALESCE(tipo,'')   as filter          
-FROM
-    sch_sms.notificaciones_equipos
-WHERE
-  vigente=true
-
-
-
-
-
-
-
-
+[14:41, 7/10/2024] Efrain Saransig: {
+    "entity": "notificacion_equipo",
+    "fields": "id",
+    "filters": "notificacion_id =4261",
+    "count": false
+}
+[14:41, 7/10/2024] Efrain Saransig: {
+    "entity": "notificacion_archivo",
+    "fields": "id",
+    "filters": "notificacion_id =4261",
+    "count": false
+}
+[14:41, 7/10/2024] Efrain Saransig: {
+    "entity": "notificacion_compania",
+    "fields": "id",
+    "filters": "notificacion_id =4261",
+    "count": false
+}
+[14:41, 7/10/2024] Efrain Saransig: {
+    "entity": "notificacion_condicion_meteorologica",
+    "fields": "id",
+    "filters": "notificacion_id =4261",
+    "count": false
+}
