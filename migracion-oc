@@ -1,3 +1,17 @@
+Resident Realm Configuration:
+Home Realm Identifier:identity.apps.desa.bpichincha.com -> identity.apps.ocpdev.uiotest.bpichinchatest.test
+
+Inbound Authentication Configuration / SAML2 Web SSO Configuration:
+Identity Provider Entity ID: identity.apps.desa.bpichincha.com -> identity.apps.ocpdev.uiotest.bpichinchatest.test
+SSO URL: https://identity.apps.desa.bpichincha.com/samlsso -> https://identity.apps.ocpdev.uiotest.bpichinchatest.test/samlsso
+Logout Url: https://identity.apps.desa.bpichincha.com/samlsso -> https://identity.apps.ocpdev.uiotest.bpichinchatest.test/samlsso
+
+WS-Federation (Passive) Configuration:
+Identity Provider Entity ID: identity.apps.desa.bpichincha.com -> 
+
+------------------------
+
+
 callback:
 -----
 antes:
