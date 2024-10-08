@@ -80,6 +80,7 @@ curl --location 'https://gw-integrator.apps.ocpdev.uiotest.bpichinchatest.test/a
 
 
 
+--dev
 Rutas OCP3	Rutas OCP4			
 	https://apim.apps.desa.bpichincha.com/	https://apim.apps.ocpdev.uiotest.bpichinchatest.test			
 	https://gw.apps.desa.bpichincha.com/	https://gw-apim.apps.ocpdev.uiotest.bpichinchatest.test			
@@ -90,15 +91,28 @@ Rutas OCP3	Rutas OCP4
 	https://identity.apps.desa.bpichincha.com	https://identity.apps.ocpdev.uiotest.bpichinchatest.test			
 					
 					
-	dev				
+	
+--dev				
 	Host - Nombre ruta en OCP4	                Location - URL	                                                                                Servicio		
 	route-enp-https-centraid-admin-web-ocp3	        https://centra-id-admin-web-banco-pichincha-dev.apps.ocpdev.uiotest.bpichinchatest.test	        ServiceSservice-cse-mfa-wso2-centra-id-admin-web		
 	route-enp-https-centraid-operation-web-ocp3	https://centra-id-operation-web-banco-pichincha-dev.apps.ocpdev.uiotest.bpichinchatest.test	service-cse-mfa-wso2-centra-id-operation-web		
 	route-enp-https-centra-id-report-route-ocp3	https://centra-id-report.apps.ocpdev.uiotest.bpichinchatest.test	                        ServiceSservice-cse-msa-dm-centra-id-reports		
-	test				
+	
+--test				
 	route-enp-https-centraid-admin-web-ocp3	        https://centra-id-admin-web-banco-pichincha-test.apps.ocptest.uiotest.bpichinchatest.test	ServiceSservice-cse-mfa-wso2-centra-id-admin-web		
 	route-enp-https-centraid-operation-web-ocp3	https://centra-id-operation-web-banco-pichincha-test.apps.ocptest.uiotest.bpichinchatest.test	ServiceSservice-cse-mfa-wso2-centra-id-operation-web		
 	route-enp-https-centra-id-report-route-ocp3	https://centra-id-report.apps.ocptest.uiotest.bpichinchatest.test	                        ServiceSservice-cse-msa-dm-centra-id-reports		
+
+--test
+https://apim.apps.ocptest.uiotest.bpichinchatest.test	        9443/TCP (servlet-https) - Re-encrypt
+https://gw-apim.apps.ocptest.uiotest.bpichinchatest.test	    8243/TCP (https)  Re-encrypt 
+https://bps.apps.ocptest.uiotest.bpichinchatest.test	        9445/TCP (servlet-https) - Re-encrypt
+https://integrator.apps.ocptest.uiotest.bpichinchatest.test	    9443/TCP (servlet-https) - Re-encrypt
+https://gw-integrator.apps.ocptest.uiotest.bpichinchatest.test	8243/TCP (https) -  Re-encrypt 
+https://mb.apps.ocptest.uiotest.bpichinchatest.test	            9446/TCP (servlet-https) - Re-encrypt
+https://identity.apps.ocptest.uiotest.bpichinchatest.test	    9443/TCP (servlet-https) - Re-encrypt
+
+
 
 
 certificado is oc4
