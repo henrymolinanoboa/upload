@@ -1,190 +1,121 @@
-INSERT INTO sch_catalogos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) 
-VALUES (36, 'AIRTUG', 'AIRTUG', 'MAR_AIRTUG', false, true, 1),
-       (36, 'ALBRET', 'ALBRET', 'MAR_ALBRET', false, true, 1),
-       (36, 'ALLMAND', 'ALLMAND', 'MAR_ALLMAN', false, true, 1),
-       (36, 'AUDI', 'AUDI', 'MAR_AUDI', false, true, 1),
-       (36, 'BAIC', 'BAIC', 'MAR_BAIC', false, true, 1),
-       (36, 'BMW', 'BMW', 'MAR_BMW', false, true, 1),
-       (36, 'BOB CAT', 'BOB CAT', 'MAR_BOB CAT', false, true, 1),
-       (36, 'BOMAG', 'BOMAG', 'MAR_BOMAG', false, true, 1),
-       (36, 'BOMBARDIER', 'BOMBARDIER', 'MAR_BOMBAR', false, true, 1),
-       (36, 'BRIGGS', 'BRIGGS', 'MAR_BRIGGS', false, true, 1),
-       (36, 'CAMC', 'CAMC', 'MAR_CAMC', false, true, 1),
-       (36, 'CARTERPILLAR', 'CARTERPILLAR', 'MAR_CARTER', false, true, 1),
-       (36, 'CASE', 'CASE', 'MAR_CASE', false, true, 1),
-       (36, 'CHANGAN', 'CHANGAN', 'MAR_CHANGA', false, true, 1),
-       (36, 'CHARLATTE', 'CHARLATTE', 'MAR_CHARLA', false, true, 1),
-       (36, 'CHERY', 'CHERY', 'MAR_CHERY', false, true, 1),
-       (36, 'CHEVROLET', 'CHEVROLET', 'MAR_CHEVRO', false, true, 1),
-       (36, 'DAEWOO', 'DAEWOO', 'MAR_DAEWOO', false, true, 1),
-       (36, 'DAYTONA', 'DAYTONA', 'MAR_DAYTON', false, true, 1),
-       (36, 'DFSK', 'DFSK', 'MAR_DFSK', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'AGUA POTABLE', 'AGUA POTABLE', 'US_AGUA30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'AMBULANCIA', 'AMBULANCIA', 'US_AMBU30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'APOYO EN PLATAFORMA', 'APOYO EN PLATAFORMA', 'US_APOYO30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'ARRANCADOR', 'ARRANCADOR', 'US_ARRAN30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'ASU', 'ASU', 'US_ASU30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'AUTOBOMBA', 'AUTOBOMBA', 'US_AUTO30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'BANDA', 'BANDA', 'US_BANDA30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'BANDA EQUIPAJE', 'BANDA EQUIPAJE', 'US_BANDE30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'BANDA TRANSPORTADORA', 'BANDA TRANSPORTADORA', 'US_BANDT30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'BRAZO HIDRAULICO', 'BRAZO HIDRAULICO', 'US_BRAZO30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'CAMION DRENAJE', 'CAMION DRENAJE', 'US_CAMIO30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'CAMIÓN TANQUERO', 'CAMIÓN TANQUERO', 'US_CAMIT30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'CARGA', 'CARGA', 'US_CARGA30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'CARGA-DESC.EQUI', 'CARGA-DESC.EQUI', 'US_CARGD30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'CARGA CONTENEDORES', 'CARGA CONTENEDORES', 'US_CARGC30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'CARGO LOADER', 'CARGO LOADER', 'US_CARGO30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'CATERING AEREO', 'CATERING AEREO', 'US_CATER30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'CERTIFICACIÓN', 'CERTIFICACIÓN', 'US_CERTE30', false, true, 1);
 
-INSERT INTO sch_catalogos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) 
-VALUES (36, 'AIRTUG', 'AIRTUG', 'MAR_AIRTU', false, true, 1),
-       (36, 'ALBRET', 'ALBRET', 'MAR_ALBRE', false, true, 1),
-       (36, 'ALLMAND', 'ALLMAND', 'MAR_ALLMA', false, true, 1),
-       (36, 'AUDI', 'AUDI', 'MAR_AUDI', false, true, 1),
-       (36, 'BAIC', 'BAIC', 'MAR_BAIC', false, true, 1),
-       (36, 'BMW', 'BMW', 'MAR_BMW', false, true, 1),
-       (36, 'BOB CAT', 'BOB CAT', 'MAR_BOB C', false, true, 1),
-       (36, 'BOMAG', 'BOMAG', 'MAR_BOMAG', false, true, 1),
-       (36, 'BOMBARDIER', 'BOMBARDIER', 'MAR_BOMBA', false, true, 1),
-       (36, 'BRIGGS', 'BRIGGS', 'MAR_BRIGG', false, true, 1),
-       (36, 'CAMC', 'CAMC', 'MAR_CAMC', false, true, 1),
-       (36, 'CASE', 'CASE', 'MAR_CASE', false, true, 1),
-       (36, 'CHANGAN', 'CHANGAN', 'MAR_CHANG', false, true, 1),
-       (36, 'CHARLATTE', 'CHARLATTE', 'MAR_CHARL', false, true, 1),
-       (36, 'CHERY', 'CHERY', 'MAR_CHERY', false, true, 1),
-       (36, 'CHEVROLET', 'CHEVROLET', 'MAR_CHEVR', false, true, 1),
-       (36, 'DAEWOO', 'DAEWOO', 'MAR_DAEWO', false, true, 1),
-       (36, 'DAYTONA', 'DAYTONA', 'MAR_DAYTO', false, true, 1),
-       (36, 'DFSK', 'DFSK', 'MAR_DFSK', false, true, 1),
-       (36, 'DINAPAC', 'DINAPAC', 'MAR_DINAP', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'CISTERNA', 'CISTERNA', 'US_CISTE30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'COMPACTACION', 'COMPACTACION', 'US_COMPA30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'CONTROL', 'CONTROL', 'US_CONTRO30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'CONTROL ADUANERO', 'CONTROL ADUANERO', 'US_CONAD30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'CONTROL FAUNA', 'CONTROL FAUNA', 'US_CONFA30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'CONTROL OPERACIÓN', 'CONTROL OPERACIÓN', 'US_CONOP30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'CONTROL VERIFICACIÓN', 'CONTROL VERIFICACIÓN', 'US_CONVE30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'COORDINACIÓN VUELOS', 'COORDINACIÓN VUELOS', 'US_COORD30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'CORTADORA CESPED', 'CORTADORA CESPED', 'US_CORTA30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'DEFLEXIONES AREAS R', 'DEFLEXIONES AREAS R', 'US_DEFLE30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'DESPACHO COMBUSTIBLE', 'DESPACHO COMBUSTIBLE', 'US_DESPA30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'DIRECTOR OPERACIONES', 'DIRECTOR OPERACIONES', 'US_DIR30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'DRENADOR', 'DRENADOR', 'US_DREN30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'ELEVADOR', 'ELEVADOR', 'US_ELEVA30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'ENCENDIDO MOTORES', 'ENCENDIDO MOTORES', 'US_ENCEN30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'EQUIPO DE APOYO', 'EQUIPO DE APOYO', 'US_EQAPO30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'ESCALERAS MOTORIZADAS', 'ESCALERAS MOTORIZADAS', 'US_ESCAL30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'EXCAVADORA', 'EXCAVADORA', 'US_EXCAV30', false, true, 1);
 
-INSERT INTO sch_catalogos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) 
-VALUES (36, 'AIRTUG', 'AIRTUG', 'MAR_AIRTU', false, true, 1),
-       (36, 'ALBRET', 'ALBRET', 'MAR_ALBRE', false, true, 1),
-       (36, 'ALLMAND', 'ALLMAND', 'MAR_ALLMA', false, true, 1),
-       (36, 'AUDI', 'AUDI', 'MAR_AUDI', false, true, 1),
-       (36, 'BAIC', 'BAIC', 'MAR_BAIC', false, true, 1),
-       (36, 'BMW', 'BMW', 'MAR_BMW', false, true, 1),
-       (36, 'BOB CAT', 'BOB CAT', 'MAR_BOB C', false, true, 1),
-       (36, 'BOMAG', 'BOMAG', 'MAR_BOMAG', false, true, 1),
-       (36, 'BOMBARDIER', 'BOMBARDIER', 'MAR_BOMBA', false, true, 1),
-       (36, 'BRIGGS', 'BRIGGS', 'MAR_BRIGG', false, true, 1),
-       (36, 'CAMC', 'CAMC', 'MAR_CAMC', false, true, 1),
-       (36, 'CARTERPILLAR', 'CARTERPILLAR', 'MAR_CARTE', false, true, 1),
-       (36, 'CASE', 'CASE', 'MAR_CASE', false, true, 1),
-       (36, 'CHANGAN', 'CHANGAN', 'MAR_CHANG', false, true, 1),
-       (36, 'CHARLATTE', 'CHARLATTE', 'MAR_CHARL', false, true, 1),
-       (36, 'CHERY', 'CHERY', 'MAR_CHERY', false, true, 1),
-       (36, 'CHEVROLET', 'CHEVROLET', 'MAR_CHEVR', false, true, 1),
-       (36, 'DAEWOO', 'DAEWOO', 'MAR_DAEWO', false, true, 1),
-       (36, 'DAYTONA', 'DAYTONA', 'MAR_DAYTO', false, true, 1),
-       (36, 'DFSK', 'DFSK', 'MAR_DFSK', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'EXTENDIDO ASFALTO', 'EXTENDIDO ASFALTO', 'US_EXTEN30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'FRESADORA', 'FRESADORA', 'US_FRESA30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'GENERADOR', 'GENERADOR', 'US_GENE30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'GPU', 'GPU', 'US_GPU30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'GRUA', 'GRUA', 'US_GRUA30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'INGRESO HANGAR', 'INGRESO HANGAR', 'US_INGHA30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'INGRESO MAQUINARIA', 'INGRESO MAQUINARIA', 'US_INGMA30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'INGRESO PERSONAL', 'INGRESO PERSONAL', 'US_INGPE30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'INSPECCION INGENIERIA', 'INSPECCION INGENIERIA', 'US_INSPE30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'INSPECCIÓN', 'INSPECCIÓN', 'US_INSP30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'INSPECCION LADO', 'INSPECCION LADO', 'US_INSL30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'INSTALACION DE BANDA', 'INSTALACION DE BANDA', 'US_INSB30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'INSTALACION DE PUBLICIDAD', 'INSTALACION DE PUBLICIDAD', 'US_INSPB30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'INTERNO', 'INTERNO', 'US_INTER30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'LIMPIEZA', 'LIMPIEZA', 'US_LIMPI30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'LOADER', 'LOADER', 'US_LOAD30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'LUMINARIAS', 'LUMINARIAS', 'US_LUMIN30', false, true, 1);
 
-
-INSERT INTO sch_catalogos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) 
-VALUES (36, 'DINAPAC', 'DINAPAC', 'MAR_DINAP', false, true, 1),
-       (36, 'DIXIE CHOPPER', 'DIXIE CHOPPER', 'MAR_DIXIE', false, true, 1),
-       (36, 'DMAX', 'DMAX', 'MAR_DMAX', false, true, 1),
-       (36, 'DOGGE', 'DOGGE', 'MAR_DOGGE', false, true, 1),
-       (36, 'DONGFENG', 'DONGFENG', 'MAR_DONGF', false, true, 1),
-       (36, 'DYNAPAC', 'DYNAPAC', 'MAR_DYNAP', false, true, 1),
-       (36, 'EAGLE', 'EAGLE', 'MAR_EAGLE', false, true, 1),
-       (36, 'ELEKTRO', 'ELEKTRO', 'MAR_ELEKT', false, true, 1),
-       (36, 'ENERGYPLAN', 'ENERGYPLAN', 'MAR_ENERG', false, true, 1),
-       (36, 'ESCANIA', 'ESCANIA', 'MAR_ESCAN', false, true, 1),
-       (36, 'FIAT', 'FIAT', 'MAR_FIAT', false, true, 1),
-       (36, 'FMC', 'FMC', 'MAR_FMC', false, true, 1),
-       (36, 'FORD', 'FORD', 'MAR_FORD', false, true, 1),
-       (36, 'FOTON', 'FOTON', 'MAR_FOTON', false, true, 1),
-       (36, 'FREIGHTLINER', 'FREIGHTLINER', 'MAR_FREIG', false, true, 1),
-       (36, 'GENARAC', 'GENARAC', 'MAR_GENAR', false, true, 1),
-       (36, 'GENIE', 'GENIE', 'MAR_GENIE', false, true, 1),
-       (36, 'GRACO', 'GRACO', 'MAR_GRACO', false, true, 1),
-       (36, 'GRAND VITARA', 'GRAND VITARA', 'MAR_GRAND', false, true, 1),
-       (36, 'GREAT WALL', 'GREAT WALL', 'MAR_GREAT', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'MANEJO CARGA', 'MANEJO CARGA', 'US_MANEC30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'MANEJO CONTENEDORES', 'MANEJO CONTENEDORES', 'US_MANECO30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'MANTENIMIENTO', 'MANTENIMIENTO', 'US_MANTE30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'MANTENIMIENTO LINIA', 'MANTENIMIENTO LINIA', 'US_MANTEL30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'MEDICION DE ESPESORES', 'MEDICION DE ESPESORES', 'US_MEDI30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'MICROPAVIMENTADORA', 'MICROPAVIMENTADORA', 'US_MICRO30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'MINI CARGADORA', 'MINI CARGADORA', 'US_MINI30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'MONCACARGAS', 'MONCACARGAS', 'US_MONCA30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'MONTAJE ESTRUCTURA', 'MONTAJE ESTRUCTURA', 'US_MONT30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'MOTONIVELADORA', 'MOTONIVELADORA', 'US_MOTON30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'MOVILIZACIÓN PERSONAL', 'MOVILIZACIÓN PERSONAL', 'US_MOVIL30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'MOVILIZACIÓN MAQUINARIA', 'MOVILIZACIÓN MAQUINARIA', 'US_MOVMA30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'MOVIMIENTO CARGA', 'MOVIMIENTO CARGA', 'US_MOVC30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'MOVIMIENTO DE TIERRA', 'MOVIMIENTO DE TIERRA', 'US_MOVT30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'PAVIMENTACION', 'PAVIMENTACION', 'US_PAVI30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'PERSONAL', 'PERSONAL', 'US_PERS30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'PERSONAL TIERRA', 'PERSONAL TIERRA', 'US_PERTI30', false, true, 1);
 
 
-INSERT INTO sch_catalogos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) 
-VALUES (36, 'HAMM', 'HAMM', 'MAR_HAMM', false, true, 1),
-       (36, 'HARLAN', 'HARLAN', 'MAR_HARLA', false, true, 1),
-       (36, 'HINO', 'HINO', 'MAR_HINO', false, true, 1),
-       (36, 'HYUNDAI', 'HYUNDAI', 'MAR_HYUND', false, true, 1),
-       (36, 'HOBART', 'HOBART', 'MAR_HOBAR', false, true, 1),
-       (36, 'HONDA', 'HONDA', 'MAR_HONDA', false, true, 1),
-       (36, 'HORART', 'HORART', 'MAR_HORAR', false, true, 1),
-       (36, 'HUMMER', 'HUMMER', 'MAR_HUMME', false, true, 1),
-       (36, 'INGERSOLL RAND', 'INGERSOLL RAND', 'MAR_INGE', false, true, 1),
-       (36, 'INTERNACIONAL', 'INTERNACIONAL', 'MAR_INTER', false, true, 1),
-       (36, 'IVECO', 'IVECO', 'MAR_IVECO', false, true, 1),
-       (36, 'JAC', 'JAC', 'MAR_JAC', false, true, 1),
-       (36, 'JBT', 'JBT', 'MAR_JBT', false, true, 1),
-       (36, 'JCB', 'JCB', 'MAR_JCB', false, true, 1),
-       (36, 'JEEP', 'JEEP', 'MAR_JEEP', false, true, 1),
-       (36, 'JLG', 'JLG', 'MAR_JLG', false, true, 1),
-       (36, 'JOHN DEERE', 'JOHN DEERE', 'MAR_JOHN', false, true, 1),
-       (36, 'KENWORTH', 'KENWORTH', 'MAR_KENWO', false, true, 1),
-       (36, 'KIA', 'KIA', 'MAR_KIA', false, true, 1),
-       (36, 'KOMATSU', 'KOMATSU', 'MAR_KOMAT', false, true, 1),
-       (36, 'LADA NIVA', 'LADA NIVA', 'MAR_LADA N', false, true, 1);
-
-INSERT INTO sch_catalogos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) 
-VALUES (36, 'LAND ROVER', 'LAND ROVER', 'MAR_LANDR', false, true, 1),
-       (36, 'LECHMOTOREN', 'LECHMOTOREN', 'MAR_LECHM', false, true, 1),
-       (36, 'LEE BOY', 'LEE BOY', 'MAR_LEEBO', false, true, 1),
-       (36, 'LEKTRO', 'LEKTRO', 'MAR_LEKTR', false, true, 1),
-       (36, 'LEXUS', 'LEXUS', 'MAR_LEXUS', false, true, 1),
-       (36, 'LIFAN', 'LIFAN', 'MAR_LIFAN', false, true, 1),
-       (36, 'MACK', 'MACK', 'MAR_MACK', false, true, 1),
-       (36, 'MAHINDRA', 'MAHINDRA', 'MAR_MAHIN', false, true, 1),
-       (36, 'MAN', 'MAN', 'MAR_MAN', false, true, 1),
-       (36, 'MASERATI', 'MASERATI', 'MAR_MASER', false, true, 1),
-       (36, 'MAZDA', 'MAZDA', 'MAR_MAZDA', false, true, 1),
-       (36, 'MERCEDES BENZ', 'MERCEDES BENZ', 'MAR_MERC', false, true, 1),
-       (36, 'MINI COOPERS', 'MINI COOPERS', 'MAR_MINIC', false, true, 1),
-       (36, 'MITSUBISHI', 'MITSUBISHI', 'MAR_MITSU', false, true, 1),
-       (36, 'MONTERO', 'MONTERO', 'MAR_MONTE', false, true, 1),
-       (36, 'NEW HOLLAND', 'NEW HOLLAND', 'MAR_NEWHO', false, true, 1),
-       (36, 'NISSAN', 'NISSAN', 'MAR_NISSAN', false, true, 1),
-       (36, 'OSHKOSH', 'OSHKOSH', 'MAR_OSHKO', false, true, 1),
-       (36, 'OVERALL', 'OVERALL', 'MAR_OVERA', false, true, 1),
-       (36, 'PHOENIX', 'PHOENIX', 'MAR_PHOEN', false, true, 1),
-       (36, 'PORSCHE', 'PORSCHE', 'MAR_PORS', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'RECORRIDO PERIMETRAL', 'RECORRIDO PERIMETRAL', 'US_RECOR30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'RECORRIDO PERSONAL', 'RECORRIDO PERSONAL', 'US_RECPE30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'REMOLQUE', 'REMOLQUE', 'US_REMOL30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'REMOVEDORA', 'REMOVEDORA', 'US_REMOV30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'RESCATE', 'RESCATE', 'US_RESCAT30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'RETIRO ASFALTO', 'RETIRO ASFALTO', 'US_RETIR30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'RETROEXCAVADORA', 'RETROEXCAVADORA', 'US_RETRO30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'REUBICA CARGA', 'REUBICA CARGA', 'US_REUBI30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'RODILLO', 'RODILLO', 'US_RODI30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'RONDA PERIMETRO', 'RONDA PERIMETRO', 'US_RONDA30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'SANITIZACION Y RECOLECCIÓN', 'SANITIZACION Y RECOLECCIÓN', 'US_SANIT30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'SEÑALETICA AREA', 'SEÑALETICA AREA', 'US_SENA30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'SEROTRANSPORTACION DE VAL', 'SEROTRANSPORTACION DE VAL', 'US_SERO30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'SERVICIO DE CATERING', 'SERVICIO DE CATERING', 'US_SERVI30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'SERVICIO PLATAFORMA', 'SERVICIO PLATAFORMA', 'US_SERVP30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'SERVICIOS COMPLEMENTARIO', 'SERVICIOS COMPLEMENTARIO', 'US_SERVIC30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'SUPERV SEG', 'SUPERV SEG', 'US_SUPERV30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'SUPERVISIÓN PERIMETRO', 'SUPERVISIÓN PERIMETRO', 'US_SUPERVI30', false, true, 1);
 
 
-INSERT INTO sch_catalogos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) 
-VALUES (36, 'POWERBOSS', 'POWERBOSS', 'MAR_POWER', false, true, 1),
-       (36, 'PUCKER', 'PUCKER', 'MAR_PUCKE', false, true, 1),
-       (36, 'RAM STAR', 'RAM STAR', 'MAR_RAMST', false, true, 1),
-       (36, 'RENAULT', 'RENAULT', 'MAR_RENAU', false, true, 1),
-       (36, 'ROSENBAUER', 'ROSENBAUER', 'MAR_ROSEN', false, true, 1),
-       (36, 'RUCKER', 'RUCKER', 'MAR_RUCKE', false, true, 1),
-       (36, 'S&S', 'S&S', 'MAR_SAS', false, true, 1),
-       (36, 'SCANIA', 'SCANIA', 'MAR_SCAN', false, true, 1),
-       (36, 'SCHOPF', 'SCHOPF', 'MAR_SCHO', false, true, 1),
-       (36, 'SHINERAY', 'SHINERAY', 'MAR_SHINE', false, true, 1),
-       (36, 'SHPF', 'SHPF', 'MAR_SHPF', false, true, 1),
-       (36, 'SINOTRUK', 'SINOTRUK', 'MAR_SINO', false, true, 1),
-       (36, 'SKODA', 'SKODA', 'MAR_SKODA', false, true, 1),
-       (36, 'SKY', 'SKY', 'MAR_SKY', false, true, 1),
-       (36, 'SKYJACK', 'SKYJACK', 'MAR_SKYJA', false, true, 1),
-       (36, 'SOUEAST', 'SOUEAST', 'MAR_SOUEA', false, true, 1),
-       (36, 'STEWART & STEVENSON', 'STEWART & STEVENSON', 'MAR_STEWA', false, true, 1),
-       (36, 'SUPERIOR BROOM', 'SUPERIOR BROOM', 'MAR_SUPER', false, true, 1),
-       (36, 'SUZUKI', 'SUZUKI', 'MAR_SUZUK', false, true, 1),
-       (36, 'TATTA DAEWOO', 'TATTA DAEWOO', 'MAR_TATTA', false, true, 1),
-       (36, 'TAYLOR DUNN', 'TAYLOR DUNN', 'MAR_TAYLO', false, true, 1),
-       (36, 'TDL', 'TDL', 'MAR_TDL', false, true, 1),
-       (36, 'THUNDER', 'THUNDER', 'MAR_THUND', false, true, 1),
-       (36, 'TIGER', 'TIGER', 'MAR_TIGER', false, true, 1),
-       (36, 'TLD', 'TLD', 'MAR_TLD', false, true, 1),
-       (36, 'TORO', 'TORO', 'MAR_TORO', false, true, 1),
-       (36, 'TOWFLEX', 'TOWFLEX', 'MAR_TOWFL', false, true, 1),
-       (36, 'TOYOTA', 'TOYOTA', 'MAR_TOYOT', false, true, 1),
-       (36, 'TREPEL', 'TREPEL', 'MAR_TREPE', false, true, 1),
-       (36, 'TRIUMPH', 'TRIUMPH', 'MAR_TRIUM', false, true, 1),
-       (36, 'TRONAIR', 'TRONAIR', 'MAR_TRONA', false, true, 1),
-       (36, 'TRUCKS', 'TRUCKS', 'MAR_TRUCK', false, true, 1),
-       (36, 'TUG', 'TUG', 'MAR_TUG', false, true, 1),
-       (36, 'UD TRUCKS', 'UD TRUCKS', 'MAR_UDTRU', false, true, 1),
-       (36, 'UIO', 'UIO', 'MAR_UIO', false, true, 1),
-       (36, 'UNITED TRACTOR', 'UNITED TRACTOR', 'MAR_UNIT', false, true, 1),
-       (36, 'UPRIGHT', 'UPRIGHT', 'MAR_UPRIG', false, true, 1),
-       (36, 'VENTURA', 'VENTURA', 'MAR_VENTU', false, true, 1),
-       (36, 'VMAN', 'VMAN', 'MAR_VMAN', false, true, 1),
-       (36, 'VOGELE', 'VOGELE', 'MAR_VOGEL', false, true, 1),
-       (36, 'VOLKSWAGEN', 'VOLKSWAGEN', 'MAR_VOLKS', false, true, 1),
-       (36, 'VOLVO', 'VOLVO', 'MAR_VOLVO', false, true, 1),
-       (36, 'WASP', 'WASP', 'MAR_WASP', false, true, 1),
-       (36, 'WCT', 'WCT', 'MAR_WCT', false, true, 1),
-       (36, 'WESTERN STAR', 'WESTERN STAR', 'MAR_WEST', false, true, 1),
-       (36, 'WINGLE STEED', 'WINGLE STEED', 'MAR_WINGL', false, true, 1),
-       (36, 'WIRTGEN GROUP', 'WIRTGEN GROUP', 'MAR_WIRTG', false, true, 1),
-       (36, 'WOLLARD', 'WOLLARD', 'MAR_WOLLA', false, true, 1),
-       (36, 'WORKSTAR', 'WORKSTAR', 'MAR_WORK', false, true, 1),
-       (36, 'YAMAHA', 'YAMAHA', 'MAR_YAMAH', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'TANQUERO', 'TANQUERO', 'US_TANQU30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'TRABAJO INTERNO', 'TRABAJO INTERNO', 'US_TRABIN30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'TENDIDO ASFALTO', 'TENDIDO ASFALTO', 'US_TENDI30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'TOMA DE FALLAS PISTA', 'TOMA DE FALLAS PISTA', 'US_TOMAF30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'TORRE ILUMINACION', 'TORRE ILUMINACION', 'US_TORIL30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'TRAB. LADO AIRE', 'TRAB. LADO AIRE', 'US_TRABLA30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'TRABAJO EN PLATAFORMA', 'TRABAJO EN PLATAFORMA', 'US_TRABPL30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'TRABAJOS VARIOS', 'TRABAJOS VARIOS', 'US_TRABVA30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'TRACTOR', 'TRACTOR', 'US_TRACT30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'TRACTOR AGRICOLA', 'TRACTOR AGRICOLA', 'US_TRAAG30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'TRACTOR ARRASTRE', 'TRACTOR ARRASTRE', 'US_TRAARR30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'TRACTOR EQUIPAJE', 'TRACTOR EQUIPAJE', 'US_TRAEQ30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'TRANSPORTE HERRAMIENTAS', 'TRANSPORTE HERRAMIENTAS', 'US_TRANH30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'TRANSPORTE VALORES', 'TRANSPORTE VALORES', 'US_TRANV30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'TRANSPORTE MATERIAL-PERSONAL', 'TRANSPORTE MATERIAL-PERSONAL', 'US_TRANM30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'TRANSPORTE PERSONAL', 'TRANSPORTE PERSONAL', 'US_TRANP30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'TRANSPORTE CARGA', 'TRANSPORTE CARGA', 'US_TRANCA30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'TRANSPORTE EQUIPOS', 'TRANSPORTE EQUIPOS', 'US_TRANE30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'TRANSPORTE TRIPULACIÓN', 'TRANSPORTE TRIPULACIÓN', 'US_TRANTR30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'TRANSPORTE DE EQUIPAJE', 'TRANSPORTE DE EQUIPAJE', 'US_TRANDE30', false, true, 1);
 
-
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'TRASLADO', 'TRASLADO', 'US_TRASL30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'TRASLADO DE EQUIPOS', 'TRASLADO DE EQUIPOS', 'US_TRAEQU30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'TRASLADO DE PERSONAL', 'TRASLADO DE PERSONAL', 'US_TRAPERS30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'USO INTERNO', 'USO INTERNO', 'US_USOINTER30', false, true, 1);
+INSERT INTO sch_cataloGos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (37, 'VOLQUETA', 'VOLQUETA', 'US_VOLQU30', false, true, 1);
