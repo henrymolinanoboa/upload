@@ -1,24 +1,3 @@
-[14:41, 7/10/2024] Efrain Saransig: {
-    "entity": "notificacion_equipo",
-    "fields": "id",
-    "filters": "notificacion_id =4261",
-    "count": false
-}
-[14:41, 7/10/2024] Efrain Saransig: {
-    "entity": "notificacion_archivo",
-    "fields": "id",
-    "filters": "notificacion_id =4261",
-    "count": false
-}
-[14:41, 7/10/2024] Efrain Saransig: {
-    "entity": "notificacion_compania",
-    "fields": "id",
-    "filters": "notificacion_id =4261",
-    "count": false
-}
-[14:41, 7/10/2024] Efrain Saransig: {
-    "entity": "notificacion_condicion_meteorologica",
-    "fields": "id",
-    "filters": "notificacion_id =4261",
-    "count": false
-}
+INSERT INTO sch_catalogos.parametros (id, codigo, nombre, descripcion, tipo_parametro, valor_texto, valor_fecha, valor_decimal, vigente, valor_binario) VALUES (39, 'CAN.CUR.HOR', 'CANCELACION CURSO HORAS', 'CANCELACION CURSO HORAS', 'N', null, null, 48.00, true, null);
+INSERT INTO sch_catalogos.parametros (id, codigo, nombre, descripcion, tipo_parametro, valor_texto, valor_fecha, valor_decimal, vigente, valor_binario) VALUES (38, 'RUC.PER,FAC.CRE', 'RUC PERMITIDOS PARA FACTURAR CREDENCIALES', 'RUC PERMITIDOS PARA FACTURAR CREDENCIALES', 'T', '1791844416001,1791844416001', null, null, true, null);
+INSERT INTO sch_catalogos.parametros (id, codigo, nombre, descripcion, tipo_parametro, valor_texto, valor_fecha, valor_decimal, vigente, valor_binario) VALUES (37, 'POR_IVA', 'PORCENTAJE IVA', 'PORCENTAJE IVA', 'N', null, null, 15.00, true, null);
