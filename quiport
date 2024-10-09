@@ -1,15 +1,5 @@
-INSERT INTO sch_catalogos.parametros (id, codigo, nombre, descripcion, tipo_parametro, valor_texto, valor_fecha, valor_decimal, vigente, valor_binario) VALUES (34, 'MSG.DISCLAIMER', 'MENSAJE DISCLAIMER CREDENCIALES', 'MENSAJE DISCLAIMER CREDENCIALES', 'T', 'Descargo de Responsabilidad para la Emisión de Credenciales.
+Por medio de la presente, en calidad de persona responsable, me comprometo a realizar el tratamiento de los datos personales estrictamente necesarios para la adecuada prestación de los servicios relacionados con la tramitación de las Credenciales de Conducción Aeroportuaria (CCA) y/o Tarjetas de Conducción de Puente de Embarque (TCP) emitidas por CORPORACIÓN QUIPORT, S.A. (QUIPORT), quien actúa como Responsable del Tratamiento.
 
-Por medio del presente, declaramos que la emisión de estas credenciales está sujeta a las siguientes condiciones y términos:
+En este sentido, me obligo a acatar todas las disposiciones establecidas en la normativa ecuatoriana vigente en materia de protección de datos personales, especialmente lo dispuesto en la Ley Orgánica de Protección de Datos Personales (LOPDP) y cualquier otra normativa complementaria aplicable. Del mismo modo, me comprometo a seguir, en todo momento, las instrucciones de QUIPORT.
 
-1. Las credenciales emitidas son propiedad de Quiport y deben ser devueltas a esta entidad si la relación entre el titular y la institución llega a su fin o si las credenciales ya no son válidas (caducan).
-
-2. Las credenciales son emitidas con el propósito específico de identificar al titular en el contexto laboral y de acceso al área restringida del aeropuerto.
-
-3. El titular de las credenciales es responsable de su uso adecuado y seguro. Quiport no se hace responsable de ningún daño, pérdida o responsabilidad que surja del uso indebido de las credenciales por parte del titular.
-
-4. Las credenciales son intransferibles y no deben ser compartidas, duplicadas o alteradas de ninguna manera. Cualquier intento de hacerlo puede resultar en la revocación inmediata de las credenciales y acciones legales según corresponda.
-
-5. Quiport se reserva el derecho de modificar o revocar las credenciales en cualquier momento y sin previo aviso si se determina que el titular ha violado alguna de las condiciones establecidas en el presente descargo de responsabilidad o si existen circunstancias que lo justifiquen.
-
-Al aceptar y utilizar estas credenciales, el titular reconoce y acepta cumplir con todas las condiciones y términos establecidos en este en el presente descargo de responsabilidad.', null, null, true, null);
+Adicionalmente, asumiré la responsabilidad de implementar las medidas técnicas y organizativas necesarias para asegurar un nivel de seguridad adecuado al riesgo, protegiendo así los datos personales de accesos no autorizados, pérdidas, filtraciones, alteraciones o destrucción. Asimismo, me comprometo a que el tratamiento de los datos personales se limitará exclusivamente a los fines descritos, quedando prohibido su uso para cualquier otra finalidad sin la debida autorización.
