@@ -1,3 +1,47 @@
+INSERT INTO sch_catalogos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) 
+VALUES (35, 'AMARILLO', 'AMARILLO', 'CO_AMARIL', false, true, 1);
 
-INSERT INTO sch_cataloGos.catalogos (id, tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) VALUES (870, 35, 'CELESTE', 'CELESTE', 'CO_CELE30', false, true, 1);
+INSERT INTO sch_catalogos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) 
+VALUES (35, 'ANARANJADO', 'ANARANJADO', 'CO_ANARAN', false, true, 1);
 
+INSERT INTO sch_catalogos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) 
+VALUES (35, 'AZUL', 'AZUL', 'CO_AZUL00', false, true, 1);
+
+INSERT INTO sch_catalogos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) 
+VALUES (35, 'BLANCO', 'BLANCO', 'CO_BLANCO', false, true, 1);
+
+INSERT INTO sch_catalogos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) 
+VALUES (35, 'CAFE', 'CAFE', 'CO_CAFE00', false, true, 1);
+
+INSERT INTO sch_catalogos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) 
+VALUES (35, 'CELESTE', 'CELESTE', 'CO_CELES', false, true, 1);
+
+INSERT INTO sch_catalogos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) 
+VALUES (35, 'CREMA', 'CREMA', 'CO_CREMA0', false, true, 1);
+
+INSERT INTO sch_catalogos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) 
+VALUES (35, 'DORADO', 'DORADO', 'CO_DORADO', false, true, 1);
+
+INSERT INTO sch_catalogos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) 
+VALUES (35, 'GRIS', 'GRIS', 'CO_GRIS00', false, true, 1);
+
+INSERT INTO sch_catalogos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) 
+VALUES (35, 'N/A', 'N/A', 'CO_NA0000', false, true, 1);
+
+INSERT INTO sch_catalogos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) 
+VALUES (35, 'NEGRO', 'NEGRO', 'CO_NEGRO0', false, true, 1);
+
+INSERT INTO sch_catalogos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) 
+VALUES (35, 'PLATEADO', 'PLATEADO', 'CO_PLATEA', false, true, 1);
+
+INSERT INTO sch_catalogos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) 
+VALUES (35, 'PLOMO', 'PLOMO', 'CO_PLOMO0', false, true, 1);
+
+INSERT INTO sch_catalogos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) 
+VALUES (35, 'ROJO', 'ROJO', 'CO_ROJO00', false, true, 1);
+
+INSERT INTO sch_catalogos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) 
+VALUES (35, 'VERDE', 'VERDE', 'CO_VERDE0', false, true, 1);
+
+INSERT INTO sch_catalogos.catalogos (tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal) 
+VALUES (35, 'VINO', 'VINO', 'CO_VINO00', false, true, 1);
