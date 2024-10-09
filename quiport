@@ -1,4 +1,4 @@
-INSERT INTO sch_catalogos.parametros (codigo, nombre, valor_texto, valor_decimal) VALUES ('MSG.DISCLAIMER', 'MENSAJE DISCLAIMER CREDENCIALES', 'Descargo de Responsabilidad para la Emisión de Credenciales.
+INSERT INTO sch_catalogos.parametros (id, codigo, nombre, descripcion, tipo_parametro, valor_texto, valor_fecha, valor_decimal, vigente, valor_binario) VALUES (34, 'MSG.DISCLAIMER', 'MENSAJE DISCLAIMER CREDENCIALES', 'MENSAJE DISCLAIMER CREDENCIALES', 'T', 'Descargo de Responsabilidad para la Emisión de Credenciales.
 
 Por medio del presente, declaramos que la emisión de estas credenciales está sujeta a las siguientes condiciones y términos:
 
@@ -12,4 +12,4 @@ Por medio del presente, declaramos que la emisión de estas credenciales está s
 
 5. Quiport se reserva el derecho de modificar o revocar las credenciales en cualquier momento y sin previo aviso si se determina que el titular ha violado alguna de las condiciones establecidas en el presente descargo de responsabilidad o si existen circunstancias que lo justifiquen.
 
-Al aceptar y utilizar estas credenciales, el titular reconoce y acepta cumplir con todas las condiciones y términos establecidos en este en el presente descargo de responsabilidad.', null);
+Al aceptar y utilizar estas credenciales, el titular reconoce y acepta cumplir con todas las condiciones y términos establecidos en este en el presente descargo de responsabilidad.', null, null, true, null);
