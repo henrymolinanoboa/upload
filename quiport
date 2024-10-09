@@ -1,4 +1,7 @@
-INSERT INTO sch_catalogos.tipos_catalogos (id, nombre, codigo, vigente, tipo_ordenamiento, usuario_creacion, fecha_creacion, usuario_actualizacion, fecha_actualizacion, aplicacion) VALUES (37, 'Uso Vehiculo', 'USOVEHIC', true, 'NOM', null, null, null, null, 'CRE');
-INSERT INTO sch_catalogos.tipos_catalogos (id, nombre, codigo, vigente, tipo_ordenamiento, usuario_creacion, fecha_creacion, usuario_actualizacion, fecha_actualizacion, aplicacion) VALUES (36, 'Marca Vehiculo', 'MARCVEHIC', true, 'NOM', null, null, null, null, 'CRE');
-INSERT INTO sch_catalogos.tipos_catalogos (id, nombre, codigo, vigente, tipo_ordenamiento, usuario_creacion, fecha_creacion, usuario_actualizacion, fecha_actualizacion, aplicacion) VALUES (35, 'Color Vehiculo', 'COLVEHIC', true, 'NOM', null, null, null, null, 'CRE');
-INSERT INTO sch_catalogos.tipos_catalogos (id, nombre, codigo, vigente, tipo_ordenamiento, usuario_creacion, fecha_creacion, usuario_actualizacion, fecha_actualizacion, aplicacion) VALUES (34, 'Grupos Documentos SMS', 'GRUDOCSMS', true, 'NOM', null, null, null, null, 'SMS');
+
+
+
+INSERT INTO sch_cataloGos.catalogos (id, tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal, usuario_creacion, fecha_creacion, usuario_actualizacion, fecha_actualizacion) VALUES (596, 34, 'Politicas SMS', 'Politicas SMS', 'GRUDOCSMS_POL', false, true, null, null, null, null, null);
+INSERT INTO sch_cataloGos.catalogos (id, tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal, usuario_creacion, fecha_creacion, usuario_actualizacion, fecha_actualizacion) VALUES (597, 34, 'Objetivos SMS', 'Objetivos SMS', 'GRUDOCSMS_OBJ', false, true, null, null, null, null, null);
+INSERT INTO sch_cataloGos.catalogos (id, tipos_catalogos_id, nombre, descripcion, codigo, predeterminado, vigente, ordinal, usuario_creacion, fecha_creacion, usuario_actualizacion, fecha_actualizacion) VALUES (598, 34, 'Manuales SMS', 'Manuales SMS', 'GRUDOCSMS_MAN', false, true, null, null, null, null, null);
+
