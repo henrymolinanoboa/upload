@@ -69,7 +69,7 @@
             <element column="PERFIL_GLOBAL_NOMBRE" name="perfil_global_nombre" />
             <element column="PERFIL_GLOBAL_CARGO_DUENIO_NOMBRE" name="perfil_global_cargo_duenio_nombre" />
             <element column="PERFIL_GLOBAL_CARGO_DUENIO_ID" name="perfil_global_cargo_duenio_id" />
-            <call-query href="queryReferenceById__typeUser_parent">
+            <call-query href="select_responsibles_for_service_now_query">
                 <with-param column="perfil_global_cargo_duenio_id" name="perfil_global_cargo_duenio_id"/>
             </call-query>
         </result>
