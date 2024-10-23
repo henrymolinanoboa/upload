@@ -6,6 +6,7 @@
     <query id="select_user_for_service_now_query" useConfig="default">
         <sql>
             SELECT 
+                t1.USERNAME,
                 t1.IDENTIFICATION IDENTIFICACION,
                 t1.EMPLOYEE_COMPLETE_NAME NOMBRES,
                 T1.EMPLOYEE_STATUS ESTADO,
@@ -43,7 +44,8 @@
             WHERE 
             t1.USERNAME=:username</sql>
         <param name="username" paramType="SCALAR" sqlType="STRING" type="IN"/>
-        <result element="usuario" >
+        <result element="usuarios" rowName="usuario">
+            <element column="USERNAME" name="username" />
             <element column="IDENTIFICACION" name="identificacion" />
             <element column="NOMBRES" name="nombres" />
             <element column="ESTADO" name="estado" />
