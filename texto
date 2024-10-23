@@ -1,55 +1,48 @@
-https://gw-integrator.apps.test.bpichincha.com/api.centraid/consultas/usuario/amfierro
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="GIUsuarioSeq" onError="FaultSeq" xmlns="http://ws.apache.org/ns/synapse">
+    <log category="DEBUG" level="custom">
+        <property name="GIUsuarioSeq" value="Inicio.."/>
+    </log>
+    <call-template target="ValidatePropertyTemplate">
+        <with-param name="value" value="{get-property('username')}"
+            xmlns:ns="http://org.apache.synapse/xsd" xmlns:ns3="http://org.apache.synapse/xsd"/>
+        <with-param name="type" value="INTEGER"/>
+        <with-param name="name" value="username"/>
+    </call-template>
+    <property action="remove" name="REST_URL_POSTFIX" scope="axis2"/>
+    <property action="remove" name="Content-Type" scope="transport"/>
+    <call>
+        <endpoint template="HTTPEndpointGetTemplate" uri="{uri.var.dataServiceHost}/identity.user-data.ds.HTTPEndpoint/select_user_for_service_now?username={uri.var.username}"/>
+    </call>
+    <filter regex=".*20.*" source="get-property('axis2', 'HTTP_SC')"
+        xmlns:ns="http://org.apache.synapse/xsd" xmlns:ns3="http://org.apache.synapse/xsd">
+        <then>
+            <xslt key="gov:/centra-id/xslt/dssFilter.xsl"/>
+            <property name="messageType" scope="axis2" type="STRING" value="application/json"/>
+            <property name="HTTP_SC" scope="axis2" type="STRING" value="200"/>
+        </then>
+        <else>
+            <sequence key="FaultSeq"/>
+        </else>
+    </filter>
+    <log level="full">
+        <property name="GIUsuarioSeq" value="Fin.."/>
+    </log>
+</sequence>
 
-{
-    "usuarios": {
-        "usuario": [
-            {
-                "username": "amfierro",
-                "identificacion": "0201376522",
-                "nombres": "FIERRO VEGA ANA MARIA",
-                "estado": "ACTIVO",
-                "supervisor_identificacion": 1713072153,
-                "supervisor_nombres": "BEJARANO VINUEZA FERNANDA ANABEL",
-                "contraparte_identificacion": null,
-                "contraparte_nombres": null,
-                "responsable_identificacion": null,
-                "responsable_nombres": null,
-                "compania_codigo": "BCPI",
-                "compania_nombre": "BANCO PICHINCHA C.A.",
-                "division_codigo": "N2095",
-                "division_nombre": "SEGURIDAD DE LA INFORMACION",
-                "area_codigo": "N3291",
-                "area_nombre": "ARQUITECTURA SEGURIDAD INFORMACION",
-                "departamento_codigo": "N5144",
-                "departamento_nombre": "ARQUITECTURA SEGURIDAD INFORMACION",
-                "cargo_codigo": "3e8di6",
-                "cargo_nombre": "GERENTE ARQUITECTURA SEGURIDAD INFORMACION",
-                "perfil_global_codigo": "01_GRAL_DEF_002",
-                "perfil_global_nombre": "PERFIL BASICO RED CORREO INTERNET",
-                "perfil_global_cargo_duenio_nombre": "GERENTE SEGURIDAD DE LA INFORMACION",
-                "responsables": {
-                    "responsable": [
-                        {
-                            "username": "jcbeltran",
-                            "identification": 1706879333,
-                            "nombres": "BELTRAN NARANJO JUAN CARLOS",
-                            "cargo_codigo": 1340,
-                            "cargo_nombre": "GERENTE SEGURIDAD DE LA INFORMACION"
-                        },
-                        {
-                            "username": "fgomezbu",
-                            "identification": "F13658394",
-                            "nombres": "GOMEZ BUSTOS FELIPE IGNACIO",
-                            "cargo_codigo": 1340,
-                            "cargo_nombre": "GERENTE SEGURIDAD DE LA INFORMACION"
-                        }
-                    ]
-                }
-            }
-        ]
-    }
-}
 
+   <resource methods="GET" uri-template="/consultas/usuario/{username}" faultSequence="FaultSeq">
+      <inSequence>
+         <sequence key="InBoundSeq"/>
+         <sequence key="GIUsuarioSeq"/>
+         <sequence key="OutboundSeq"/>
+         <respond/>
+      </inSequence>
+      <outSequence/>
+   </resource>
+
+
+-----------------------------------------
 
 
 [2024-10-09 17:40:04,995] ERROR {org.wso2.carbon.core.services.authentication.AuthenticationAdmin} -  Authentication Failed : Invalid remote address passed - service-cse-msa-dm-wso2is-km.cse-wso2-int.svc.cluster.local
