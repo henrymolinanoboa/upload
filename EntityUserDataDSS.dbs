@@ -70,7 +70,7 @@
             <element column="PERFIL_GLOBAL_CARGO_DUENIO_NOMBRE" name="perfil_global_cargo_duenio_nombre" />
             <element column="PERFIL_GLOBAL_CARGO_DUENIO_ID" name="perfil_global_cargo_duenio_id" />
             <call-query href="select_responsibles_for_service_now_query">
-                <with-param column="perfil_global_cargo_duenio_id" name="perfil_global_cargo_duenio_id"/>
+                <with-param column="PERFIL_GLOBAL_CARGO_DUENIO_ID" name="perfil_global_cargo_duenio_id"/>
             </call-query>
         </result>
     </query>  
@@ -86,7 +86,7 @@
             LEFT JOIN SCH_CENTRA_ID.CATALOGS t2 ON t1.CATALOG_POSITION_ID = t2.ID
             WHERE 
             t1.EMPLOYEE_STATUS='ACTIVO' AND
-            t1.CATALOG_POSITION_ID=40262 AND
+            t1.CATALOG_POSITION_ID=:perfil_global_cargo_duenio_id AND
             t1.VALID=1</sql>
         <param name="perfil_global_cargo_duenio_id" paramType="SCALAR" sqlType="BIGINT" type="IN"/>
         <result element="responsables" rowName="responsable">
