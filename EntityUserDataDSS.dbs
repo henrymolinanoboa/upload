@@ -45,7 +45,7 @@
             t1.USERNAME=:username</sql>
         <param name="username" paramType="SCALAR" sqlType="STRING" type="IN"/>
         <result element="usuario" >
-            <element column="USERNAME" name="username" />
+            <element column="USERNAME" name="userid" />
             <element column="IDENTIFICACION" name="identificacion" />
             <element column="NOMBRES" name="nombres" />
             <element column="ESTADO" name="estado" />
@@ -68,7 +68,6 @@
             <element column="PERFIL_GLOBAL_CODIGO" name="perfil_global_codigo" />
             <element column="PERFIL_GLOBAL_NOMBRE" name="perfil_global_nombre" />
             <element column="PERFIL_GLOBAL_CARGO_DUENIO_NOMBRE" name="perfil_global_cargo_duenio_nombre" />
-            <element column="PERFIL_GLOBAL_CARGO_DUENIO_ID" name="perfil_global_cargo_duenio_id" />
             <call-query href="select_responsibles_for_service_now_query">
                 <with-param column="PERFIL_GLOBAL_CARGO_DUENIO_ID" name="perfil_global_cargo_duenio_id"/>
             </call-query>
