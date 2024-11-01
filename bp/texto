@@ -1,1 +1,47 @@
-
+{
+    "ProcesarEmpleadoRequest": {
+        "headerIn": {
+            "guid": "9be24ff5ebcc4a849ecee1c55540412b-17.3",
+            "fechaHora": "2024-07-24T04:30:42.5169",
+            "ip": "169.254.2.211"
+        },
+        "bodyIn": {
+            "empleados": [
+                {
+                    "codigoTrabajador": "1714235379",
+                    "apellidosEmpleado": "JARAMILLO PEREZ DE ANDA",
+                    "nombresEmpleado": "MARTIN SEBASTIAN",
+                    "identificacion": "1714235379",
+                    "tipoIdentificacion": "C",
+                    "identificacionSupervisor": "",
+                    "nombreSupervisor": "",
+                    "codigoCompania": "DEUNA",
+                    "nombreCompania": "APPDEUNA S.A",
+                    "codigoAgrupacion": "N1028",
+                    "nombreAgrupacion": "DE UNA",
+                    "codigoDivision": "N2087",
+                    "nombreDivision": "COMERCIAL Y MARKETING",
+                    "codigoDepartamento": "N7690     ",
+                    "nombreDepartamento": "COMERCIAL Y MARKETING",
+                    "codigoArea": "N3254",
+                    "nombreArea": "COMERCIAL Y MARKETING",
+                    "codigoCentroCosto": "1111111",
+                    "nombreCentroCosto": "PRODUCCION",
+                    "nombreLocalidad": "CALL CENTER",
+                    "nombreCargo": "DUENO DE PRODUCTO",
+                    "codigoNivelJerarquico": "70",
+                    "nombreNivelJerarquico": "JEFE / EXPERTO / ADMINISTRADOR ",
+                    "numeroCuentaDeposito": "2206404383",
+                    "fechaIngresoEmpleado": "2024-10-01T00:00:00.00-05:00",
+                    "fechaSalidaEmpleado": "",
+                    "estadoEmpleado": "Activo",
+                    "celular": "993674763",
+                    "codigoEmpleado": "362803",
+                    "tipoUsuario": "PER",
+                    "subTipo": "FIL",
+                    "correoElectronicoPersonal": "martin_jaramillo26XXX@hotmail.com"
+                }
+            ]
+        }
+    }
+}
