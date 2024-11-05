@@ -1,3 +1,6 @@
+ui3Ok9I9ibmg-Ot*Xi
+
+
 <?xml version="1.0" encoding="UTF-8"?>
 <sequence name="GIUsuarioSeq" onError="FaultSeq" xmlns="http://ws.apache.org/ns/synapse">
     <log category="DEBUG" level="custom">
