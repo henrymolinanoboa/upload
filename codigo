@@ -1,45 +1,252 @@
-[2024-11-07 22:01:28,307] [-1234] [] [SynapseWorker-39]  INFO {org.apache.synapse.mediators.builtin.LogMediator} -  ExecuteTicketSeq = Inicio...
-[2024-11-07 22:01:28,319] [-1234] [] [PassThroughMessageProcessor-243]  INFO {org.apache.synapse.mediators.builtin.LogMediator} -  ExecuteTicketSeq = Inicio.4.., guid = A88F1DE2-F5E1-47A4-A3C1-479F982519F1
-[2024-11-07 22:01:28,327] [-1234] [] [PassThroughMessageProcessor-243]  INFO {org.apache.synapse.mediators.bsf.CommonScriptMessageContext} -  {
-  "sysparm_quantity": 1,
-  "variables": {
-    "u_usuario_solicitante": "249290f587369510ebcf0d860cbb3518",
-    "u_tipo_de_pedido": "u_creacion",
-    "u_resumen": "Estimados, favor realizar: Creación Usuario Externo en los siguientes sistemas.",
-    "u_descripcion": "\\n \\nAcción: Creación Usuario Externo\\nUsuario: vgponce\\nNombre Completo: PONCE LOPEZ VICTOR GABRIEL\\nIdentificación: 1726529793\\nCelular: 0960948518\\nCompañia: NTTDATA\\nDivisión: EXTERNA\\nArea: \\nDepartamento: \\nCargo: PROCESS OPERATOR\\nCentro de Costos: 8386 - CENTRO DE SERVIC. OPERAT. SS.\\nPerfil Global: 62_NTD_OPE_013 - NTTDATA - OPERACIONES - OPERADOR GESTION HABILITANTES\\nAmbiente: PROD\\n\\nAplicaciones:\\nAccion - Aplicacion - Perfil: \\nCreación - RYR - AT_RYR_005 : PERFIL: SOLUCIONADOR RECLAMOS Y REQUERIMIENTOS\\nCreación - FTPEXTERNO - AT_FTPEXTERNO_006 : RUTA:\\\\FTPUSERS\\URBANO_EX\\QUERYS PERMISOS: LECTURA, ESCRITURA, MODIFICACION CREAR: USUARIO POR CADA RUTA\\nCreación - FTPEXTERNO - AT_FTPEXTERNO_007 : RUTA:\\\\FTPUSERS\\URBANO_EX\\Z_SOLUCIONES LASER PERMISOS: LECTURA, ESCRITURA, MODIFICACION CREAR: USUARIO POR CADA RUTA\\nCreación - FTPEXTERNO - AT_FTPEXTERNO_008 : RUTA:\\\\FTPUSERS\\URBANO_EX\\ROCIO FONSECA 2011 PERMISOS: LECTURA, ESCRITURA, MODIFICACION CREAR: USUARIO POR CADA RUTA\\nCreación - FTPEXTERNO - AT_FTPEXTERNO_009 : RUTA:\\\\FTPUSERS\\URBANO_EX\\BASES CHEQUES DEVUELTOS PERMISOS: LECTURA, ESCRITURA, MODIFICACION CREAR: USUARIO POR CADA RUTA\\nCreación - FTPEXTERNO - AT_FTPEXTERNO_010 : RUTA:\\\\FTPUSERS\\URBANO_EX\\QUERYS_DIARIOS PERMISOS: LECTURA, ESCRITURA, MODIFICACION CREAR: USUARIO POR CADA RUTA\\nCreación - FTPEXTERNO - AT_FTPEXTERNO_011 : RUTA:\\\\FTPUSERS\\URBANO_EX\\REPORTES MONICA DUARTE PERMISOS: LECTURA, ESCRITURA, MODIFICACION CREAR: USUARIO POR CADA RUTA\\nCreación - FTPEXTERNO - AT_FTPEXTERNO_012 : RUTA:\\\\FTPUSERS\\URBANO_EX\\FACTURACION 1 PERMISOS: LECTURA, ESCRITURA, MODIFICACION CREAR: USUARIO POR CADA RUTA\\nCreación - TOTEMCCE - AT_TOTEMCCE_003 : OPERACIONES\\n\\n"
-  }
-}
-[2024-11-07 22:01:28,331] [-1234] [] [PassThroughMessageProcessor-243] ERROR {org.apache.synapse.mediators.builtin.LogMediator} -  Could not build full log message: Error obtaining parser from data source:null
-java.lang.RuntimeException: Error obtaining parser from data source:null
-        at org.apache.axiom.om.impl.llom.OMSourcedElementImpl.getDirectReader(OMSourcedElementImpl.java:229)
-        at org.apache.axiom.om.impl.llom.OMSourcedElementImpl.forceExpand(OMSourcedElementImpl.java:252)
-        at org.apache.axiom.om.impl.llom.OMSourcedElementImpl.internalSerialize(OMSourcedElementImpl.java:677)
-        at org.apache.axiom.om.impl.util.OMSerializerUtil.serializeChildren(OMSerializerUtil.java:556)
-        at org.apache.axiom.om.impl.llom.OMElementImpl.internalSerialize(OMElementImpl.java:875)
-        at org.apache.axiom.soap.impl.llom.SOAPEnvelopeImpl.internalSerialize(SOAPEnvelopeImpl.java:230)
-        at org.apache.axiom.om.impl.llom.OMSerializableImpl.serialize(OMSerializableImpl.java:125)
-        at org.apache.axiom.om.impl.llom.OMSerializableImpl.serialize(OMSerializableImpl.java:113)
-        at org.apache.axiom.om.impl.llom.OMElementImpl.toString(OMElementImpl.java:988)
-        at java.lang.String.valueOf(String.java:2994)
-        at java.lang.StringBuffer.append(StringBuffer.java:269)
-        at org.apache.synapse.mediators.builtin.LogMediator.getFullLogMessage(LogMediator.java:210)
-        at org.apache.synapse.mediators.builtin.LogMediator.getLogMessage(LogMediator.java:145)
-        at org.apache.synapse.mediators.builtin.LogMediator.mediate(LogMediator.java:108)
-        at org.apache.synapse.mediators.AbstractListMediator.mediate(AbstractListMediator.java:109)
-        at org.apache.synapse.mediators.AbstractListMediator.mediate(AbstractListMediator.java:71)
-        at org.apache.synapse.mediators.filters.FilterMediator.mediate(FilterMediator.java:169)
-        at org.apache.synapse.mediators.AbstractListMediator.mediate(AbstractListMediator.java:109)
-        at org.apache.synapse.mediators.AbstractListMediator.mediate(AbstractListMediator.java:71)
-        at org.apache.synapse.mediators.filters.FilterMediator.mediate(FilterMediator.java:169)
-        at org.apache.synapse.mediators.AbstractListMediator.mediate(AbstractListMediator.java:109)
-        at org.apache.synapse.mediators.base.SequenceMediator.mediate(SequenceMediator.java:260)
-        at org.apache.synapse.core.axis2.Axis2SynapseEnvironment.mediateFromContinuationStateStack(Axis2SynapseEnvironment.java:783)
-        at org.apache.synapse.core.axis2.Axis2SynapseEnvironment.injectMessage(Axis2SynapseEnvironment.java:281)
-        at org.apache.synapse.core.axis2.SynapseCallbackReceiver.handleMessage(SynapseCallbackReceiver.java:597)
-        at org.apache.synapse.core.axis2.SynapseCallbackReceiver.receive(SynapseCallbackReceiver.java:203)
-        at org.apache.axis2.engine.AxisEngine.receive(AxisEngine.java:180)
-        at org.apache.synapse.transport.passthru.ClientWorker.run(ClientWorker.java:285)
-        at org.apache.axis2.transport.base.threads.NativeWorkerPool$1.run(NativeWorkerPool.java:172)
-        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
-        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
-        at java.lang.Thread.run(Thread.java:750)
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="ExecuteTicketSeq" onError="FaultExecuteTicketSeq" xmlns="http://ws.apache.org/ns/synapse">
+    <log level="custom">
+        <property name="ExecuteTicketSeq" value="Inicio..."/>
+    </log>
+    <sequence key="MassiveProcessUsersVariablesLoadSeq"/>
+    <property action="remove" name="REST_URL_POSTFIX" scope="axis2"/>
+    <property action="remove" name="Content-Type" scope="transport"/>
+    <log category="DEBUG" level="custom">
+        <property name="ExecuteTicketSeq" value="Inicio.2.."/>
+    </log>
+    <call>
+        <endpoint template="HTTPEndpointGetTemplate" uri="{uri.var.dataServiceHost}/identity.user-data.ds.HTTPEndpoint/select_ticket"/>
+    </call>
+    <log category="DEBUG" level="custom">
+        <property name="ExecuteTicketSeq" value="Inicio.3.."/>
+    </log>
+    <xslt key="gov:/centra-id/xslt/dssFilter.xsl"/>
+    <log category="DEBUG" level="full">
+        <property name="ExecuteTicketSeq" value="Inicio.4.."/>
+    </log>
+    <filter regex=".*20.*" source="get-property('axis2', 'HTTP_SC')"
+        xmlns:cen="centra-id.com" xmlns:ns="http://org.apache.synapse/xsd">
+        <then>
+            <property expression="//*:guid/text()" name="guid"/>
+            <filter regex="true" source="boolean($ctx:guid)">
+                <then>
+                    <log level="custom">
+                        <property name="ExecuteTicketSeq" value="Inicio.4.."/>
+                        <property expression="$ctx:guid" name="guid"/>
+                    </log>
+                    <property expression="//*:endpoint/text()" name="uri.var.host"/>
+                    <property expression="//*:payload/text()" name="payload"/>
+                    <property expression="base64Decode($ctx:payload)" name="payload"/>
+                    <property expression="//*:uuids/text()" name="uuids"/>
+                    <property expression="base64Decode($ctx:uuids)" name="uuids"/>
+                    <property expression="//*:description/text()" name="description"/>
+                    <property
+                        expression="base64Decode($ctx:description)" name="description"/>
+                    <log category="DEBUG" level="custom">
+                        <property name="ExecuteTicketSeq" value="Inicio.5.."/>
+                        <property expression="$ctx:guid" name="guid"/>
+                        <property expression="$ctx:uri.var.host" name="uri.var.host"/>
+                    </log>
+                    <payloadFactory media-type="json">
+                        <format>$1</format>
+                        <args>
+                            <arg evaluator="xml"
+                                expression="$ctx:payload" literal="false"/>
+                        </args>
+                    </payloadFactory>
+                    <log category="DEBUG" level="full">
+                        <property name="ExecuteTicketSeq" value="Inicio.10.."/>
+                    </log>
+                    <script language="js"><![CDATA[var log = mc.getServiceLog();                         
+                            var jsonPayload = mc.getPayloadJSON();
+                            function removeEmptyNodes(obj) {
+                                for (var key in obj) {
+                                    if (obj[key] === "" || obj[key] === null) {
+                                        delete obj[key];
+                                    } else if (typeof obj[key] === "object" && obj[key] !== null) {
+                                        removeEmptyNodes(obj[key]);
+                                    }
+                                }
+                            }
+                            try {
+                                var previousDescription = "";
+                                if (jsonPayload.variables.u_descripcion !== undefined) {
+                                    jsonPayload.variables.u_descripcion = jsonPayload.variables.u_descripcion
+                                        .replace(/\n/g, '\\n')   
+                                        .replace(/[ \t]+/g, ' ') 
+                                        .replace(/^[ \t]+|[ \t]+$/gm, '');
+                                }                                 
+                                removeEmptyNodes(jsonPayload);
+                                log.info(JSON.stringify(jsonPayload,null,2));
+                                mc.setPayloadJSON(jsonPayload);
+                            } catch (e) {
+                                log.error('Error processing JSON: ' + e);
+                                throw e;
+                            }]]></script>
+                    <log level="full">
+                        <property name="ExecuteTicketSeq" value="Inicio.11.."/>
+                    </log>
+                    <property name="HTTP_METHOD" scope="axis2"
+                        type="STRING" value="POST"/>
+                    <call-template target="SetCredentialsTemplate">
+                        <with-param name="system" value="SERVICE_NOW"/>
+                    </call-template>
+                    <log category="DEBUG" level="full">
+                        <property name="ExecuteTicketSeq" value="Inicio.5.1.."/>
+                        <property expression="$ctx:uri.var.host" name="uri.var.host"/>
+                    </log>
+                    <call>
+                        <endpoint key="ServiceNowEP"/>
+                    </call>
+                    <property expression="$body//*"
+                        name="payloadRespondeServiceNow" scope="default" type="STRING"/>
+                    <property
+                        expression="fn:concat('http:',get-property('axis2', 'HTTP_SC'))" name="http_response"/>
+                    <log level="custom">
+                        <property name="ExecuteTicketSeq" value="Inicio.4.2."/>
+                        <property expression="$ctx:http_response" name="http_response"/>
+                    </log>
+                    <filter regex=".*20.*" source="get-property('axis2', 'HTTP_SC')">
+                        <then>
+                            <property
+                                expression="json-eval($.result.request_number)" name="request_number"/>
+                            <sequence key="ServiceNowReqNumSeq"/>
+                            <property expression="$ctx:req_id" name="requirement_number"/>
+                            <payloadFactory media-type="json">
+                                <format>
+                            {
+                                "TaskProvisioningManual": {
+                                    "uuids": $1,
+                                    "ticketDate": "$2",
+                                    "ticketNumber": "$3",
+                                    "ticketContent": "$4",
+                                    "ticketError": "$5"
+                                }
+                            }
+                        </format>
+                                <args>
+                                    <arg evaluator="xml"
+                                    expression="get-property('uuids')" literal="false"/>
+                                    <arg evaluator="xml"
+                                    expression="get-property(&quot;SYSTEM_DATE&quot;, &quot;yyyy-MM-dd'T'HH:mm:ss.SSSXXX&quot;)" literal="false"/>
+                                    <arg evaluator="xml"
+                                    expression="get-property('requirement_number')" literal="false"/>
+                                    <arg evaluator="xml"
+                                    expression="base64Encode(fn:concat($ctx:description,'-',$ctx:payload))" literal="false"/>
+                                    <arg literal="false" value=""/>
+                                </args>
+                            </payloadFactory>
+                            <axis2ns1119292:store
+                                messageStore="TaskNotificationStore" xmlns:axis2ns1119292="http://ws.apache.org/ns/synapse"/>
+                            <property expression="json-eval($)"
+                                name="payloadServiceNow" scope="default" type="STRING"/>
+                            <property name="messageType" scope="axis2"
+                                type="STRING" value="application/xml"/>
+                            <property name="Accept" scope="transport"
+                                type="STRING" value="application/xml"/>
+                            <payloadFactory media-type="xml">
+                                <format>
+                                    <_putupdate_ticket_ok xmlns="centra-id.com">
+                                    <guid xmlns:xs="centra-id.com">$1</guid>
+                                    </_putupdate_ticket_ok>
+                                </format>
+                                <args>
+                                    <arg evaluator="xml"
+                                    expression="$ctx:guid" literal="false"/>
+                                </args>
+                            </payloadFactory>
+                            <property
+                                expression="fn:concat(get-property('DATA_SERVICE_HOST'),'/identity.user-data.ds.HTTPEndpoint')" name="uri.var.endpoint"/>
+                            <call>
+                                <endpoint
+                                    template="HTTPEndpointPostTemplate" uri="{uri.var.endpoint}"/>
+                            </call>
+                        </then>
+                        <else>
+                            <filter regex=".*50.*" source="get-property('axis2', 'HTTP_SC')">
+                                <then/>
+                                <else>
+                                    <payloadFactory media-type="json">
+                                    <format>
+                                            {
+                                                "TaskProvisioningManual": {
+                                                    "uuids": $1,
+                                                    "ticketDate": "$2",
+                                                    "ticketNumber": "$3",
+                                                    "ticketContent": "$4",
+                                                    "ticketError": "$5"
+                                                }
+                                            }
+                                        </format>
+                                    <args>
+                                    <arg evaluator="xml"
+                                    expression="get-property('uuids')" literal="false"/>
+                                    <arg evaluator="xml"
+                                    expression="get-property(&quot;SYSTEM_DATE&quot;, &quot;yyyy-MM-dd'T'HH:mm:ss.SSSXXX&quot;)" literal="false"/>
+                                    <arg literal="false" value="-1"/>
+                                    <arg evaluator="xml"
+                                    expression="base64Encode(fn:concat($ctx:http_response,'-',$ctx:payloadRespondeServiceNow))" literal="false"/>
+                                    <arg literal="false" value="ERROR"/>
+                                    </args>
+                                    </payloadFactory>
+                                    <axis2ns1119293:store
+                                    messageStore="TaskNotificationStore" xmlns:axis2ns1119293="http://ws.apache.org/ns/synapse"/>
+                                    <property name="messageType"
+                                    scope="axis2" type="STRING" value="application/xml"/>
+                                    <property name="Accept"
+                                    scope="transport" type="STRING" value="application/xml"/>
+                                    <payloadFactory media-type="xml">
+                                    <format>
+                                    <_putupdate_ticket_ok xmlns="centra-id.com">
+                                    <guid xmlns:xs="centra-id.com">$1</guid>
+                                    </_putupdate_ticket_ok>
+                                    </format>
+                                    <args>
+                                    <arg evaluator="xml"
+                                    expression="$ctx:guid" literal="false"/>
+                                    </args>
+                                    </payloadFactory>
+                                    <property
+                                    expression="fn:concat(get-property('DATA_SERVICE_HOST'),'/identity.user-data.ds.HTTPEndpoint')" name="uri.var.endpoint"/>
+                                    <call>
+                                    <endpoint
+                                    template="HTTPEndpointPostTemplate" uri="{uri.var.endpoint}"/>
+                                    </call>
+                                </else>
+                            </filter>
+                        </else>
+                    </filter>
+                    <property name="messageType" scope="axis2"
+                        type="STRING" value="application/xml"/>
+                    <property name="Accept" scope="transport"
+                        type="STRING" value="application/xml"/>
+                    <payloadFactory media-type="xml">
+                        <format>
+                            <_postcreate_ticket_history xmlns="centra-id.com">
+                                <guid xmlns:xs="centra-id.com">$1</guid>
+                                <response xmlns:xs="centra-id.com">$2</response>
+                                <http_response xmlns:xs="centra-id.com">$3</http_response>
+                            </_postcreate_ticket_history>
+                        </format>
+                        <args>
+                            <arg evaluator="xml" expression="$ctx:guid" literal="false"/>
+                            <arg evaluator="xml"
+                                expression="base64Encode($ctx:payloadRespondeServiceNow)" literal="false"/>
+                            <arg evaluator="xml"
+                                expression="$ctx:http_response" literal="false"/>
+                        </args>
+                    </payloadFactory>
+                    <property
+                        expression="fn:concat(get-property('uri.var.dataServiceHost'),'/identity.user-data.ds.HTTPEndpoint')" name="uri.var.endpoint"/>
+                    <call>
+                        <endpoint template="HTTPEndpointPostTemplate" uri="{uri.var.endpoint}"/>
+                    </call>
+                </then>
+            </filter>
+        </then>
+        <else>
+            <property
+                expression="fn:concat('No se pueden recuperar los datos de los tickets para su ejecución, retorna http:',get-property('axis2', 'HTTP_SC'))" name="fault"/>
+            <sequence key="FaultSeq"/>
+        </else>
+    </filter>
+    <log category="DEBUG" level="custom">
+        <property name="ExecuteTicketSeq" value="Fin..."/>
+    </log>
+    <drop/>
+</sequence>
