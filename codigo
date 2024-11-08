@@ -1,11 +1,45 @@
-[2024-11-07 21:54:42,326] [-1234] [] [PassThroughMessageProcessor-94]  INFO {org.apache.synapse.mediators.builtin.LogMediator} -  ExecuteTicketSeq = Inicio.4.., guid = 513649DF-2AE3-4F4A-99C9-EB1E8653FB4A
-[2024-11-07 21:54:42,337] [-1234] [] [PassThroughMessageProcessor-94]  INFO {org.apache.synapse.mediators.bsf.CommonScriptMessageContext} -  {
+[2024-11-07 22:01:28,307] [-1234] [] [SynapseWorker-39]  INFO {org.apache.synapse.mediators.builtin.LogMediator} -  ExecuteTicketSeq = Inicio...
+[2024-11-07 22:01:28,319] [-1234] [] [PassThroughMessageProcessor-243]  INFO {org.apache.synapse.mediators.builtin.LogMediator} -  ExecuteTicketSeq = Inicio.4.., guid = A88F1DE2-F5E1-47A4-A3C1-479F982519F1
+[2024-11-07 22:01:28,327] [-1234] [] [PassThroughMessageProcessor-243]  INFO {org.apache.synapse.mediators.bsf.CommonScriptMessageContext} -  {
   "sysparm_quantity": 1,
   "variables": {
     "u_usuario_solicitante": "249290f587369510ebcf0d860cbb3518",
     "u_tipo_de_pedido": "u_creacion",
     "u_resumen": "Estimados, favor realizar: Creación Usuario Externo en los siguientes sistemas.",
-    "u_descripcion": "\\n \\nAcción: Creación Usuario Externo\\nUsuario: spanza\\nNombre Completo: PANZA CASTILLO SANTIAGO ALEJANDRO\\nIdentificación: 1725819732\\nCelular: 0961275532\\nCompañia: NTTDATA\\nDivisión: EXTERNA\\nArea: \\nDepartamento: \\nCargo: PROCESS OPERATOR\\nCentro de Costos: 8386 - CENTRO DE SERVIC. OPERAT. SS.\\nPerfil Global: 62_NTD_OPE_014 - NTTDATA - OPERACIONES - OPERADOR GESTION HABILITANTES\\nAmbiente: PROD\\n\\nAplicaciones:\\nAccion - Aplicacion - Perfil: \\nCreación - RYR - AT_RYR_005 : PERFIL: SOLUCIONADOR RECLAMOS Y REQUERIMIENTOS\\nCreación - FTPEXTERNO - AT_FTPEXTERNO_006 : RUTA:\\\\FTPUSERS\\URBANO_EX\\QUERYS PERMISOS: LECTURA, ESCRITURA, MODIFICACION CREAR: USUARIO POR CADA RUTA\\nCreación - FTPEXTERNO - AT_FTPEXTERNO_007 : RUTA:\\\\FTPUSERS\\URBANO_EX\\Z_SOLUCIONES LASER PERMISOS: LECTURA, ESCRITURA, MODIFICACION CREAR: USUARIO POR CADA RUTA\\nCreación - FTPEXTERNO - AT_FTPEXTERNO_010 : RUTA:\\\\FTPUSERS\\URBANO_EX\\QUERYS_DIARIOS PERMISOS: LECTURA, ESCRITURA, MODIFICACION CREAR: USUARIO POR CADA RUTA\\nCreación - FTPEXTERNO - AT_FTPEXTERNO_009 : RUTA:\\\\FTPUSERS\\URBANO_EX\\BASES CHEQUES DEVUELTOS PERMISOS: LECTURA, ESCRITURA, MODIFICACION CREAR: USUARIO POR CADA RUTA\\nCreación - FTPEXTERNO - AT_FTPEXTERNO_008 : RUTA:\\\\FTPUSERS\\URBANO_EX\\ROCIO FONSECA 2011 PERMISOS: LECTURA, ESCRITURA, MODIFICACION CREAR: USUARIO POR CADA RUTA\\nCreación - FTPEXTERNO - AT_FTPEXTERNO_011 : RUTA:\\\\FTPUSERS\\URBANO_EX\\REPORTES MONICA DUARTE PERMISOS: LECTURA, ESCRITURA, MODIFICACION CREAR: USUARIO POR CADA RUTA\\nCreación - TOTEMCCE - AT_TOTEMCCE_003 : OPERACIONES\\nCreación - FTPEXTERNO - AT_FTPEXTERNO_012 : RUTA:\\\\FTPUSERS\\URBANO_EX\\FACTURACION 1 PERMISOS: LECTURA, ESCRITURA, MODIFICACION CREAR: USUARIO POR CADA RUTA\\n\\n"
+    "u_descripcion": "\\n \\nAcción: Creación Usuario Externo\\nUsuario: vgponce\\nNombre Completo: PONCE LOPEZ VICTOR GABRIEL\\nIdentificación: 1726529793\\nCelular: 0960948518\\nCompañia: NTTDATA\\nDivisión: EXTERNA\\nArea: \\nDepartamento: \\nCargo: PROCESS OPERATOR\\nCentro de Costos: 8386 - CENTRO DE SERVIC. OPERAT. SS.\\nPerfil Global: 62_NTD_OPE_013 - NTTDATA - OPERACIONES - OPERADOR GESTION HABILITANTES\\nAmbiente: PROD\\n\\nAplicaciones:\\nAccion - Aplicacion - Perfil: \\nCreación - RYR - AT_RYR_005 : PERFIL: SOLUCIONADOR RECLAMOS Y REQUERIMIENTOS\\nCreación - FTPEXTERNO - AT_FTPEXTERNO_006 : RUTA:\\\\FTPUSERS\\URBANO_EX\\QUERYS PERMISOS: LECTURA, ESCRITURA, MODIFICACION CREAR: USUARIO POR CADA RUTA\\nCreación - FTPEXTERNO - AT_FTPEXTERNO_007 : RUTA:\\\\FTPUSERS\\URBANO_EX\\Z_SOLUCIONES LASER PERMISOS: LECTURA, ESCRITURA, MODIFICACION CREAR: USUARIO POR CADA RUTA\\nCreación - FTPEXTERNO - AT_FTPEXTERNO_008 : RUTA:\\\\FTPUSERS\\URBANO_EX\\ROCIO FONSECA 2011 PERMISOS: LECTURA, ESCRITURA, MODIFICACION CREAR: USUARIO POR CADA RUTA\\nCreación - FTPEXTERNO - AT_FTPEXTERNO_009 : RUTA:\\\\FTPUSERS\\URBANO_EX\\BASES CHEQUES DEVUELTOS PERMISOS: LECTURA, ESCRITURA, MODIFICACION CREAR: USUARIO POR CADA RUTA\\nCreación - FTPEXTERNO - AT_FTPEXTERNO_010 : RUTA:\\\\FTPUSERS\\URBANO_EX\\QUERYS_DIARIOS PERMISOS: LECTURA, ESCRITURA, MODIFICACION CREAR: USUARIO POR CADA RUTA\\nCreación - FTPEXTERNO - AT_FTPEXTERNO_011 : RUTA:\\\\FTPUSERS\\URBANO_EX\\REPORTES MONICA DUARTE PERMISOS: LECTURA, ESCRITURA, MODIFICACION CREAR: USUARIO POR CADA RUTA\\nCreación - FTPEXTERNO - AT_FTPEXTERNO_012 : RUTA:\\\\FTPUSERS\\URBANO_EX\\FACTURACION 1 PERMISOS: LECTURA, ESCRITURA, MODIFICACION CREAR: USUARIO POR CADA RUTA\\nCreación - TOTEMCCE - AT_TOTEMCCE_003 : OPERACIONES\\n\\n"
   }
 }
-[2024-11-07 21:54:42,495] [-1234] [] [PassThroughMessageProcessor-97]  INFO {org.apache.synapse.mediators.builtin.LogMediator} -  ExecuteTicketSeq = Inicio.4.2., http_response = http:500
+[2024-11-07 22:01:28,331] [-1234] [] [PassThroughMessageProcessor-243] ERROR {org.apache.synapse.mediators.builtin.LogMediator} -  Could not build full log message: Error obtaining parser from data source:null
+java.lang.RuntimeException: Error obtaining parser from data source:null
+        at org.apache.axiom.om.impl.llom.OMSourcedElementImpl.getDirectReader(OMSourcedElementImpl.java:229)
+        at org.apache.axiom.om.impl.llom.OMSourcedElementImpl.forceExpand(OMSourcedElementImpl.java:252)
+        at org.apache.axiom.om.impl.llom.OMSourcedElementImpl.internalSerialize(OMSourcedElementImpl.java:677)
+        at org.apache.axiom.om.impl.util.OMSerializerUtil.serializeChildren(OMSerializerUtil.java:556)
+        at org.apache.axiom.om.impl.llom.OMElementImpl.internalSerialize(OMElementImpl.java:875)
+        at org.apache.axiom.soap.impl.llom.SOAPEnvelopeImpl.internalSerialize(SOAPEnvelopeImpl.java:230)
+        at org.apache.axiom.om.impl.llom.OMSerializableImpl.serialize(OMSerializableImpl.java:125)
+        at org.apache.axiom.om.impl.llom.OMSerializableImpl.serialize(OMSerializableImpl.java:113)
+        at org.apache.axiom.om.impl.llom.OMElementImpl.toString(OMElementImpl.java:988)
+        at java.lang.String.valueOf(String.java:2994)
+        at java.lang.StringBuffer.append(StringBuffer.java:269)
+        at org.apache.synapse.mediators.builtin.LogMediator.getFullLogMessage(LogMediator.java:210)
+        at org.apache.synapse.mediators.builtin.LogMediator.getLogMessage(LogMediator.java:145)
+        at org.apache.synapse.mediators.builtin.LogMediator.mediate(LogMediator.java:108)
+        at org.apache.synapse.mediators.AbstractListMediator.mediate(AbstractListMediator.java:109)
+        at org.apache.synapse.mediators.AbstractListMediator.mediate(AbstractListMediator.java:71)
+        at org.apache.synapse.mediators.filters.FilterMediator.mediate(FilterMediator.java:169)
+        at org.apache.synapse.mediators.AbstractListMediator.mediate(AbstractListMediator.java:109)
+        at org.apache.synapse.mediators.AbstractListMediator.mediate(AbstractListMediator.java:71)
+        at org.apache.synapse.mediators.filters.FilterMediator.mediate(FilterMediator.java:169)
+        at org.apache.synapse.mediators.AbstractListMediator.mediate(AbstractListMediator.java:109)
+        at org.apache.synapse.mediators.base.SequenceMediator.mediate(SequenceMediator.java:260)
+        at org.apache.synapse.core.axis2.Axis2SynapseEnvironment.mediateFromContinuationStateStack(Axis2SynapseEnvironment.java:783)
+        at org.apache.synapse.core.axis2.Axis2SynapseEnvironment.injectMessage(Axis2SynapseEnvironment.java:281)
+        at org.apache.synapse.core.axis2.SynapseCallbackReceiver.handleMessage(SynapseCallbackReceiver.java:597)
+        at org.apache.synapse.core.axis2.SynapseCallbackReceiver.receive(SynapseCallbackReceiver.java:203)
+        at org.apache.axis2.engine.AxisEngine.receive(AxisEngine.java:180)
+        at org.apache.synapse.transport.passthru.ClientWorker.run(ClientWorker.java:285)
+        at org.apache.axis2.transport.base.threads.NativeWorkerPool$1.run(NativeWorkerPool.java:172)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+        at java.lang.Thread.run(Thread.java:750)
