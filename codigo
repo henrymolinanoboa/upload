@@ -1,9 +1,4 @@
-09_ADC_IIT_007
-
-
-
-identity.apps.desa.bpichincha.com
-identity.apps.ocptest.uiotest.bpichinchatest.test
+https://apim.apps.ocpdev.uiotest.bpichinchatest.test/publisher
 
 Editar las siguientes apis y cambiar el endpoint:
 
