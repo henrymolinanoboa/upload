@@ -1,252 +1,140 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<sequence name="ExecuteTicketSeq" onError="FaultExecuteTicketSeq" xmlns="http://ws.apache.org/ns/synapse">
-    <log level="custom">
-        <property name="ExecuteTicketSeq" value="Inicio..."/>
-    </log>
-    <sequence key="MassiveProcessUsersVariablesLoadSeq"/>
-    <property action="remove" name="REST_URL_POSTFIX" scope="axis2"/>
-    <property action="remove" name="Content-Type" scope="transport"/>
-    <log category="DEBUG" level="custom">
-        <property name="ExecuteTicketSeq" value="Inicio.2.."/>
-    </log>
-    <call>
-        <endpoint template="HTTPEndpointGetTemplate" uri="{uri.var.dataServiceHost}/identity.user-data.ds.HTTPEndpoint/select_ticket"/>
-    </call>
-    <log category="DEBUG" level="custom">
-        <property name="ExecuteTicketSeq" value="Inicio.3.."/>
-    </log>
-    <xslt key="gov:/centra-id/xslt/dssFilter.xsl"/>
-    <log category="DEBUG" level="full">
-        <property name="ExecuteTicketSeq" value="Inicio.4.."/>
-    </log>
-    <filter regex=".*20.*" source="get-property('axis2', 'HTTP_SC')"
-        xmlns:cen="centra-id.com" xmlns:ns="http://org.apache.synapse/xsd">
-        <then>
-            <property expression="//*:guid/text()" name="guid"/>
-            <filter regex="true" source="boolean($ctx:guid)">
-                <then>
-                    <log level="custom">
-                        <property name="ExecuteTicketSeq" value="Inicio.4.."/>
-                        <property expression="$ctx:guid" name="guid"/>
-                    </log>
-                    <property expression="//*:endpoint/text()" name="uri.var.host"/>
-                    <property expression="//*:payload/text()" name="payload"/>
-                    <property expression="base64Decode($ctx:payload)" name="payload"/>
-                    <property expression="//*:uuids/text()" name="uuids"/>
-                    <property expression="base64Decode($ctx:uuids)" name="uuids"/>
-                    <property expression="//*:description/text()" name="description"/>
-                    <property
-                        expression="base64Decode($ctx:description)" name="description"/>
-                    <log category="DEBUG" level="custom">
-                        <property name="ExecuteTicketSeq" value="Inicio.5.."/>
-                        <property expression="$ctx:guid" name="guid"/>
-                        <property expression="$ctx:uri.var.host" name="uri.var.host"/>
-                    </log>
-                    <payloadFactory media-type="json">
-                        <format>$1</format>
-                        <args>
-                            <arg evaluator="xml"
-                                expression="$ctx:payload" literal="false"/>
-                        </args>
-                    </payloadFactory>
-                    <log category="DEBUG" level="full">
-                        <property name="ExecuteTicketSeq" value="Inicio.10.."/>
-                    </log>
-                    <script language="js"><![CDATA[var log = mc.getServiceLog();                         
-                            var jsonPayload = mc.getPayloadJSON();
-                            function removeEmptyNodes(obj) {
-                                for (var key in obj) {
-                                    if (obj[key] === "" || obj[key] === null) {
-                                        delete obj[key];
-                                    } else if (typeof obj[key] === "object" && obj[key] !== null) {
-                                        removeEmptyNodes(obj[key]);
-                                    }
-                                }
-                            }
-                            try {
-                                var previousDescription = "";
-                                if (jsonPayload.variables.u_descripcion !== undefined) {
-                                    jsonPayload.variables.u_descripcion = jsonPayload.variables.u_descripcion
-                                        .replace(/\n/g, '\\n')   
-                                        .replace(/[ \t]+/g, ' ') 
-                                        .replace(/^[ \t]+|[ \t]+$/gm, '');
-                                }                                 
-                                removeEmptyNodes(jsonPayload);
-                                log.info(JSON.stringify(jsonPayload,null,2));
-                                mc.setPayloadJSON(jsonPayload);
-                            } catch (e) {
-                                log.error('Error processing JSON: ' + e);
-                                throw e;
-                            }]]></script>
-                    <log level="full">
-                        <property name="ExecuteTicketSeq" value="Inicio.11.."/>
-                    </log>
-                    <property name="HTTP_METHOD" scope="axis2"
-                        type="STRING" value="POST"/>
-                    <call-template target="SetCredentialsTemplate">
-                        <with-param name="system" value="SERVICE_NOW"/>
-                    </call-template>
-                    <log category="DEBUG" level="full">
-                        <property name="ExecuteTicketSeq" value="Inicio.5.1.."/>
-                        <property expression="$ctx:uri.var.host" name="uri.var.host"/>
-                    </log>
-                    <call>
-                        <endpoint key="ServiceNowEP"/>
-                    </call>
-                    <property expression="$body//*"
-                        name="payloadRespondeServiceNow" scope="default" type="STRING"/>
-                    <property
-                        expression="fn:concat('http:',get-property('axis2', 'HTTP_SC'))" name="http_response"/>
-                    <log level="custom">
-                        <property name="ExecuteTicketSeq" value="Inicio.4.2."/>
-                        <property expression="$ctx:http_response" name="http_response"/>
-                    </log>
-                    <filter regex=".*20.*" source="get-property('axis2', 'HTTP_SC')">
-                        <then>
-                            <property
-                                expression="json-eval($.result.request_number)" name="request_number"/>
-                            <sequence key="ServiceNowReqNumSeq"/>
-                            <property expression="$ctx:req_id" name="requirement_number"/>
-                            <payloadFactory media-type="json">
-                                <format>
-                            {
-                                "TaskProvisioningManual": {
-                                    "uuids": $1,
-                                    "ticketDate": "$2",
-                                    "ticketNumber": "$3",
-                                    "ticketContent": "$4",
-                                    "ticketError": "$5"
-                                }
-                            }
-                        </format>
-                                <args>
-                                    <arg evaluator="xml"
-                                    expression="get-property('uuids')" literal="false"/>
-                                    <arg evaluator="xml"
-                                    expression="get-property(&quot;SYSTEM_DATE&quot;, &quot;yyyy-MM-dd'T'HH:mm:ss.SSSXXX&quot;)" literal="false"/>
-                                    <arg evaluator="xml"
-                                    expression="get-property('requirement_number')" literal="false"/>
-                                    <arg evaluator="xml"
-                                    expression="base64Encode(fn:concat($ctx:description,'-',$ctx:payload))" literal="false"/>
-                                    <arg literal="false" value=""/>
-                                </args>
-                            </payloadFactory>
-                            <axis2ns1119292:store
-                                messageStore="TaskNotificationStore" xmlns:axis2ns1119292="http://ws.apache.org/ns/synapse"/>
-                            <property expression="json-eval($)"
-                                name="payloadServiceNow" scope="default" type="STRING"/>
-                            <property name="messageType" scope="axis2"
-                                type="STRING" value="application/xml"/>
-                            <property name="Accept" scope="transport"
-                                type="STRING" value="application/xml"/>
-                            <payloadFactory media-type="xml">
-                                <format>
-                                    <_putupdate_ticket_ok xmlns="centra-id.com">
-                                    <guid xmlns:xs="centra-id.com">$1</guid>
-                                    </_putupdate_ticket_ok>
-                                </format>
-                                <args>
-                                    <arg evaluator="xml"
-                                    expression="$ctx:guid" literal="false"/>
-                                </args>
-                            </payloadFactory>
-                            <property
-                                expression="fn:concat(get-property('DATA_SERVICE_HOST'),'/identity.user-data.ds.HTTPEndpoint')" name="uri.var.endpoint"/>
-                            <call>
-                                <endpoint
-                                    template="HTTPEndpointPostTemplate" uri="{uri.var.endpoint}"/>
-                            </call>
-                        </then>
-                        <else>
-                            <filter regex=".*50.*" source="get-property('axis2', 'HTTP_SC')">
-                                <then/>
-                                <else>
-                                    <payloadFactory media-type="json">
-                                    <format>
-                                            {
-                                                "TaskProvisioningManual": {
-                                                    "uuids": $1,
-                                                    "ticketDate": "$2",
-                                                    "ticketNumber": "$3",
-                                                    "ticketContent": "$4",
-                                                    "ticketError": "$5"
-                                                }
-                                            }
-                                        </format>
-                                    <args>
-                                    <arg evaluator="xml"
-                                    expression="get-property('uuids')" literal="false"/>
-                                    <arg evaluator="xml"
-                                    expression="get-property(&quot;SYSTEM_DATE&quot;, &quot;yyyy-MM-dd'T'HH:mm:ss.SSSXXX&quot;)" literal="false"/>
-                                    <arg literal="false" value="-1"/>
-                                    <arg evaluator="xml"
-                                    expression="base64Encode(fn:concat($ctx:http_response,'-',$ctx:payloadRespondeServiceNow))" literal="false"/>
-                                    <arg literal="false" value="ERROR"/>
-                                    </args>
-                                    </payloadFactory>
-                                    <axis2ns1119293:store
-                                    messageStore="TaskNotificationStore" xmlns:axis2ns1119293="http://ws.apache.org/ns/synapse"/>
-                                    <property name="messageType"
-                                    scope="axis2" type="STRING" value="application/xml"/>
-                                    <property name="Accept"
-                                    scope="transport" type="STRING" value="application/xml"/>
-                                    <payloadFactory media-type="xml">
-                                    <format>
-                                    <_putupdate_ticket_ok xmlns="centra-id.com">
-                                    <guid xmlns:xs="centra-id.com">$1</guid>
-                                    </_putupdate_ticket_ok>
-                                    </format>
-                                    <args>
-                                    <arg evaluator="xml"
-                                    expression="$ctx:guid" literal="false"/>
-                                    </args>
-                                    </payloadFactory>
-                                    <property
-                                    expression="fn:concat(get-property('DATA_SERVICE_HOST'),'/identity.user-data.ds.HTTPEndpoint')" name="uri.var.endpoint"/>
-                                    <call>
-                                    <endpoint
-                                    template="HTTPEndpointPostTemplate" uri="{uri.var.endpoint}"/>
-                                    </call>
-                                </else>
-                            </filter>
-                        </else>
-                    </filter>
-                    <property name="messageType" scope="axis2"
-                        type="STRING" value="application/xml"/>
-                    <property name="Accept" scope="transport"
-                        type="STRING" value="application/xml"/>
-                    <payloadFactory media-type="xml">
-                        <format>
-                            <_postcreate_ticket_history xmlns="centra-id.com">
-                                <guid xmlns:xs="centra-id.com">$1</guid>
-                                <response xmlns:xs="centra-id.com">$2</response>
-                                <http_response xmlns:xs="centra-id.com">$3</http_response>
-                            </_postcreate_ticket_history>
-                        </format>
-                        <args>
-                            <arg evaluator="xml" expression="$ctx:guid" literal="false"/>
-                            <arg evaluator="xml"
-                                expression="base64Encode($ctx:payloadRespondeServiceNow)" literal="false"/>
-                            <arg evaluator="xml"
-                                expression="$ctx:http_response" literal="false"/>
-                        </args>
-                    </payloadFactory>
-                    <property
-                        expression="fn:concat(get-property('uri.var.dataServiceHost'),'/identity.user-data.ds.HTTPEndpoint')" name="uri.var.endpoint"/>
-                    <call>
-                        <endpoint template="HTTPEndpointPostTemplate" uri="{uri.var.endpoint}"/>
-                    </call>
-                </then>
-            </filter>
-        </then>
-        <else>
-            <property
-                expression="fn:concat('No se pueden recuperar los datos de los tickets para su ejecución, retorna http:',get-property('axis2', 'HTTP_SC'))" name="fault"/>
-            <sequence key="FaultSeq"/>
-        </else>
-    </filter>
-    <log category="DEBUG" level="custom">
-        <property name="ExecuteTicketSeq" value="Fin..."/>
-    </log>
-    <drop/>
-</sequence>
+09_ADC_IIT_007
+
+
+
+identity.apps.desa.bpichincha.com
+identity.apps.ocptest.uiotest.bpichinchatest.test
+
+Editar las siguientes apis y cambiar el endpoint:
+
+
+1. Editar Api: API_GI_Certification_Campaigns
+- Seccion: Implement
+- Endpoint: 
+Cambiar de :
+https://gw-integrator.apps.desa.bpichincha.com/api.centraid/certificationcampaigns
+a:
+https://gw-integrator.apps.ocpdev.uiotest.bpichinchatest.test/api.centraid/certificationcampaigns			 
+- Grabar publicar.
+
+
+2. Editar API: API_GI_ConsultaDatos
+- Seccion: Implement
+- Endpoint: 
+Cambiar de :
+https://gw-integrator.apps.test.bpichincha.com/api.centraid/consultas
+a:
+https://gw-integrator.apps.ocpdev.uiotest.bpichinchatest.test/api.centraid/consultas
+- Grabar publicar.
+
+
+3. Editar API: API_GI_RequestsStructuralChange
+- Seccion: Implement
+- Endpoint: 
+Cambiar de :
+https://gw-integrator.apps.desa.bpichincha.com/api.centraid/requestsstructuralchange
+a:
+https://gw-integrator.apps.ocpdev.uiotest.bpichinchatest.test/api.centraid/requestsstructuralchange
+- Grabar publicar.
+
+
+4. Editar API: CentraID_API_application
+- Seccion: Implement
+- Endpoint: 
+Cambiar de :
+https://gw-integrator.apps.desa.bpichincha.com/api.centraid/application
+a:
+https://gw-integrator.apps.ocpdev.uiotest.bpichinchatest.test/api.centraid/application
+- Grabar publicar.
+
+5. Editar API: CentraID_API_businesslogic
+- Seccion: Implement
+- Endpoint: 
+Cambiar de :
+https://gw-integrator.apps.desa.bpichincha.com/api.centraid/businesslogic
+a:
+https://gw-integrator.apps.ocpdev.uiotest.bpichinchatest.test/api.centraid/businesslogic
+- Grabar publicar.
+
+6. Editar API: CentraID_API_bussinesprocess 
+- Seccion: Implement
+- Endpoint: 
+Cambiar de :
+https://gw-integrator.apps.desa.bpichincha.com/api.centraid/bussinesprocess
+a:
+https://gw-integrator.apps.ocpdev.uiotest.bpichinchatest.test/api.centraid/bussinesprocess
+- Grabar publicar.
+
+7. Editar API: CentraID_API_common  
+- Seccion: Implement
+- Endpoint: 
+Cambiar de :
+https://gw-integrator.apps.desa.bpichincha.com/api.centraid/common
+a:
+https://gw-integrator.apps.ocpdev.uiotest.bpichinchatest.test/api.centraid/common
+- Grabar publicar.
+
+8. Editar API: CentraID_API_company   
+- Seccion: Implement
+- Endpoint: 
+Cambiar de :
+https://gw-integrator.apps.desa.bpichincha.com/api.centraid/company
+a:
+https://gw-integrator.apps.ocpdev.uiotest.bpichinchatest.test/api.centraid/company
+- Grabar publicar.
+
+9. Editar API: CentraID_API_identity    
+- Seccion: Implement
+- Endpoint: 
+Cambiar de :
+https://gw-integrator.apps.desa.bpichincha.com/api.centraid/identity
+a:
+https://gw-integrator.apps.ocpdev.uiotest.bpichinchatest.test/api.centraid/identity
+- Grabar publicar.
+
+10. Editar API: CentraID_API_massiveprocess 	    
+- Seccion: Implement
+- Endpoint: 
+Cambiar de :
+https://gw-integrator.apps.desa.bpichincha.com/api.centraid/massiveprocess
+a:
+https://gw-integrator.apps.ocpdev.uiotest.bpichinchatest.test/api.centraid/massiveprocess
+- Grabar publicar.
+
+11. Editar API: CentraID_API_provisioning  	    
+- Seccion: Implement
+- Endpoint: 
+Cambiar de :
+https://gw-integrator.apps.desa.bpichincha.com/api.centraid/provisioning
+a:
+https://gw-integrator.apps.ocpdev.uiotest.bpichinchatest.test/api.centraid/provisioning
+- Grabar publicar.
+
+
+12. Editar API: CentraID_API_report   	    
+- Seccion: Implement
+- Endpoint: 
+Cambiar de :
+https://gw-integrator.apps.desa.bpichincha.com/api.centraid/report
+a:
+https://gw-integrator.apps.ocpdev.uiotest.bpichinchatest.test/api.centraid/report
+- Grabar publicar.
+
+
+13. Editar API: CentraID_API_resources    	    
+- Seccion: Implement
+- Endpoint: 
+Cambiar de :
+https://gw-integrator.apps.desa.bpichincha.com/api.centraid/resources
+a:
+https://gw-integrator.apps.ocpdev.uiotest.bpichinchatest.test/api.centraid/resources
+- Grabar publicar.
+
+14. Editar API: CentraID_API_resources    	    
+- Seccion: Implement
+- Endpoint: 
+Cambiar de :
+https://gw-integrator.apps.desa.bpichincha.com/api.centraid/resources
+a:
+https://gw-integrator.apps.ocpdev.uiotest.bpichinchatest.test/api.centraid/resources
+- Grabar publicar.
