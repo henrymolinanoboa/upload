@@ -1,3 +1,18 @@
+3. Ir a la opcion: Identity Providers / Resident
+Actualizar el campos:
+- Resident Realm Configuration:
+Home Realm: identity.apps.ocptest.uiotest.bpichinchatest.test
+- Inbound Authentication Configuration / SAML2 Web SSO Configuration:
+Identity Provider Entity ID: identity.apps.ocptest.uiotest.bpichinchatest.test
+Destination URLs : https://identity.apps.ocptest.uiotest.bpichinchatest.test/samlsso
+SSO URL: https://identity.apps.ocptest.uiotest.bpichinchatest.test/samlsso
+Logout Url: https://identity.apps.ocptest.uiotest.bpichinchatest.test/samlsso
+WS-Federation (Passive) Configuration:
+Identity Provider Entity ID: identity.apps.ocptest.uiotest.bpichinchatest.test
+
+
+
+
 https://coe-seguridad-ciberfraude-dev-eshndkgvhec0cges.a02.azurefd.net
 
 
