@@ -1,135 +1,30 @@
-https://apim.apps.ocpdev.uiotest.bpichinchatest.test/publisher
-
-Editar las siguientes apis y cambiar el endpoint:
-
-
-1. Editar Api: API_GI_Certification_Campaigns
-- Seccion: Implement
-- Endpoint: 
-Cambiar de :
-https://gw-integrator.apps.desa.bpichincha.com/api.centraid/certificationcampaigns
-a:
-https://gw-integrator.apps.ocpdev.uiotest.bpichinchatest.test/api.centraid/certificationcampaigns			 
-- Grabar publicar.
-
-
-2. Editar API: API_GI_ConsultaDatos
-- Seccion: Implement
-- Endpoint: 
-Cambiar de :
-https://gw-integrator.apps.test.bpichincha.com/api.centraid/consultas
-a:
-https://gw-integrator.apps.ocpdev.uiotest.bpichinchatest.test/api.centraid/consultas
-- Grabar publicar.
-
-
-3. Editar API: API_GI_RequestsStructuralChange
-- Seccion: Implement
-- Endpoint: 
-Cambiar de :
-https://gw-integrator.apps.desa.bpichincha.com/api.centraid/requestsstructuralchange
-a:
-https://gw-integrator.apps.ocpdev.uiotest.bpichinchatest.test/api.centraid/requestsstructuralchange
-- Grabar publicar.
-
-
-4. Editar API: CentraID_API_application
-- Seccion: Implement
-- Endpoint: 
-Cambiar de :
-https://gw-integrator.apps.desa.bpichincha.com/api.centraid/application
-a:
-https://gw-integrator.apps.ocpdev.uiotest.bpichinchatest.test/api.centraid/application
-- Grabar publicar.
-
-5. Editar API: CentraID_API_businesslogic
-- Seccion: Implement
-- Endpoint: 
-Cambiar de :
-https://gw-integrator.apps.desa.bpichincha.com/api.centraid/businesslogic
-a:
-https://gw-integrator.apps.ocpdev.uiotest.bpichinchatest.test/api.centraid/businesslogic
-- Grabar publicar.
-
-6. Editar API: CentraID_API_bussinesprocess 
-- Seccion: Implement
-- Endpoint: 
-Cambiar de :
-https://gw-integrator.apps.desa.bpichincha.com/api.centraid/bussinesprocess
-a:
-https://gw-integrator.apps.ocpdev.uiotest.bpichinchatest.test/api.centraid/bussinesprocess
-- Grabar publicar.
-
-7. Editar API: CentraID_API_common  
-- Seccion: Implement
-- Endpoint: 
-Cambiar de :
-https://gw-integrator.apps.desa.bpichincha.com/api.centraid/common
-a:
-https://gw-integrator.apps.ocpdev.uiotest.bpichinchatest.test/api.centraid/common
-- Grabar publicar.
-
-8. Editar API: CentraID_API_company   
-- Seccion: Implement
-- Endpoint: 
-Cambiar de :
-https://gw-integrator.apps.desa.bpichincha.com/api.centraid/company
-a:
-https://gw-integrator.apps.ocpdev.uiotest.bpichinchatest.test/api.centraid/company
-- Grabar publicar.
-
-9. Editar API: CentraID_API_identity    
-- Seccion: Implement
-- Endpoint: 
-Cambiar de :
-https://gw-integrator.apps.desa.bpichincha.com/api.centraid/identity
-a:
-https://gw-integrator.apps.ocpdev.uiotest.bpichinchatest.test/api.centraid/identity
-- Grabar publicar.
-
-10. Editar API: CentraID_API_massiveprocess 	    
-- Seccion: Implement
-- Endpoint: 
-Cambiar de :
-https://gw-integrator.apps.desa.bpichincha.com/api.centraid/massiveprocess
-a:
-https://gw-integrator.apps.ocpdev.uiotest.bpichinchatest.test/api.centraid/massiveprocess
-- Grabar publicar.
-
-11. Editar API: CentraID_API_provisioning  	    
-- Seccion: Implement
-- Endpoint: 
-Cambiar de :
-https://gw-integrator.apps.desa.bpichincha.com/api.centraid/provisioning
-a:
-https://gw-integrator.apps.ocpdev.uiotest.bpichinchatest.test/api.centraid/provisioning
-- Grabar publicar.
-
-
-12. Editar API: CentraID_API_report   	    
-- Seccion: Implement
-- Endpoint: 
-Cambiar de :
-https://gw-integrator.apps.desa.bpichincha.com/api.centraid/report
-a:
-https://gw-integrator.apps.ocpdev.uiotest.bpichinchatest.test/api.centraid/report
-- Grabar publicar.
-
-
-13. Editar API: CentraID_API_resources    	    
-- Seccion: Implement
-- Endpoint: 
-Cambiar de :
-https://gw-integrator.apps.desa.bpichincha.com/api.centraid/resources
-a:
-https://gw-integrator.apps.ocpdev.uiotest.bpichinchatest.test/api.centraid/resources
-- Grabar publicar.
-
-14. Editar API: CentraID_API_resources    	    
-- Seccion: Implement
-- Endpoint: 
-Cambiar de :
-https://gw-integrator.apps.desa.bpichincha.com/api.centraid/resources
-a:
-https://gw-integrator.apps.ocpdev.uiotest.bpichinchatest.test/api.centraid/resources
-- Grabar publicar.
+[2024-11-14 10:00:09,310] DEBUG - wire HTTPS-Listener I/O dispatcher-2 << "x-forwarded-host: gw-apim.apps.ocpdev.uiotest.bpichinchatest.test[\r][\n]"
+[2024-11-14 10:00:09,310] DEBUG - wire HTTPS-Listener I/O dispatcher-2 << "Content-Security-Policy: default-src 'self';font-src 'self' data:;img-src 'self';media-src 'self'; style-src 'self' 'unsafe-inline';script-src 'self' 'unsafe-inline'[\r][\n]"
+[2024-11-14 10:00:09,310] DEBUG - wire HTTPS-Listener I/O dispatcher-2 << "content-type: application/json; charset=UTF-8[\r][\n]"
+[2024-11-14 10:00:09,310] DEBUG - wire HTTPS-Listener I/O dispatcher-2 << "X-XSS-Protection: 1; mode=block[\r][\n]"
+[2024-11-14 10:00:09,310] DEBUG - wire HTTPS-Listener I/O dispatcher-2 << "soapaction: [\r][\n]"
+[2024-11-14 10:00:09,310] DEBUG - wire HTTPS-Listener I/O dispatcher-2 << "x-forwarded-proto: https[\r][\n]"
+[2024-11-14 10:00:09,310] DEBUG - wire HTTPS-Listener I/O dispatcher-2 << "X-Content-Type-Options: nosniff[\r][\n]"
+[2024-11-14 10:00:09,310] DEBUG - wire HTTPS-Listener I/O dispatcher-2 << "Pragma: no-cache[\r][\n]"
+[2024-11-14 10:00:09,310] DEBUG - wire HTTPS-Listener I/O dispatcher-2 << "X-Content-Security-Policy: default-src 'self';font-src 'self' data:;img-src 'self';media-src 'self'; style-src 'self' 'unsafe-inline';script-src 'self' 'unsafe-inline'[\r][\n]"
+[2024-11-14 10:00:09,310] DEBUG - wire HTTPS-Listener I/O dispatcher-2 << "x-forwarded-for: 10.0.236.218,[\r][\n]"
+[2024-11-14 10:00:09,310] DEBUG - wire HTTPS-Listener I/O dispatcher-2 << "x-forwarded-for: 10.130.2.217[\r][\n]"
+[2024-11-14 10:00:09,310] DEBUG - wire HTTPS-Listener I/O dispatcher-2 << "access-control-allow-methods: POST[\r][\n]"
+[2024-11-14 10:00:09,310] DEBUG - wire HTTPS-Listener I/O dispatcher-2 << "forwarded: for=10.0.236.218;host=gw-apim.apps.ocpdev.uiotest.bpichinchatest.test;proto=https[\r][\n]"
+[2024-11-14 10:00:09,310] DEBUG - wire HTTPS-Listener I/O dispatcher-2 << "forwarded: for=10.130.2.217;host=gw-apim.apps.ocpdev.uiotest.bpichinchatest.test;proto=https[\r][\n]"
+[2024-11-14 10:00:09,310] DEBUG - wire HTTPS-Listener I/O dispatcher-2 << "accept: application/json[\r][\n]"
+[2024-11-14 10:00:09,310] DEBUG - wire HTTPS-Listener I/O dispatcher-2 << "access-control-allow-origin: *[\r][\n]"
+[2024-11-14 10:00:09,310] DEBUG - wire HTTPS-Listener I/O dispatcher-2 << "activityid: 7906822d-8cc5-4cda-b6e3-6e4c41b82bb2[\r][\n]"
+[2024-11-14 10:00:09,311] DEBUG - wire HTTPS-Listener I/O dispatcher-2 << "apiname: CentraID_API_businesslogic[\r][\n]"
+[2024-11-14 10:00:09,311] DEBUG - wire HTTPS-Listener I/O dispatcher-2 << "Cache-Control: max-age=0, no-cache, no-store, must-revalidate[\r][\n]"
+[2024-11-14 10:00:09,311] DEBUG - wire HTTPS-Listener I/O dispatcher-2 << "traceparent: 00-69d3f1f6d20004733c9887fc6a22b9d3-aa52bee79e2d69e5-01[\r][\n]"
+[2024-11-14 10:00:09,311] DEBUG - wire HTTPS-Listener I/O dispatcher-2 << "x-dynatrace: FW4;155500015;4;-1992940728;9125;0;-1464069965;338;595e;2h05;3h89362348;4h23a1;5h01;6h69d3f1f6d20004733c9887fc6a22b9d3;7haa52bee79e2d69e5[\r][\n]"
+[2024-11-14 10:00:09,311] DEBUG - wire HTTPS-Listener I/O dispatcher-2 << "accept-encoding: gzip, deflate, br[\r][\n]"
+[2024-11-14 10:00:09,311] DEBUG - wire HTTPS-Listener I/O dispatcher-2 << "username: amfierro[\r][\n]"
+[2024-11-14 10:00:09,311] DEBUG - wire HTTPS-Listener I/O dispatcher-2 << "Date: Thu, 14 Nov 2024 15:00:09 GMT[\r][\n]"
+[2024-11-14 10:00:09,311] DEBUG - wire HTTPS-Listener I/O dispatcher-2 << "Transfer-Encoding: chunked[\r][\n]"
+[2024-11-14 10:00:09,311] DEBUG - wire HTTPS-Listener I/O dispatcher-2 << "[\r][\n]"
+[2024-11-14 10:00:09,311] DEBUG - wire HTTPS-Listener I/O dispatcher-2 << "c9[\r][\n]"
+[2024-11-14 10:00:09,311] DEBUG - wire HTTPS-Listener I/O dispatcher-2 << "{"fault":{"code":900902,"message":"Missing Credentials","description":"Required OAuth credentials not provided. Make sure your API invocation call has a header: 'Authorization : Bearer ACCESS_TOKEN'"}}[\r][\n]"
+[2024-11-14 10:00:09,311] DEBUG - wire HTTPS-Listener I/O dispatcher-2 << "0[\r][\n]"
+[2024-11-14 10:00:09,311] DEBUG - wire HTTPS-Listener I/O dispatcher-2 << "[\r][\n
