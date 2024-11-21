@@ -1,4 +1,13 @@
-regexp=(http://centra-id-admin-web-banco-pichincha-test.apps.ocptest.uiotest.bpichinchatest.test/auth/callback|https://centra-id-operation-web-banco-pichincha-test.apps.ocptest.uiotest.bpichinchatest.test/auth/callback|https://centra-id-operation-web-banco-pichincha-test.apps.ocptest.uiotest.bpichinchatest.test/assets/silent-renew.html|https://centra-id-operation-web-banco-pichincha-test.apps.ocptest.uiotest.bpichinchatest.test/auth/login|https://centra-id-admin-web-banco-pichincha-test.apps.ocptest.uiotest.bpichinchatest.test/auth/callback|https://centra-id-admin-web-banco-pichincha-test.apps.ocptest.uiotest.bpichinchatest.test/assets/silent-renew.html|https://centra-id-admin-web-banco-pichincha-test.apps.ocptest.uiotest.bpichinchatest.test/auth/login|http://localhost:4200/auth/callback|http://localhost:4200/auth/login|http://localhost:4200/assets/silent-renew.html)
+Actualizar el campos:
+- Resident Realm Configuration:
+Home Realm: identity.apps.ocptest.uiotest.bpichinchatest.test
+- Inbound Authentication Configuration / SAML2 Web SSO Configuration:
+Identity Provider Entity ID: identity.apps.ocptest.uiotest.bpichinchatest.test
+Destination URLs : https://identity.apps.ocptest.uiotest.bpichinchatest.test/samlsso
+SSO URL: https://identity.apps.ocptest.uiotest.bpichinchatest.test/samlsso
+Logout Url: https://identity.apps.ocptest.uiotest.bpichinchatest.test/samlsso
+WS-Federation (Passive) Configuration:
+Identity Provider Entity ID: identity.apps.ocptest.uiotest.bpichinchatest.test
 
 
 
