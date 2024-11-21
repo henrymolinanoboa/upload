@@ -1,3 +1,140 @@
+
+3
+
+LIB APP
+Configurar variables en WSO2 API MANAGER
+https://apim.apps.ocptest.uiotest.bpichinchatest.test/publisher
+Editar las siguientes apis y cambiar el endpoint:
+1. Editar Api: API_GI_Certification_Campaigns
+- Seccion: Implement
+- Endpoint: 
+Cambiar de :
+https://gw-integrator.apps.desa.bpichincha.com/api.centraid/certificationcampaigns
+a:
+https://gw-integrator.apps.ocptest.uiotest.bpichinchatest.test/api.centraid/certificationcampaigns			 
+- Grabar publicar.
+
+2. Editar API: API_GI_ConsultaDatos
+- Seccion: Implement
+- Endpoint: 
+Cambiar de :
+https://gw-integrator.apps.test.bpichincha.com/api.centraid/consultas
+a:
+https://gw-integrator.apps.ocptest.uiotest.bpichinchatest.test/api.centraid/consultas
+- Grabar publicar.
+
+3. Editar API: API_GI_RequestsStructuralChange
+- Seccion: Implement
+- Endpoint: 
+Cambiar de :
+https://gw-integrator.apps.desa.bpichincha.com/api.centraid/requestsstructuralchange
+a:
+https://gw-integrator.apps.ocptest.uiotest.bpichinchatest.test/api.centraid/requestsstructuralchange
+- Grabar publicar.
+
+4. Editar API: CentraID_API_application
+- Seccion: Implement
+- Endpoint: 
+Cambiar de :
+https://gw-integrator.apps.desa.bpichincha.com/api.centraid/application
+a:
+https://gw-integrator.apps.ocptest.uiotest.bpichinchatest.test/api.centraid/application
+- Grabar publicar.
+
+5. Editar API: CentraID_API_businesslogic
+- Seccion: Implement
+- Endpoint: 
+Cambiar de :
+https://gw-integrator.apps.desa.bpichincha.com/api.centraid/businesslogic
+a:
+https://gw-integrator.apps.ocptest.uiotest.bpichinchatest.test/api.centraid/businesslogic
+- Grabar publicar.
+
+6. Editar API: CentraID_API_bussinesprocess 
+- Seccion: Implement
+- Endpoint: 
+Cambiar de :
+https://gw-integrator.apps.desa.bpichincha.com/api.centraid/bussinesprocess
+a:
+https://gw-integrator.apps.ocptest.uiotest.bpichinchatest.test/api.centraid/bussinesprocess
+- Grabar publicar.
+
+7. Editar API: CentraID_API_common  
+- Seccion: Implement
+- Endpoint: 
+Cambiar de :
+https://gw-integrator.apps.desa.bpichincha.com/api.centraid/common
+a:
+https://gw-integrator.apps.ocptest.uiotest.bpichinchatest.test/api.centraid/common
+- Grabar publicar.
+
+8. Editar API: CentraID_API_company   
+- Seccion: Implement
+- Endpoint: 
+Cambiar de :
+https://gw-integrator.apps.desa.bpichincha.com/api.centraid/company
+a:
+https://gw-integrator.apps.ocptest.uiotest.bpichinchatest.test/api.centraid/company
+- Grabar publicar.
+
+9. Editar API: CentraID_API_identity    
+- Seccion: Implement
+- Endpoint: 
+Cambiar de :
+https://gw-integrator.apps.desa.bpichincha.com/api.centraid/identity
+a:
+https://gw-integrator.apps.ocptest.uiotest.bpichinchatest.test/api.centraid/identity
+- Grabar publicar.
+
+10. Editar API: CentraID_API_massiveprocess 	    
+- Seccion: Implement
+- Endpoint: 
+Cambiar de :
+https://gw-integrator.apps.desa.bpichincha.com/api.centraid/massiveprocess
+a:
+https://gw-integrator.apps.ocptest.uiotest.bpichinchatest.test/api.centraid/massiveprocess
+- Grabar publicar.
+
+11. Editar API: CentraID_API_provisioning  	    
+- Seccion: Implement
+- Endpoint: 
+Cambiar de :
+https://gw-integrator.apps.desa.bpichincha.com/api.centraid/provisioning
+a:
+https://gw-integrator.apps.ocptest.uiotest.bpichinchatest.test/api.centraid/provisioning
+- Grabar publicar.
+
+12. Editar API: CentraID_API_report   	    
+- Seccion: Implement
+- Endpoint: 
+Cambiar de :
+https://gw-integrator.apps.desa.bpichincha.com/api.centraid/report
+a:
+https://gw-integrator.apps.ocptest.uiotest.bpichinchatest.test/api.centraid/report
+- Grabar publicar.
+
+13. Editar API: CentraID_API_resources    	    
+- Seccion: Implement
+- Endpoint: 
+Cambiar de :
+https://gw-integrator.apps.desa.bpichincha.com/api.centraid/resources
+a:
+https://gw-integrator.apps.ocptest.uiotest.bpichinchatest.test/api.centraid/resources
+- Grabar publicar.
+
+14. Editar API: CentraID_API_resources    	    
+- Seccion: Implement
+- Endpoint: 
+Cambiar de :
+https://gw-integrator.apps.desa.bpichincha.com/api.centraid/resources
+a:
+https://gw-integrator.apps.ocptest.uiotest.bpichinchatest.test/api.centraid/resources
+- Grabar publicar.
+
+
+
+==============
+
 Actualizar el campos:
 - Resident Realm Configuration:
 Home Realm: identity.apps.ocptest.uiotest.bpichinchatest.test
