@@ -1,3 +1,5 @@
+amqp://usrtwasp:us3r70p3n2o21@clientID/carbon?brokerlist='tcp://service-cse-msa-dm-wso2ei-mb:5675'
+
 servicio mb: service-cse-msa-dm-wso2ei-mb
 https://centra-id-operation-web-banco-pichincha-test.apps.ocptest.uiotest.bpichinchatest.test/auth/callback
 
