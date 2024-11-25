@@ -1,3 +1,5 @@
+ -o /dev/null -s -w "Tiempo total: %{time_total}s\n"
+
 3. Ir a la opcion: Identity Providers / Resident
 Actualizar el campos:
 - Resident Realm Configuration:
