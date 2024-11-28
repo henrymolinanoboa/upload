@@ -1,3 +1,56 @@
+[https://gw-integrator.apps.ocptest.uiotest.bpichinchatest.test/services/TaskManualNotificationProxy]
+
+
+
+
+
+
+
+
+
+
+curl --location 'https://gw-apim.apps.ocpdev.uiotest.bpichinchatest.test/api.centraid/businesslogic/v1/GetPermissions' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer 39299a5c-3c3a-3787-bc22-30bf194e6725' \
+--header 'Username: afvillac' \
+--header 'Origin: http://centra-id-operation-web-banco-pichincha-dev.apps.desa.bpichincha.com.p3' \
+--header 'SOAPAction: xxx' \
+--header 'Cookie: c4b6b8fa0cff846849f0f9ca47a0a726=82264eecc6f7ba9a4abc71b1a66cd07a' \
+--data '{
+  "GetPermissions": {
+    "username": "amfierro",
+    "app": "OPE"
+  }
+
+
+url -k -u admin:Pichincha*10 -H 'Content-Type: application/x-www-form-urlencoded' -X POST --data 'token=39299a5c-3c3a-3787-bc22-30bf194e6725' 	https://identity.apps.ocpdev.uiotest.bpichinchatest.test:443/oauth2/introspect
+
+
+
+
+
+
+
+
+
+
+curl --location 'https://gw-apim.apps.ocpdev.uiotest.bpichinchatest.test/api.centraid/businesslogic/v1/GetPermissions' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer 39299a5c-3c3a-3787-bc22-30bf194e6725' \
+--header 'Username: afvillac' \
+--header 'Origin: http://centra-id-operation-web-banco-pichincha-dev.apps.desa.bpichincha.com.p3' \
+--header 'SOAPAction: xxx' \
+--header 'Cookie: c4b6b8fa0cff846849f0f9ca47a0a726=82264eecc6f7ba9a4abc71b1a66cd07a' \
+--data '{
+  "GetPermissions": {
+    "username": "amfierro",
+    "app": "OPE"
+  }
+}' -k
+
+
 url -k -u admin:Pichincha*10 -H 'Content-Type: application/x-www-form-urlencoded' -X POST --data 'token=39299a5c-3c3a-3787-bc22-30bf194e6725' 	https://identity.apps.ocpdev.uiotest.bpichinchatest.test:443/oauth2/introspect
 
 
