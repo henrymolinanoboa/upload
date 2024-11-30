@@ -1,4 +1,7 @@
- -o /dev/null -s -w "Tiempo total: %{time_total}s\n"
+ZM}x:296Y$9-
+
+
+-o /dev/null -s -w "Tiempo total: %{time_total}s\n"
 
 3. Ir a la opcion: Identity Providers / Resident
 Actualizar el campos:
