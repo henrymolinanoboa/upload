@@ -7,6 +7,61 @@
         <tem:usuarioInterno/>
 
 
+
+{
+    "userDataList": {
+        "userData": [
+            {
+                "id": 102448,
+                "username": "usrpchrn",
+                "employeeFirstSurname": "USUARIO GENERICO",
+                "employeeSecondSurname": null,
+                "employeeFirstName": "USRPCHRN",
+                "employeeSecondName": null,
+                "employeeCompleteName": "USUARIO GENERICO USRPCHRN",
+                "identification": 7700990521,
+                "company": {
+                    "id": 125,
+                    "code": "BCPI",
+                    "identifier": "COM0000003",
+                    "businessName": "BANCO PICHINCHA C.A.",
+                    "catalogCompanyType": {
+                        "id": 5477,
+                        "code": "BAN",
+                        "name": "BANCO",
+                        "predetermined": 1,
+                        "ordinal": null,
+                        "valueText": null,
+                        "valueNumber": null,
+                        "valueDate": null,
+                        "valueBoolean": null,
+                        "catalogType": {
+                            "id": 1,
+                            "code": "TIPEMP",
+                            "name": "TIPO DE EMPRESAS",
+                            "sortType": "A",
+                            "editable": 0,
+                            "valid": 1,
+                            "description": "TIPO DE EMPRESAS"
+                        },
+                        "filter": "BAN BANCO",
+                        "valid": 1
+                    },
+                    "domainName": "pichincha.com",
+                    "status": "ACTIVO",
+                    "logon": "LogonBP.bat",
+                    "valid": 1
+                },
+                "catalogDivision": null,
+                "catalogArea": {
+                    "id": 37663,
+                    "code": "N3282",
+                    "name": "INTELIGENCIA DE NEGOCIOS",
+                    "predetermined": 0,
+                    "ordinal": null,
+
+
+
 <inSequence>
             <log level="custom">
                 <property name="ProvisioningTaskProxy" value="InSequence.." />
