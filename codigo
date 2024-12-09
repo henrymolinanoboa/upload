@@ -8,6 +8,9 @@
 
 
 
+   <tem:proxyAddresses>SIP:jyaruqui@pichincha.com,SMTP:jyaruqui@pichincha.com,smtp:jiphsonalexis.yaruquicamacho@pichincha.com,smtp:jiphsonalexis.yaruquicamacho@pichincha.mail.onmicrosoft.com</tem:proxyAddresses>
+
+
 {
     "userDataList": {
         "userData": [
