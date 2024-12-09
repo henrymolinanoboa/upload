@@ -1,7 +1,13 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <proxy name="ProvisioningTaskProxy" startOnLoad="true" transports="https" xmlns="http://ws.apache.org/ns/synapse">
     <target>
-        <inSequence>
+  <tem:perfilUsuario>BPBPEB04</tem:perfilUsuario>
+        <tem:loginUsuario>SGI</tem:loginUsuario>
+        <tem:usuarioInterno/>
+
+
+<inSequence>
             <log level="custom">
                 <property name="ProvisioningTaskProxy" value="InSequence.." />
             </log>
