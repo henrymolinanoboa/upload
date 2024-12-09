@@ -6,64 +6,20 @@
         <tem:loginUsuario>SGI</tem:loginUsuario>
         <tem:usuarioInterno/>
 
-
-
-   <tem:proxyAddresses>SIP:jyaruqui@pichincha.com,SMTP:jyaruqui@pichincha.com,smtp:jiphsonalexis.yaruquicamacho@pichincha.com,smtp:jiphsonalexis.yaruquicamacho@pichincha.mail.onmicrosoft.com</tem:proxyAddresses>
-
-
-{
-    "userDataList": {
-        "userData": [
-            {
-                "id": 102448,
-                "username": "usrpchrn",
-                "employeeFirstSurname": "USUARIO GENERICO",
-                "employeeSecondSurname": null,
-                "employeeFirstName": "USRPCHRN",
-                "employeeSecondName": null,
-                "employeeCompleteName": "USUARIO GENERICO USRPCHRN",
-                "identification": 7700990521,
-                "company": {
-                    "id": 125,
-                    "code": "BCPI",
-                    "identifier": "COM0000003",
-                    "businessName": "BANCO PICHINCHA C.A.",
-                    "catalogCompanyType": {
-                        "id": 5477,
-                        "code": "BAN",
-                        "name": "BANCO",
-                        "predetermined": 1,
-                        "ordinal": null,
-                        "valueText": null,
-                        "valueNumber": null,
-                        "valueDate": null,
-                        "valueBoolean": null,
-                        "catalogType": {
-                            "id": 1,
-                            "code": "TIPEMP",
-                            "name": "TIPO DE EMPRESAS",
-                            "sortType": "A",
-                            "editable": 0,
-                            "valid": 1,
-                            "description": "TIPO DE EMPRESAS"
-                        },
-                        "filter": "BAN BANCO",
-                        "valid": 1
-                    },
-                    "domainName": "pichincha.com",
-                    "status": "ACTIVO",
-                    "logon": "LogonBP.bat",
-                    "valid": 1
-                },
-                "catalogDivision": null,
-                "catalogArea": {
-                    "id": 37663,
-                    "code": "N3282",
-                    "name": "INTELIGENCIA DE NEGOCIOS",
-                    "predetermined": 0,
-                    "ordinal": null,
-
-
+aplicacion = ad, HTTP_SC = 201, trp-cgi-error-codigo = null, cgi-error-codigo = 0, cgi-error-mensaje = No Error, cgi-error-mensajeNegocio = null, scimResponse =                                                           AP_ACTION_REQUEST = http://tempuri.org
+{"emails":[{"type":"other","value":"jyaruqui@pichincha.com"}],                                                                                                                                                                                                   
+"meta":{"created":"2024-11-12T05:44:53","location":"https://identity.apps.prod.bpichincha.com/scim2/Users/5caa08e4-bcab-4a47-b10a-347a8373b79e",                                                                           ocess = 1                             
+"lastModified":"2024-11-12T05:44:53","resourceType":"User"},"displayName":"YARUQUI CAMACHO JIPHSON ALEXIS","schemas":                                                                                                                                            
+["urn:ietf:params:scim:schemas:core:2.0:User","urn:ietf:params:scim:schemas:extension:enterprise:2.0:User"],"EnterpriseUser":                                                                                              inguishedNameSupervisor =             
+aqui                                                                                                                                                                                                                                                             
+{"ua/proc-interDomainTrustAccount":"false","city":"QUITO","uac-useDesKeyOnly":"false","uac-encryptedTextPasswordAllowed":"false","postalCode":"1104047541","description":"1104047541","distinguishedName":"CN=YARUQUI CAMACD-A64B-07C293015003, cgi-uuid = 4F3E30
+"proxyAddresses":[                                                                                                                                                                                                                                               
+"smtp:jiphsonalexis.yaruquicamacho@pichincha.mail.onmicrosoft.com",                                                                                                                                                                                              
+"smtp:jiphsonalexis.yaruquicamacho@pichincha.com",                                                                                                                                                                                                               
+"SMTP:jyaruqui@pichincha.com",                                                                                                                                                                                             ipoIdentificacion = C, identificacion 
+"SIP:jyaruqui@pichincha.com"],                                                                                                                                                                                                                                   
+"uac-script":"false","uac-passwordNotRequired":"false","uac-doNotExpirePassword":"false","uac-trustedToAuthForDelegation":"false","uac-smartCardRequired":"false","uac-normalAccount":"true","organization":"BANCO PICHINCH                                      
+               
 
 <inSequence>
             <log level="custom">
