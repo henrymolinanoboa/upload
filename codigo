@@ -1,57 +1,121 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
-<proxy name="ProvisioningTaskProxy" startOnLoad="true" transports="https" xmlns="http://ws.apache.org/ns/synapse">
-    <target>
-  <tem:perfilUsuario>BPBPEB04</tem:perfilUsuario>
-        <tem:loginUsuario>SGI</tem:loginUsuario>
-        <tem:usuarioInterno/>
-
-aplicacion = ad, HTTP_SC = 201, trp-cgi-error-codigo = null, cgi-error-codigo = 0, cgi-error-mensaje = No Error, cgi-error-mensajeNegocio = null, scimResponse =                                                           AP_ACTION_REQUEST = http://tempuri.org
-{"emails":[{"type":"other","value":"jyaruqui@pichincha.com"}],                                                                                                                                                                                                   
-"meta":{"created":"2024-11-12T05:44:53","location":"https://identity.apps.prod.bpichincha.com/scim2/Users/5caa08e4-bcab-4a47-b10a-347a8373b79e",                                                                           ocess = 1                             
-"lastModified":"2024-11-12T05:44:53","resourceType":"User"},"displayName":"YARUQUI CAMACHO JIPHSON ALEXIS","schemas":                                                                                                                                            
-["urn:ietf:params:scim:schemas:core:2.0:User","urn:ietf:params:scim:schemas:extension:enterprise:2.0:User"],"EnterpriseUser":                                                                                              inguishedNameSupervisor =             
-aqui                                                                                                                                                                                                                                                             
-{"ua/proc-interDomainTrustAccount":"false","city":"QUITO","uac-useDesKeyOnly":"false","uac-encryptedTextPasswordAllowed":"false","postalCode":"1104047541","description":"1104047541","distinguishedName":"CN=YARUQUI CAMACD-A64B-07C293015003, cgi-uuid = 4F3E30
-"proxyAddresses":[                                                                                                                                                                                                                                               
-"smtp:jiphsonalexis.yaruquicamacho@pichincha.mail.onmicrosoft.com",                                                                                                                                                                                              
-"smtp:jiphsonalexis.yaruquicamacho@pichincha.com",                                                                                                                                                                                                               
-"SMTP:jyaruqui@pichincha.com",                                                                                                                                                                                             ipoIdentificacion = C, identificacion 
-"SIP:jyaruqui@pichincha.com"],                                                                                                                                                                                                                                   
-"uac-script":"false","uac-passwordNotRequired":"false","uac-doNotExpirePassword":"false","uac-trustedToAuthForDelegation":"false","uac-smartCardRequired":"false","uac-normalAccount":"true","organization":"BANCO PICHINCH                                      
-               
-
-<inSequence>
+<sequence name="RpaUserProvisioningSeq" trace="disable" xmlns="http://ws.apache.org/ns/synapse" xmlns:tem="http://tempuri.org/">
+    <log level="full">
+        <property name="seq" value="-------------------- RpaUserProvisioningSeq.Ini --------------------" />
+    </log>
+    <filter regex="true" source="count($body//tem:crearRequerimientos/tem:crearRequerimiento[tem:aplicacionTypeManualProvision='RPA']) > 0 ">
+        <then>
+            <property description="seqName" name="seqName" scope="default" type="STRING" value="RpaUserProvisioningSeq" />
+            <property name="firstElement" expression="$body//tem:crearRequerimientos/tem:crearRequerimiento[1]" type="OM" xmlns:tem="http://tempuri.org/" />
+            <property name="messageType" scope="axis2" type="STRING" value="application/xml" />
+            <property name="Accept" scope="transport" type="STRING" value="application/xml" />
             <log level="custom">
-                <property name="ProvisioningTaskProxy" value="InSequence.." />
+                <property name="seq" value="-------------------- RpaUserProvisioningSeq.Ini.1 --------------------" />
             </log>
-            <enrich>
-                <source clone="false" type="body" />
-                <target action="replace" type="property" property="payloadProvisioningTaskProxy" />
-            </enrich>
-            <sequence key="MassiveProcessUsersVariablesLoadSeq" />
-            <sequence key="SetVariablesProxySeq" />
-            <sequence key="ProvisioningTaskProxySeq" />
             <payloadFactory media-type="xml">
                 <format>
-                    <ok />
+                    <_postcreate_rpa_user_provisioning xmlns="centra-id.com">
+                        <origen xmlns:xs="centra-id.com">$1</origen>
+                        <username xmlns:xs="centra-id.com">$2</username>
+                        <identificacion xmlns:xs="centra-id.com">$3</identificacion>
+                        <apellidos xmlns:xs="centra-id.com">$4</apellidos>
+                        <nombres xmlns:xs="centra-id.com">$5</nombres>
+                        <cod_centro_costo xmlns:xs="centra-id.com">$6</cod_centro_costo>
+                        <nom_centro_costo xmlns:xs="centra-id.com">$7</nom_centro_costo>
+                        <cod_compania xmlns:xs="centra-id.com">$8</cod_compania>
+                        <nom_compania xmlns:xs="centra-id.com">$9</nom_compania>
+                        <cod_perfil_global xmlns:xs="centra-id.com">$10</cod_perfil_global>
+                        <nom_perfil_global xmlns:xs="centra-id.com">$11</nom_perfil_global>
+                        <celular xmlns:xs="centra-id.com">$12</celular>
+                        <cargo xmlns:xs="centra-id.com">$13</cargo>
+                    </_postcreate_rpa_user_provisioning>
                 </format>
-                <args></args>
+                <args>
+                    <arg evaluator="xml" expression="$ctx:firstElement/tem:origen/text()" xmlns:tem="http://tempuri.org/" />
+                    <arg evaluator="xml" expression="$ctx:firstElement/tem:tellerName/text()" xmlns:tem="http://tempuri.org/" />
+                    <arg evaluator="xml" expression="$ctx:firstElement/tem:identificacion/text()" xmlns:tem="http://tempuri.org/" />
+                    <arg evaluator="xml" expression="$ctx:firstElement/tem:apellidosEmpleado/text()" xmlns:tem="http://tempuri.org/" />
+                    <arg evaluator="xml" expression="$ctx:firstElement/tem:nombresEmpleado/text()" xmlns:tem="http://tempuri.org/" />
+                    <arg evaluator="xml" expression="$ctx:firstElement/tem:codigoCentroCosto/text()" xmlns:tem="http://tempuri.org/" />
+                    <arg evaluator="xml" expression="$ctx:firstElement/tem:nombreCentroCosto/text()" xmlns:tem="http://tempuri.org/" />
+                    <arg evaluator="xml" expression="$ctx:firstElement/tem:codigoCompania/text()" xmlns:tem="http://tempuri.org/" />
+                    <arg evaluator="xml" expression="$ctx:firstElement/tem:nombreCompania/text()" xmlns:tem="http://tempuri.org/" />
+                    <arg evaluator="xml" expression="$ctx:firstElement/tem:codigoPerfilGlobal/text()" xmlns:tem="http://tempuri.org/" />
+                    <arg evaluator="xml" expression="$ctx:firstElement/tem:perfilGlobal/text()" xmlns:tem="http://tempuri.org/" />
+                    <arg evaluator="xml" expression="$ctx:firstElement/tem:celular/text()" xmlns:tem="http://tempuri.org/" />
+                    <arg evaluator="xml" expression="$ctx:firstElement/tem:cargo/text()" xmlns:tem="http://tempuri.org/" />
+                </args>
             </payloadFactory>
-            <respond />
-        </inSequence>
-        <outSequence />
-        <faultSequence>
-            <log level="custom">
-                <property name="ProvisioningTaskProxy" value="FaultSequence.." />
-                <property name="payloadTask" expression="$ctx:payloadTask" />
+            <log level="full">
+                <property name="seq" value="-------------------- RpaUserProvisioningSeq.Ini.2 --------------------" />
             </log>
+            <property name="uri.var.endpoint" expression="fn:concat(get-property('DATA_SERVICE_HOST'),'/identity.user-data.ds.HTTPEndpoint')" />
+            <call>
+                <endpoint template="HTTPEndpointPostTemplate" uri="{uri.var.endpoint}" />
+            </call>
+            <log level="full">
+                <property name="seq" value="-------------------- RpaUserProvisioningSeq.Ini.3 --------------------" />
+            </log>
+            <property name="guid" expression="//*:guid/text()" />
             <enrich>
-                <source clone="false" type="property" property="payloadProvisioningTaskProxy" />
+                <source clone="false" type="property" property="payloadListTask" />
                 <target type="body" />
             </enrich>
-            <property name="HTTP_SC" scope="axis2" type="STRING" value="500" />
-            <respond />
-        </faultSequence>
-    </target>
-</proxy>
+            <iterate expression="$body//tem:crearRequerimientos/tem:crearRequerimiento[tem:aplicacionTypeManualProvision='RPA']" xmlns:tem="http://tempuri.org/" id="createDetailId">
+                <target>
+                    <sequence>
+                        <log level="custom">
+                            <property name="seq" value="-------------------- RpaUserProvisioningSeq.Ini.4 --------------------" />
+                        </log>
+                        <property name="messageType" scope="axis2" type="STRING" value="application/xml" />
+                        <property name="Accept" scope="transport" type="STRING" value="application/xml" />
+                        <payloadFactory media-type="xml">
+                            <format>
+                                <_postcreate_rpa_user_provisioning_detail xmlns="centra-id.com">
+                                    <guid xmlns:xs="centra-id.com">$1</guid>
+                                    <uuid xmlns:xs="centra-id.com">$2</uuid>
+                                    <type_action xmlns:xs="centra-id.com">$3</type_action>
+                                    <cod_application xmlns:xs="centra-id.com">$4</cod_application>
+                                    <cod_perfil_transacctional xmlns:xs="centra-id.com">$5</cod_perfil_transacctional>
+                                </_postcreate_rpa_user_provisioning_detail>
+                            </format>
+                            <args>
+                                <arg evaluator="xml" expression="$ctx:guid" />
+                                <arg evaluator="xml" expression="//tem:uuid/text()" xmlns:tem="http://tempuri.org/" />
+                                <arg evaluator="xml" expression="//tem:tipoAccion/text()" xmlns:tem="http://tempuri.org/" />
+                                <arg evaluator="xml" expression="//tem:aplicacion/text()" xmlns:tem="http://tempuri.org/" />
+                                <arg evaluator="xml" expression="//tem:nombrePerfil/text()" xmlns:tem="http://tempuri.org/" />
+                            </args>
+                        </payloadFactory>
+                        <log level="full">
+                            <property name="seq" value="-------------------- RpaUserProvisioningSeq.Ini.5 --------------------" />
+                        </log>
+                        <property name="uri.var.endpoint" expression="fn:concat(get-property('DATA_SERVICE_HOST'),'/identity.user-data.ds.HTTPEndpoint')" />
+                        <call>
+                            <endpoint template="HTTPEndpointPostTemplate" uri="{uri.var.endpoint}" />
+                        </call>
+                        <payloadFactory media-type="xml">
+                            <format>
+                                <none />
+                            </format>
+                            <args></args>
+                        </payloadFactory>
+                    </sequence>
+                </target>
+            </iterate>
+            <aggregate id="createDetailId">
+                <completeCondition>
+                    <messageCount min="-1" max="-1" />
+                </completeCondition>
+                <onComplete expression="$body/*">
+                    <log level="custom">
+                        <property name="RpaUserProvisioningSeq" value="ok" />
+                    </log>
+                </onComplete>
+            </aggregate>
+        </then>
+    </filter>
+    <log description="seq" level="custom">
+        <property name="seq" value="-------------------- RpaUserProvisioningSeq.Fin --------------------" />
+    </log>
+</sequence>
