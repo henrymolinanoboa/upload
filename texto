@@ -1,3 +1,11 @@
+   <payloadFactory media-type="xml">
+        <format>
+           <ok />
+        </format>
+        <args></args>
+  </payloadFactory>
+
+----------------------
 16*AmFv*Bp
 
 
