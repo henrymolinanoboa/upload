@@ -1,4 +1,6 @@
-   <payloadFactory media-type="xml">
+com.pichincha.wso2.ei.mediators.RolesToUpdateMediatorNew
+
+<payloadFactory media-type="xml">
         <format>
            <ok />
         </format>
