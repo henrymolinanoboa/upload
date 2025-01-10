@@ -1,1 +1,15 @@
-https://gw-integrator.apps.ocptest.uiotest.bpichinchatest.test/services/TaskManualNotificationProxy
+<messageProcessor name="TaskManualNotificationProcessor" class="org.apache.synapse.message.processor.impl.forwarder.ScheduledMessageForwardingProcessor" targetEndpoint="TaskManualNotificationEP" messageStore="TaskManualNotificationStore" xmlns="http://ws.apache.org/ns/synapse">
+   <parameter name="interval">20000</parameter>
+   <parameter name="client.retry.interval">20000</parameter>
+   <parameter name="max.delivery.attempts">1</parameter>
+   <parameter name="max.store.connection.attempts">-1</parameter>
+   <parameter name="store.connection.retry.interval">1000</parameter>
+   <parameter name="message.processor.reply.sequence">TaskManualNotificationProxyReplySeq</parameter>
+   <parameter name="message.processor.fault.sequence">FaultTaskManualNotificationProxySeq</parameter>
+   <parameter name="message.processor.deactivate.sequence">TaskManualNotificationProxyDeactivateSeq</parameter>
+   <parameter name="message.processor.failMessagesStore">ProfilesSynchronizationCalculateUserDataStore</parameter>
+   <parameter name="is.active">true</parameter>
+   <parameter name="max.delivery.drop">Enabled</parameter>
+   <parameter name="member.count">1</parameter>
+</messageProcessor>
+                            
