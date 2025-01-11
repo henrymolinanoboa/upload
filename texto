@@ -1,4 +1,85 @@
-ALTER TABLE
-    "CENTRA_ID"."SCH_CENTRA_ID"."TICKETS" ADD USERNAME_AFECTADO nvarchar(50);
-ALTER TABLE
-    "CENTRA_ID"."SCH_CENTRA_ID"."TICKETS" ADD USERNAME_SOLICITANTE nvarchar(50)
+--- =============================================
+-- Author:    <Henry Molina>
+-- Create date: <11/ENE/2025>
+-- Description:  - Scripts para :
+--        - Agregar campos de usuario afectado, solicitante y aprobador
+
+-- Type: DDL
+-- ===
+
+
+IF NOT EXISTS (SELECT 1 
+               FROM INFORMATION_SCHEMA.COLUMNS 
+               WHERE TABLE_SCHEMA = 'SCH_CENTRA_ID' 
+                 AND TABLE_NAME = 'TICKETS' 
+                 AND COLUMN_NAME = 'USERNAME_AFECTADO')
+BEGIN
+    ALTER TABLE SCH_CENTRA_ID.TICKETS ADD USERNAME_AFECTADO nvarchar(50)
+END
+GO
+
+IF NOT EXISTS (SELECT 1 
+               FROM INFORMATION_SCHEMA.COLUMNS 
+               WHERE TABLE_SCHEMA = 'SCH_CENTRA_ID' 
+                 AND TABLE_NAME = 'TICKETS' 
+                 AND COLUMN_NAME = 'USERNAME_SOLICITANTE')
+BEGIN
+    ALTER TABLE SCH_CENTRA_ID.TICKETS ADD USERNAME_SOLICITANTE nvarchar(50)
+END
+GO
+
+IF NOT EXISTS (SELECT 1 
+               FROM INFORMATION_SCHEMA.COLUMNS 
+               WHERE TABLE_SCHEMA = 'SCH_CENTRA_ID' 
+                 AND TABLE_NAME = 'TICKETS' 
+                 AND COLUMN_NAME = 'USERNAME_ARPOBADOR')
+BEGIN
+    ALTER TABLE SCH_CENTRA_ID.TICKETS ADD USERNAME_ARPOBADOR nvarchar(50)
+END
+GO
+
+
+
+
+-----------------
+
+
+--- =============================================
+-- Author:    <Henry Molina>
+-- Create date: <11/ENE/2025>
+-- Description:  - Scripts para :
+--        - Agregar campos de usuario afectado, solicitante y aprobador - ROOLBACK
+
+-- Type: DDL
+-- ===
+
+
+IF EXISTS (SELECT 1 
+           FROM INFORMATION_SCHEMA.COLUMNS 
+           WHERE TABLE_SCHEMA = 'SCH_CENTRA_ID' 
+             AND TABLE_NAME = 'TICKETS' 
+             AND COLUMN_NAME = 'USERNAME_AFECTADO')
+BEGIN
+    ALTER TABLE SCH_CENTRA_ID.TICKETS DROP COLUMN USERNAME_AFECTADO
+END
+GO
+
+IF EXISTS (SELECT 1 
+           FROM INFORMATION_SCHEMA.COLUMNS 
+           WHERE TABLE_SCHEMA = 'SCH_CENTRA_ID' 
+             AND TABLE_NAME = 'TICKETS' 
+             AND COLUMN_NAME = 'USERNAME_SOLICITANTE')
+BEGIN
+    ALTER TABLE SCH_CENTRA_ID.TICKETS DROP COLUMN USERNAME_SOLICITANTE
+END
+GO
+
+IF EXISTS (SELECT 1 
+           FROM INFORMATION_SCHEMA.COLUMNS 
+           WHERE TABLE_SCHEMA = 'SCH_CENTRA_ID' 
+             AND TABLE_NAME = 'TICKETS' 
+             AND COLUMN_NAME = 'USERNAME_ARPOBADOR')
+BEGIN
+    ALTER TABLE SCH_CENTRA_ID.TICKETS DROP COLUMN USERNAME_ARPOBADOR
+END
+GO
