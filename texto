@@ -1,50 +1,24 @@
-16*AmFv*Bp
-
-
-
-INSERT INTO SCH_CENTRA_ID.DEFAULT_PROFILES (
-                GLOBAL_PROFILE_ID, 
-                CODE_COMPANY, 
-                CODE_DIVISION, 
-                CODE_AREA, 
-                CODE_DEPARTMENT, 
-                CODE_POSITION, 
-                VALID, 
-                NAME_COMPANY, 
-                NAME_DIVISION, 
-                NAME_AREA, 
-                NAME_DEPARTMENT, 
-                NAME_POSITION,
-                AUTOMATIC
-            ) 
-            SELECT
-                GLOBAL_PROFILE_ID,
-                :newCompanyCode,
-                CASE WHEN CODE_DIVISION='ANY' THEN 'ANY' ELSE :newDivisionCode END ,
-                CASE WHEN CODE_AREA='ANY' THEN 'ANY' ELSE :newAreaCode END,
-                CASE WHEN CODE_DEPARTMENT='ANY' THEN 'ANY' ELSE :newDepartmentName END ,
-                CODE_POSITION,
-                1,
-                :newCompanyName,
-                :newDivisionName,
-                :newAreaName,
-                :newDepartmentName,
-                NAME_POSITION,
-                1
-            FROM (
-            SELECT 
-                GLOBAL_PROFILE_ID,
-                CODE_COMPANY,
-                CODE_DIVISION,
-                CODE_AREA,
-                CODE_DEPARTMENT,
-                CODE_POSITION,
-                NAME_POSITION 
-            FROM SCH_CENTRA_ID.DEFAULT_PROFILES
-            WHERE VALID=1
-                AND (CODE_COMPANY=:previousCompanyCode )
-                AND (CODE_DIVISION=:previousDivisionCode OR CODE_DIVISION='ANY'  )
-                AND (CODE_AREA=:previousAreaCode OR CODE_AREA='ANY'  )
-                AND (CODE_DEPARTMENT=:previousDepartmentCode OR CODE_DEPARTMENT='ANY')
-            ) t
-            WHERE T.CODE_DIVISION!='ANY' OR T.CODE_AREA!='ANY' OR T.CODE_DEPARTMENT!='ANY'
+, ERROR_EXCEPTION = 
+[2025-01-13 06:12:00,000] [-1234] [] [SynapseWorker-29]  INFO {org.apache.synapse.mediators.builtin.LogMediator} -  seq = -------------------- GIDss_Splitter_Seq --------------------
+[2025-01-13 06:12:00,190] [-1234] [] [PassThroughMessageProcessor-269]  INFO {org.apache.synapse.mediators.builtin.LogMediator} -  Count Request = 0.0
+[2025-01-13 06:12:14,924] [-1] [] [HTTPS-Listener I/O dispatcher-1]  INFO {org.apache.synapse.transport.passthru.SourceHandler} -  Writer null when calling informWriterError
+[2025-01-13 06:12:14,924] [-1] [] [HTTPS-Listener I/O dispatcher-1]  WARN {org.apache.synapse.transport.passthru.SourceHandler} -  Connection time out after request is read: http-incoming-322980 Socket Timeout : 180000 Remote Address : 10-131-0-23.router-default.openshift-ingress.svc.cluster.local/10.131.0.23:48082
+[2025-01-13 06:12:49,931] [-1234] [] [PassThroughMessageProcessor-21]  INFO {org.apache.synapse.mediators.builtin.LogMediator} -  ExecuteTicketSeq = Inicio.5.., guid = 56EE0A8B-264A-43B7-A722-88B430EC49F4, uri.var.host = https://bancopichinchadev2.service-now.com/api/sn_sc/servicecatalog/items/9ef7a2bb1bcff1943306866be54bcbce/order_now, username_afectado = aamora, username_solicitante = amfierro, username_aprobador = ogranda
+[2025-01-13 06:12:50,027] [-1234] [] [PassThroughMessageProcessor-21]  WARN {org.apache.synapse.mediators.base.SequenceMediator} -  onError handler : FaultServiceNowSysUserSeq for sequence : ServiceNowSysUserSeq cannot be found
+[2025-01-13 06:12:50,028] [-1234] [] [PassThroughMessageProcessor-21]  INFO {org.apache.synapse.mediators.builtin.LogMediator} -  seq = -------------------- ServiceNowSysUserSeq .Ini --------------------
+[2025-01-13 06:12:50,331] [-1234] [] [PassThroughMessageProcessor-370]  WARN {org.apache.synapse.mediators.base.SequenceMediator} -  onError handler : FaultServiceNowSysUserSeq for sequence : ServiceNowSysUserSeq cannot be found
+[2025-01-13 06:12:50,331] [-1234] [] [PassThroughMessageProcessor-370]  INFO {org.apache.synapse.mediators.builtin.LogMediator} -  seq = -------------------- ServiceNowSysUserSeq .Resultado --------------------, uri.var.host = https://bancopichinchadev2.service-now.com/api/now/table/sys_user?user_name=aamora@pichincha.com, HTTP_SC = 200
+[2025-01-13 06:12:50,331] [-1234] [] [PassThroughMessageProcessor-370]  INFO {org.apache.synapse.mediators.builtin.LogMediator} -  seq = -------------------- ServiceNowSysUserSeq .Fin --------------------, sys_id = 70a498b587ba5510a181c9160cbb3549
+[2025-01-13 06:12:50,331] [-1234] [] [PassThroughMessageProcessor-370]  INFO {org.apache.synapse.mediators.builtin.LogMediator} -  seq = -------------------- ServiceNowRequerimientosSeq.2 --------------------, user_id = aamora, usuario_afectado_sys_id = 70a498b587ba5510a181c9160cbb3549
+[2025-01-13 06:12:50,423] [-1234] [] [PassThroughMessageProcessor-370]  WARN {org.apache.synapse.mediators.base.SequenceMediator} -  onError handler : FaultServiceNowSysUserSeq for sequence : ServiceNowSysUserSeq cannot be found
+[2025-01-13 06:12:50,423] [-1234] [] [PassThroughMessageProcessor-370]  INFO {org.apache.synapse.mediators.builtin.LogMediator} -  seq = -------------------- ServiceNowSysUserSeq .Ini --------------------
+[2025-01-13 06:12:50,424] [-1234] [] [PassThroughMessageProcessor-370] ERROR {org.wso2.pichincha.mediator.AESEncryptMediator} -  Error while Encrypting/Decrypting the payload.
+[2025-01-13 06:12:50,690] [-1234] [] [PassThroughMessageProcessor-376]  WARN {org.apache.synapse.mediators.base.SequenceMediator} -  onError handler : FaultServiceNowSysUserSeq for sequence : ServiceNowSysUserSeq cannot be found
+[2025-01-13 06:12:50,690] [-1234] [] [PassThroughMessageProcessor-376]  INFO {org.apache.synapse.mediators.builtin.LogMediator} -  seq = -------------------- ServiceNowSysUserSeq .Resultado --------------------, uri.var.host = https://bancopichinchadev2.service-now.com/api/now/table/sys_user?user_name=amfierro@pichincha.com, HTTP_SC = 200
+[2025-01-13 06:12:50,690] [-1234] [] [PassThroughMessageProcessor-376]  INFO {org.apache.synapse.mediators.builtin.LogMediator} -  seq = -------------------- ServiceNowSysUserSeq .Fin --------------------, sys_id = 2a5d4c3d87f29510ebcf0d860cbb35e1
+[2025-01-13 06:12:50,690] [-1234] [] [PassThroughMessageProcessor-376]  INFO {org.apache.synapse.mediators.builtin.LogMediator} -  seq = -------------------- ServiceNowRequerimientosSeq.3 --------------------, user_id = amfierro, usuario_solicitante_sys_id = 2a5d4c3d87f29510ebcf0d860cbb35e1
+[2025-01-13 06:12:50,785] [-1234] [] [PassThroughMessageProcessor-376]  WARN {org.apache.synapse.mediators.base.SequenceMediator} -  onError handler : FaultServiceNowSysUserSeq for sequence : ServiceNowSysUserSeq cannot be found
+[2025-01-13 06:12:50,785] [-1234] [] [PassThroughMessageProcessor-376]  INFO {org.apache.synapse.mediators.builtin.LogMediator} -  seq = -------------------- ServiceNowSysUserSeq .Ini --------------------
+[2025-01-13 06:12:50,785] [-1234] [] [PassThroughMessageProcessor-376]  INFO {org.apache.synapse.mediators.builtin.LogMediator} -  seq = -------------------- ServiceNowSysUserSeq .Fin --------------------, sys_id = **NO-USER-ID**
+[2025-01-13 06:12:50,785] [-1234] [] [PassThroughMessageProcessor-376]  INFO {org.apache.synapse.mediators.builtin.LogMediator} -  seq = -------------------- ServiceNowRequerimientosSeq.4 --------------------, user_id = , origen = 
+[2025-01-13 06:12:50,793] [-1234] [] [PassThroughMessageProcessor-376] ERROR {org.apache.synapse.mediators.bsf.CommonScriptMessageContext} -  Error processing JSON: ReferenceError: "payload" is not defined
