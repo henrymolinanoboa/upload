@@ -1,1 +1,2 @@
-  <tem:sftpHost>10.0.0.53:226</tem:sftpHost>
+  <tem:mail.smtp.host>mailprod.uio.bpichincha.com</tem:mail.smtp.host>
+        <tem:mail.smtp.port>25</tem:mail.smtp.port>
