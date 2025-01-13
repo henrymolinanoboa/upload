@@ -87,7 +87,7 @@
                             <arg evaluator="xml" expression="$ctx:payload" />
                         </args>
                     </payloadFactory>
-                    <log level="full" category="DEBUG">
+                    <log level="full" category="INFO">
                         <property name="ExecuteTicketSeq" value="Inicio.10.." />
                     </log>
                     <!-- actualizar datos de usuarios -->
@@ -118,7 +118,10 @@
                                 throw e;
                             }
                         ]]>
-                    </script>                    
+                    </script>
+                    <log level="full" category="INFO">
+                        <property name="ExecuteTicketSeq" value="Inicio.11.." />
+                    </log>
                     <!-- elimina nodos con valor en blanco -->
                     <script language="js">
                         <![CDATA[
@@ -149,14 +152,14 @@
                             }
                         ]]>
                     </script>
-                    <log level="full" category="DEBUG">
+                    <log level="full" category="INFO">
                         <property name="ExecuteTicketSeq" value="Inicio.11.." />
                     </log>
                     <property description="HTTP_METHOD:POST" name="HTTP_METHOD" scope="axis2" type="STRING" value="POST" />
                     <call-template target="SetCredentialsTemplate">
                         <with-param name="system" value="SERVICE_NOW" />
                     </call-template>
-                    <log level="full" category="DEBUG">
+                    <log level="full" category="INFO">
                         <property name="ExecuteTicketSeq" value="Inicio.5.1.." />
                         <property name="uri.var.host" expression="$ctx:uri.var.host" />
                     </log>
