@@ -1,85 +1,46 @@
---- =============================================
--- Author:    <Henry Molina>
--- Create date: <11/ENE/2025>
--- Description:  - Scripts para :
---        - Agregar campos de usuario afectado, solicitante y aprobador
-
--- Type: DDL
--- ===
-
-
-IF NOT EXISTS (SELECT 1 
-               FROM INFORMATION_SCHEMA.COLUMNS 
-               WHERE TABLE_SCHEMA = 'SCH_CENTRA_ID' 
-                 AND TABLE_NAME = 'TICKETS' 
-                 AND COLUMN_NAME = 'USERNAME_AFECTADO')
-BEGIN
-    ALTER TABLE SCH_CENTRA_ID.TICKETS ADD USERNAME_AFECTADO nvarchar(50)
-END
-GO
-
-IF NOT EXISTS (SELECT 1 
-               FROM INFORMATION_SCHEMA.COLUMNS 
-               WHERE TABLE_SCHEMA = 'SCH_CENTRA_ID' 
-                 AND TABLE_NAME = 'TICKETS' 
-                 AND COLUMN_NAME = 'USERNAME_SOLICITANTE')
-BEGIN
-    ALTER TABLE SCH_CENTRA_ID.TICKETS ADD USERNAME_SOLICITANTE nvarchar(50)
-END
-GO
-
-IF NOT EXISTS (SELECT 1 
-               FROM INFORMATION_SCHEMA.COLUMNS 
-               WHERE TABLE_SCHEMA = 'SCH_CENTRA_ID' 
-                 AND TABLE_NAME = 'TICKETS' 
-                 AND COLUMN_NAME = 'USERNAME_ARPOBADOR')
-BEGIN
-    ALTER TABLE SCH_CENTRA_ID.TICKETS ADD USERNAME_ARPOBADOR nvarchar(50)
-END
-GO
-
-
-
-
------------------
-
-
---- =============================================
--- Author:    <Henry Molina>
--- Create date: <11/ENE/2025>
--- Description:  - Scripts para :
---        - Agregar campos de usuario afectado, solicitante y aprobador - ROOLBACK
-
--- Type: DDL
--- ===
-
-
-IF EXISTS (SELECT 1 
-           FROM INFORMATION_SCHEMA.COLUMNS 
-           WHERE TABLE_SCHEMA = 'SCH_CENTRA_ID' 
-             AND TABLE_NAME = 'TICKETS' 
-             AND COLUMN_NAME = 'USERNAME_AFECTADO')
-BEGIN
-    ALTER TABLE SCH_CENTRA_ID.TICKETS DROP COLUMN USERNAME_AFECTADO
-END
-GO
-
-IF EXISTS (SELECT 1 
-           FROM INFORMATION_SCHEMA.COLUMNS 
-           WHERE TABLE_SCHEMA = 'SCH_CENTRA_ID' 
-             AND TABLE_NAME = 'TICKETS' 
-             AND COLUMN_NAME = 'USERNAME_SOLICITANTE')
-BEGIN
-    ALTER TABLE SCH_CENTRA_ID.TICKETS DROP COLUMN USERNAME_SOLICITANTE
-END
-GO
-
-IF EXISTS (SELECT 1 
-           FROM INFORMATION_SCHEMA.COLUMNS 
-           WHERE TABLE_SCHEMA = 'SCH_CENTRA_ID' 
-             AND TABLE_NAME = 'TICKETS' 
-             AND COLUMN_NAME = 'USERNAME_ARPOBADOR')
-BEGIN
-    ALTER TABLE SCH_CENTRA_ID.TICKETS DROP COLUMN USERNAME_ARPOBADOR
-END
-GO
+  INSERT INTO SCH_CENTRA_ID.DEFAULT_PROFILES (
+                GLOBAL_PROFILE_ID, 
+                CODE_COMPANY, 
+                CODE_DIVISION, 
+                CODE_AREA, 
+                CODE_DEPARTMENT, 
+                CODE_POSITION, 
+                VALID, 
+                NAME_COMPANY, 
+                NAME_DIVISION, 
+                NAME_AREA, 
+                NAME_DEPARTMENT, 
+                NAME_POSITION,
+                AUTOMATIC
+            ) 
+            SELECT
+                GLOBAL_PROFILE_ID,
+                :newCompanyCode,
+                CASE WHEN CODE_DIVISION='ANY' THEN 'ANY' ELSE :newDivisionCode END ,
+                CASE WHEN CODE_AREA='ANY' THEN 'ANY' ELSE :newAreaCode END,
+                CASE WHEN CODE_DEPARTMENT='ANY' THEN 'ANY' ELSE :newDepartmentName END ,
+                CODE_POSITION,
+                1,
+                :newCompanyName,
+                :newDivisionName,
+                :newAreaName,
+                :newDepartmentName,
+                NAME_POSITION,
+                1
+            FROM (
+            SELECT 
+                GLOBAL_PROFILE_ID,
+                CODE_COMPANY,
+                CODE_DIVISION,
+                CODE_AREA,
+                CODE_DEPARTMENT,
+                CODE_POSITION,
+                NAME_POSITION 
+            FROM SCH_CENTRA_ID.DEFAULT_PROFILES
+            WHERE VALID=1
+                AND (CODE_COMPANY=:previousCompanyCode )
+                AND (CODE_DIVISION=:previousDivisionCode OR CODE_DIVISION='ANY'  )
+                AND (CODE_AREA=:previousAreaCode OR CODE_AREA='ANY'  )
+                AND (CODE_DEPARTMENT=:previousDepartmentCode OR CODE_DEPARTMENT='ANY')
+            ) t
+            WHERE T.CODE_DIVISION!='ANY' OR T.CODE_AREA!='ANY' OR T.CODE_DEPARTMENT!='ANY'
