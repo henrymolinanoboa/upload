@@ -103,13 +103,13 @@
                                 var usernameAprobadorSysId = mc.getProperty('usuario_aprobador_sys_id');
 
                                 // Actualizar los valores solo si las propiedades tienen algún valor
-                                if (usernameAfectadoSysId) {
+                                if (typeof jsonPayload.variables.u_usuario_afectado !== 'undefined' && usernameAfectadoSysId) {
                                     jsonPayload.variables.u_usuario_afectado = usernameAfectadoSysId;
                                 }
-                                if (usernameSolicitanteSysId) {
+                                if (typeof jsonPayload.variables.u_solicitante !== 'undefined' && usernameSolicitanteSysId) {
                                     jsonPayload.variables.u_solicitante = usernameSolicitanteSysId;
                                 }
-                                if (usernameAprobadorSysId) {
+                                if (typeof jsonPayload.variables.u_aprobador !== 'undefined' && usernameAprobadorSysId) {
                                     jsonPayload.variables.u_aprobador = usernameAprobadorSysId;
                                 }
                                 mc.setPayloadJSON(jsonPayload);
