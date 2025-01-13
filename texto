@@ -96,22 +96,30 @@
                             try {
                                 var log = mc.getServiceLog();                         
                                 var jsonPayload = mc.getPayloadJSON();
+                                log.info("paso.1");
                                 // Asignar valores de usuarios
                                 // Obtener las propiedades
                                 var usernameAfectadoSysId = mc.getProperty('usuario_afectado_sys_id');
+                                log.info("paso.2: "+usernameAfectadoSysId);
                                 var usernameSolicitanteSysId = mc.getProperty('usuario_solicitante_sys_id');
+                                log.info("paso.3:"+usernameSolicitanteSysId);
                                 var usernameAprobadorSysId = mc.getProperty('usuario_aprobador_sys_id');
+                                log.info("paso.4: "+usernameAprobadorSysId);
 
                                 // Actualizar los valores solo si las propiedades tienen algún valor
                                 if (typeof jsonPayload.variables.u_usuario_afectado !== 'undefined' && usernameAfectadoSysId) {
+                                    log.info("paso.5: ");
                                     jsonPayload.variables.u_usuario_afectado = usernameAfectadoSysId;
                                 }
                                 if (typeof jsonPayload.variables.u_solicitante !== 'undefined' && usernameSolicitanteSysId) {
+                                    log.info("paso.6: ");
                                     jsonPayload.variables.u_solicitante = usernameSolicitanteSysId;
                                 }
                                 if (typeof jsonPayload.variables.u_aprobador !== 'undefined' && usernameAprobadorSysId) {
+                                    log.info("paso.7: ");
                                     jsonPayload.variables.u_aprobador = usernameAprobadorSysId;
                                 }
+                                log.info("paso.8: ");
                                 mc.setPayloadJSON(jsonPayload);
                             } catch (e) {
                                 log.error('Error processing JSON: ' + e);
