@@ -1,19 +1,150 @@
-ldaps://uio.bpichincha.com:636
-ldap://10.70.128.169:389
-
-https://datapowerprod.uio.bpichincha.com:8952/Omnicanalidad/Container/WSSeguridad0061/v1/Usuario
-https://datapowerprod.uio.bpichincha.com:8952/Omnicanalidad/Container/WSSeguridad0062/v1/Usuario
-https://datapowerprod.uio.bpichincha.com:8952/Omnicanalidad/Container/WSSeguridad0060/v1/Usuario
-
-Help
-
-Carbon Applications List
-5 Running Carbon Applications. 
- 
-
-Carbon Applications	Version	Actions
-===================================
-centra-id-environment-artifacts-car	1.0.0	
-centra-id-registry-resources-car	1.0.0	
-centra-id.integrator-car	1.0.0	
-centra-id.dss-car	1.0.0	
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence name="TaskManualNotificationProxySeq" trace="disable" xmlns="http://ws.apache.org/ns/synapse">
+    <log level="custom" category="INFO">
+        <property name="TaskManualNotificationProxySeq" value="Inicio.." />
+    </log>
+    <property name="uri.var.uuid" expression="//*:uuid" />
+    <property name="ticketNumber" expression="//*:ticketNumber/text()" />
+    <property name="ticketDate" expression="//*:ticketDate/text()" />
+    <property name="ticketContent" expression="//*:ticketContent/text()" />
+    <property name="ticketError" expression="//*:ticketError/text()" />
+    <property name="statusTask" expression="//*:statusTask/text()" />
+    <property name="provisionStatusTask" expression="//*:provisionStatusTask/text()" />
+    <script language="js">
+        <![CDATA[var guid = java.util.UUID.randomUUID().toString();
+        mc.setProperty("guid", guid);]]>
+    </script>
+    <log level="custom">
+        <property expression="get-property('guid')" name="Start-GUID" xmlns:ns="http://org.apache.synapse/xsd" />
+        <property expression="$ctx:uri.var.uuid" name="uri.var.uuid" xmlns:ns="http://org.apache.synapse/xsd" />
+    </log>
+    <log level="custom" category="INFO">
+        <property name="TaskManualNotificationProxySeq" value="Inicio.1." />
+        <property name="uri.var.uuid" expression="$ctx:uri.var.uuid" />
+    </log>
+    <filter regex="true" source="boolean($ctx:uri.var.uuid)">
+        <then>
+            <!-- Recupera datos de la tarea -->
+            <call>
+                <endpoint template="HTTPEndpointGetTemplate" uri="{uri.var.enterpriseIntegratorHost}/api.centraid/provisioning/TaskProvisioning?uuid={uri.var.uuid}" />
+            </call>
+            <filter regex=".*20.*" source="get-property('axis2', 'HTTP_SC')">
+                <then>
+                    <!-- Actualiz la tarea con estado de aprovisionado -->
+                    <call-template target="DateJsonToDateSqlTemplate">
+                        <with-param name="dateJson" value="{get-property('ticketDate')}" />
+                    </call-template>
+                    <property name="operationProvisioningId" expression="//taskProvisioningList/taskProvisioning/operationProvisioning/id" />
+                    <property name="uri.var.taskProvisioningId" expression="//taskProvisioningList/taskProvisioning/id" />
+                    <property name="messageType" scope="axis2" type="STRING" value="application/xml" />
+                    <property name="Accept" scope="transport" type="STRING" value="application/xml" />
+                    <payloadFactory media-type="xml">
+                        <format>
+                            <ci:update_all_query_operation xmlns:ci="centra-id.com">
+                                <ci:table>SCH_CENTRA_ID.TAKS_PROVISIONING</ci:table>
+                                <ci:set>
+                            PROVISIONING_COMMENTS='APROVISIONAMIENTO MANUAL',
+                            TICKET_NUMBER='$1',
+                            TICKET_DATE='$2',
+                            TICKET_CONTENT='$3',
+                            TICKET_ERROR='$4',
+                            STATUS='$5',
+                            PROVISIONING_DATE = GETDATE(),
+                            PROVISIONING_STATUS='$6'
+                        </ci:set>
+                                <ci:where>UUID='$7'</ci:where>
+                            </ci:update_all_query_operation>
+                        </format>
+                        <args>
+                            <arg evaluator="xml" expression="$ctx:ticketNumber" />
+                            <arg evaluator="xml" expression="$ctx:dateSql" />
+                            <arg evaluator="xml" expression="$ctx:ticketContent" />
+                            <arg evaluator="xml" expression="$ctx:ticketError" />
+                            <arg evaluator="xml" expression="$ctx:statusTask" />
+                            <arg evaluator="xml" expression="$ctx:provisionStatusTask" />
+                            <arg evaluator="xml" expression="$ctx:uri.var.uuid" />
+                        </args>
+                    </payloadFactory>
+                    <call>
+                        <endpoint template="HTTPEndpointPutTemplate" uri="{uri.var.dataServiceHost}/UsersDSS.HTTPEndpoint/updateAll" />
+                    </call>
+                    <filter regex=".*20.*" source="get-property('axis2', 'HTTP_SC')">
+                        <then>
+                            <call>
+                                <endpoint template="HTTPEndpointGetTemplate" uri="{uri.var.enterpriseIntegratorHost}/api.centraid/provisioning/TaskProvisioningHistory/count?taskProvisioningId={uri.var.taskProvisioningId}&amp;completed=1" />
+                            </call>
+                            <filter regex="true" source="//count=0">
+                                <then>
+                                    <!-- Registra historico de la tarea -->
+                                    <call-template target="GetCurrentDateTemplate" />
+                                    <payloadFactory media-type="json">
+                                        <format>
+                                            {
+                                                "taskProvisioningHistory": {
+                                                    "taskProvisioningId":  $1,
+                                                    "creationDate": "$2",
+                                                    "status": "$6",
+                                                    "retryNumber": null,
+                                                    "retryDate": null,
+                                                    "ticketNumber": "$3",                                    
+                                                    "ticketDate": "$4",
+                                                    "ticketContent": "$5",
+                                                    "completed" : 1              
+                                                }
+                                            }
+                                        </format>
+                                        <args>
+                                            <arg evaluator="xml" expression="$ctx:uri.var.taskProvisioningId'" />
+                                            <arg evaluator="xml" expression="$ctx:currentDate" />
+                                            <arg evaluator="xml" expression="$ctx:ticketNumber" />
+                                            <arg evaluator="xml" expression="$ctx:ticketDate" />
+                                            <arg evaluator="xml" expression="$ctx:ticketContent" />
+                                            <arg evaluator="xml" expression="$ctx:statusTask" />
+                                        </args>
+                                    </payloadFactory>
+                                    <call>
+                                        <endpoint template="HTTPEndpointPostTemplate" uri="{uri.var.enterpriseIntegratorHost}/api.centraid/provisioning/TaskProvisioningHistory" />
+                                    </call>
+                                    <filter regex=".*20.*" source="get-property('axis2', 'HTTP_SC')">
+                                        <then>
+                                            <call-template target="TaskProvisioningResultTemplate">
+                                                <with-param name="type" value="{get-property('statusTask')}" />
+                                                <with-param name="operationProvisioningId" value="{get-property('operationProvisioningId')}" />
+                                            </call-template>
+                                        </then>
+                                        <else>
+                                            <property name="HTTP_SC" scope="axis2" type="STRING" value="500" />
+                                        </else>
+                                    </filter>
+                                </then>
+                            </filter>
+                            <property name="messageType" scope="axis2" type="STRING" value="application/json" />
+                            <property name="HTTP_SC" scope="axis2" type="STRING" value="200" />
+                            <payloadFactory media-type="json">
+                                <format>
+                                    {
+                                        "result": "true",
+                                        "message" : "ok"
+                                    }
+                                </format>
+                                <args />
+                            </payloadFactory>
+                        </then>
+                        <else>
+                            <property name="HTTP_SC" scope="axis2" type="STRING" value="500" />
+                        </else>
+                    </filter>
+                </then>
+                <else>
+                    <property name="HTTP_SC" scope="axis2" type="STRING" value="500" />
+                </else>
+            </filter>
+        </then>
+    </filter>
+    <log level="custom" category="INFO">
+        <property name="TaskManualNotificationProxySeq" value="Fin.." />
+    </log>
+    <log level="custom">
+        <property expression="get-property('guid')" name="End-GUID" xmlns:ns="http://org.apache.synapse/xsd" />
+    </log>
+</sequence>
