@@ -1,1 +1,1 @@
-jdbc:sqlserver://ECBPLSNQ129.uio.bpichincha.com:11429;databaseName=CENTRA_ID;autoReconnect=true;
+ <tem:ldapUri>ldap://uio.bpichincha.com:389</tem:ldapUri>
