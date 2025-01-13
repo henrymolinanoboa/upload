@@ -77,7 +77,6 @@
                             <log level="custom">
                                 <property name="seq" value="-------------------- ServiceNowRequerimientosSeq.4 --------------------" />
                                 <property name="user_id" expression="$ctx:user_id" />
-                                <property name="origen" expression="$ctx:firstElement/tem:origen/text()" />
                             </log>
                         </then>
                     </filter>
@@ -102,7 +101,7 @@
                                 var usernameAfectadoSysId = mc.getProperty('usuario_afectado_sys_id');
                                 log.info("paso.2: "+usernameAfectadoSysId);
                                 var usernameSolicitanteSysId = mc.getProperty('usuario_solicitante_sys_id');
-                                log.info("paso.3:"+usernameSolicitanteSysId);
+                                log.info("paso.3: "+usernameSolicitanteSysId);
                                 var usernameAprobadorSysId = mc.getProperty('usuario_aprobador_sys_id');
                                 log.info("paso.4: "+usernameAprobadorSysId);
 
@@ -120,6 +119,7 @@
                                     jsonPayload.variables.u_aprobador = usernameAprobadorSysId;
                                 }
                                 log.info("paso.8: ");
+                                log.info("json:" +JSON.stringify(jsonPayload));)
                                 mc.setPayloadJSON(jsonPayload);
                             } catch (e) {
                                 log.error('Error processing JSON: ' + e);
