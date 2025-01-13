@@ -1,1 +1,1 @@
- <tem:sftpHost>10.0.0.63:222</tem:sftpHost>
+jdbc:sqlserver://ECBPLSNQ129.uio.bpichincha.com:11429;databaseName=CENTRA_ID;autoReconnect=true;
